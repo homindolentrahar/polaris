@@ -5,10 +5,21 @@ import 'package:polaris/gen/fonts.gen.dart';
 class AppTheme {
   static ThemeMode mode = ThemeMode.light;
   static ThemeData theme = ThemeData(
-    brightness: Brightness.light,
-    canvasColor: ColorName.white,
-    primaryColor: ColorName.primary,
     fontFamily: FontFamily.sf,
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: ColorName.primary,
+      onPrimary: ColorName.white,
+      secondary: ColorName.primary,
+      onSecondary: ColorName.white,
+      error: ColorName.error,
+      onError: ColorName.white,
+      background: ColorName.light,
+      onBackground: ColorName.dark,
+      surface: ColorName.white,
+      onSurface: ColorName.black,
+    ),
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
         fontSize: 24,
