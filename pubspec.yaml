@@ -42,6 +42,7 @@ dependencies:
   pin_code_fields: ^7.4.0
   # Util
   flutter_svg: ^2.0.5
+  open_mail_app: ^0.4.5
 
 dev_dependencies:
   flutter_test:
