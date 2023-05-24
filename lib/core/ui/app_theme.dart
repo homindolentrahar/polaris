@@ -7,6 +7,8 @@ class AppTheme {
   static ThemeData theme = ThemeData(
     fontFamily: FontFamily.sf,
     brightness: Brightness.light,
+    primaryColor: ColorName.primary,
+    canvasColor: ColorName.white,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: ColorName.primary,
@@ -19,6 +21,10 @@ class AppTheme {
       onBackground: ColorName.dark,
       surface: ColorName.white,
       onSurface: ColorName.black,
+      tertiary: ColorName.gray,
+      onTertiary: ColorName.black,
+      outline: ColorName.border,
+      outlineVariant: ColorName.fieldBorder,
     ),
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
@@ -40,6 +46,22 @@ class AppTheme {
       titleMedium: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
       ),
     ),
   );

@@ -14,6 +14,7 @@ class PolarisApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Polaris",
       getPages: AppRoutes.pages,
+      initialRoute: AppRoutes.landing,
     );
   }
 }
