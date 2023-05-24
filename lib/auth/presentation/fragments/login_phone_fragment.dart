@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:polaris/auth/presentation/application/login_phone_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/route/app_route.dart';
 
 class LoginPhoneFragment extends StatelessWidget {
   const LoginPhoneFragment({super.key});
@@ -61,7 +62,10 @@ class LoginPhoneFragment extends StatelessWidget {
                             const TextSpan(text: "Belum punya akun?  "),
                             TextSpan(
                               text: "Daftar",
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.toNamed(AppRoutes.register);
+                                },
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall

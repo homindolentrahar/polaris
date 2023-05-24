@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:polaris/auth/presentation/pages/landing_page.dart';
 import 'package:polaris/auth/presentation/pages/login_page.dart';
+import 'package:polaris/auth/presentation/pages/register_page.dart';
 
 class AppRoutes {
   static const landing = "/";
   static const login = "/login";
+  static const register = "/register";
 
   static List<GetPage> pages = [
     GetPage(
@@ -19,6 +21,13 @@ class AppRoutes {
       transition: Transition.rightToLeftWithFade,
       page: () {
         return const LoginPage();
+      },
+    ),
+    GetPage(
+      name: register,
+      transition: Transition.rightToLeftWithFade,
+      page: () {
+        return const RegisterPage();
       },
     ),
   ];
