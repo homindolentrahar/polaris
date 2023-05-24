@@ -60,7 +60,9 @@ class LoginEmailFragment extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: PrimaryTextButton(
                         title: "Lupa Kata Sandi?",
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.forgotPassword);
+                        },
                       ),
                     ),
                     const SizedBox(height: 32),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:polaris/gen/assets.gen.dart';
-import 'package:polaris/gen/colors.gen.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String title;
@@ -32,9 +31,8 @@ class PrimaryButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(16),
-      color: onPressed != null
-          ? backgroundColor ?? Theme.of(context).primaryColor
-          : ColorName.gray,
+      color: backgroundColor ?? Theme.of(context).primaryColor,
+      disabledColor: Theme.of(context).colorScheme.tertiary,
       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
       highlightColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.25),
       onPressed: onPressed,
