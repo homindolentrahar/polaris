@@ -5,4 +5,8 @@ abstract class StringHelper {
 
     return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
+
+  static String obscurePhone(String phone) {
+    return phone.replaceRange(3, 9, "*******");
+  }
 }

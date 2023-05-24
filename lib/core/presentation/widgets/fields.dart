@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:polaris/core/presentation/application/form_password_field_controller.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
@@ -470,6 +471,84 @@ class FormPhoneField extends StatelessWidget {
                 ],
               ),
             )
+          ],
+        );
+      },
+    );
+  }
+}
+
+class FormOtpField extends StatelessWidget {
+  final String name;
+  final int length;
+  final TextInputAction action;
+
+  const FormOtpField({
+    super.key,
+    required this.name,
+    this.length = 4,
+    this.action = TextInputAction.done,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilderField<String>(
+      name: name,
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(errorText: "Field tidak boleh kosong!"),
+        FormBuilderValidators.numeric(errorText: "Field harus berisi angka!"),
+        FormBuilderValidators.minLength(length,
+            errorText: "Field harus berisi 4 digit angka!"),
+      ]),
+      builder: (field) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            PinCodeTextField(
+              appContext: context,
+              length: length,
+              onChanged: field.didChange,
+              keyboardType: TextInputType.number,
+              textInputAction: action,
+              enableActiveFill: true,
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .headlineMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+              pinTheme: PinTheme(
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(8),
+                fieldWidth: 56,
+                fieldHeight: 56,
+                borderWidth: 1,
+                activeFillColor: Theme.of(context).colorScheme.background,
+                inactiveFillColor: Theme.of(context).colorScheme.background,
+                selectedFillColor: Theme.of(context).colorScheme.background,
+                activeColor: Theme.of(context).primaryColor,
+                selectedColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).colorScheme.outlineVariant,
+                errorBorderColor: Theme.of(context).colorScheme.error,
+              ),
+            ),
+            Visibility(
+              visible: field.hasError,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      field.errorText ?? "",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.error),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         );
       },
