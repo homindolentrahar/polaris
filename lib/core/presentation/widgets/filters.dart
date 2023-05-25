@@ -30,7 +30,7 @@ class FilterEventSelector extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: models.length,
               separatorBuilder: (context, index) => const SizedBox(width: 8),
-              itemBuilder: (ctx, index) => _FilterEventChip(
+              itemBuilder: (ctx, index) => FilterEventChip(
                 data: models[index],
                 onFilterSelected: (value) {
                   onFilterSelected(value);
@@ -44,11 +44,12 @@ class FilterEventSelector extends StatelessWidget {
   }
 }
 
-class _FilterEventChip extends StatelessWidget {
+class FilterEventChip extends StatelessWidget {
   final FilterEventModel data;
   final ValueChanged<FilterEventModel> onFilterSelected;
 
-  const _FilterEventChip({
+  const FilterEventChip({
+    super.key,
     required this.data,
     required this.onFilterSelected,
   });

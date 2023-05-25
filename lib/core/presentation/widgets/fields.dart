@@ -559,14 +559,20 @@ class FormOtpField extends StatelessWidget {
 class FormSearchField extends StatelessWidget {
   final String name;
   final String hint;
+  final String? initialValue;
+  final bool enabled;
   final Widget? prefixIcon;
+  final VoidCallback? onTap;
   final ValueChanged<String?> onSubmit;
 
   const FormSearchField({
     super.key,
     required this.name,
     required this.hint,
+    this.initialValue,
+    this.enabled = true,
     this.prefixIcon,
+    this.onTap,
     required this.onSubmit,
   });
 
@@ -574,7 +580,10 @@ class FormSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
+      onTap: onTap,
       onSubmitted: onSubmit,
+      readOnly: !enabled,
+      initialValue: initialValue,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
       style: Theme.of(context)
@@ -607,13 +616,21 @@ class FormSearchField extends StatelessWidget {
             color: Theme.of(context).colorScheme.outlineVariant,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            width: 1.5,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
+        focusedBorder: enabled
+            ? OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  width: 1.5,
+                  color: Theme.of(context).primaryColor,
+                ),
+              )
+            : OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
+              ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(

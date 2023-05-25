@@ -7,6 +7,7 @@ import 'package:polaris/guest/presentation/application/guest_home_page_controlle
 import 'package:polaris/guest/presentation/widgets/guest_event_item.dart';
 import 'package:polaris/guest/presentation/widgets/location_info.dart';
 import 'package:polaris/guest/presentation/widgets/popular_event_item.dart';
+import 'package:polaris/route/app_route.dart';
 
 class GuestHomePage extends StatelessWidget {
   const GuestHomePage({super.key});
@@ -30,6 +31,10 @@ class GuestHomePage extends StatelessWidget {
                   FormSearchField(
                     name: "search_event",
                     hint: "Cari event",
+                    enabled: false,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.searchKey);
+                    },
                     onSubmit: (value) {},
                   ),
                   const SizedBox(height: 16),
