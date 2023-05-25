@@ -555,3 +555,84 @@ class FormOtpField extends StatelessWidget {
     );
   }
 }
+
+class FormSearchField extends StatelessWidget {
+  final String name;
+  final String hint;
+  final Widget? prefixIcon;
+  final ValueChanged<String?> onSubmit;
+
+  const FormSearchField({
+    super.key,
+    required this.name,
+    required this.hint,
+    this.prefixIcon,
+    required this.onSubmit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilderTextField(
+      name: name,
+      onSubmitted: onSubmit,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.search,
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium
+          ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+      decoration: InputDecoration(
+        errorStyle: Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(color: Theme.of(context).colorScheme.error),
+        hintText: hint,
+        hintStyle: Theme.of(context)
+            .textTheme
+            .bodyMedium
+            ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.background,
+        contentPadding: const EdgeInsets.all(16),
+        prefixIcon: prefixIcon ??
+            Icon(
+              Iconsax.search_normal_1,
+              color: Theme.of(context).colorScheme.tertiary,
+              size: 16,
+            ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1,
+            color: Theme.of(context).colorScheme.outlineVariant,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1.5,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1,
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1.5,
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+}
