@@ -5,6 +5,7 @@ import 'package:polaris/auth/presentation/pages/login_page.dart';
 import 'package:polaris/auth/presentation/pages/otp_page.dart';
 import 'package:polaris/auth/presentation/pages/register_page.dart';
 import 'package:polaris/auth/presentation/pages/verification_page.dart';
+import 'package:polaris/guest/presentation/pages/detail_event_page.dart';
 import 'package:polaris/guest/presentation/pages/guest_home_page.dart';
 import 'package:polaris/guest/presentation/pages/search_key_page.dart';
 import 'package:polaris/guest/presentation/pages/search_result_page.dart';
@@ -19,6 +20,7 @@ class AppRoutes {
   static const guestHome = "/guest";
   static const searchKey = "/search-key";
   static const searchResult = "/search-result";
+  static const event = "/event";
 
   static List<GetPage> pages = [
     GetPage(
@@ -82,6 +84,13 @@ class AppRoutes {
       transition: Transition.rightToLeftWithFade,
       page: () {
         return const SearchResultPage();
+      },
+    ),
+    GetPage(
+      name: "$event/:id",
+      transition: Transition.rightToLeftWithFade,
+      page: () {
+        return const DetailEventPage();
       },
     ),
   ];

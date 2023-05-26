@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
-import 'package:polaris/guest/presentation/application/guest_home_page_controller.dart';
+import 'package:polaris/guest/presentation/applications/guest_home_page_controller.dart';
 import 'package:polaris/guest/presentation/widgets/guest_event_item.dart';
 import 'package:polaris/guest/presentation/widgets/location_info.dart';
 import 'package:polaris/guest/presentation/widgets/popular_event_item.dart';
@@ -55,9 +55,17 @@ class GuestHomePage extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
-                      separatorBuilder: (ctx, index) =>
-                          const SizedBox(width: 16),
-                      itemBuilder: (ctx, index) => const PopularEventItem(),
+                      separatorBuilder: (ctx, index) => const SizedBox(
+                        width: 16,
+                      ),
+                      itemBuilder: (ctx, index) => PopularEventItem(
+                        id: index.toString(),
+                        onPressed: (value) {
+                          Get.toNamed(
+                            "${AppRoutes.event}/$index",
+                          );
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -87,7 +95,12 @@ class GuestHomePage extends StatelessWidget {
                     itemCount: 5,
                     separatorBuilder: (ctx, index) =>
                         const SizedBox(height: 16),
-                    itemBuilder: (ctx, index) => const GuestEventItem(),
+                    itemBuilder: (ctx, index) => GuestEventItem(
+                      id: "${index}_euy",
+                      onPressed: (value) {
+                        Get.toNamed("${AppRoutes.event}/${index}_euy");
+                      },
+                    ),
                   ),
                 ],
               );

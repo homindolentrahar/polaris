@@ -4,7 +4,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class GuestEventItem extends StatelessWidget {
-  const GuestEventItem({super.key});
+  final String id;
+  final ValueChanged<String> onPressed;
+
+  const GuestEventItem({super.key, required this.id, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class GuestEventItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () => onPressed(id),
         borderRadius: BorderRadius.circular(8),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -29,13 +32,16 @@ class GuestEventItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-                      width: 56,
-                      height: 56,
-                      fit: BoxFit.cover,
+                  Hero(
+                    tag: id,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+                        width: 56,
+                        height: 56,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),

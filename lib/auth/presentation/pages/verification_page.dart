@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/application/verification_page_controller.dart';
+import 'package:polaris/auth/presentation/applications/verification_page_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/gen/assets.gen.dart';

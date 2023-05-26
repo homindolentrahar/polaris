@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class PrimaryTabBar extends StatelessWidget {
   final int currentIndex;
+  final bool isDense;
   final List<String> titles;
   final ValueChanged<int> onTabChanged;
 
   const PrimaryTabBar({
     super.key,
     required this.currentIndex,
+    this.isDense = false,
     required this.titles,
     required this.onTabChanged,
   });
@@ -48,7 +50,12 @@ class PrimaryTabBar extends StatelessWidget {
                     onTabChanged(index);
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: isDense
+                        ? const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          )
+                        : const EdgeInsets.all(12),
                     color: Colors.transparent,
                     alignment: Alignment.center,
                     child: Text(
@@ -56,9 +63,11 @@ class PrimaryTabBar extends StatelessWidget {
                       style: index == currentIndex
                           ? Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: isDense ? 12 : 14,
                               )
                           : Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.tertiary,
+                                fontSize: isDense ? 12 : 14,
                               ),
                     ),
                   ),

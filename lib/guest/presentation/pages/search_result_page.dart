@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
-import 'package:polaris/guest/presentation/application/search_result_page_controller.dart';
+import 'package:polaris/guest/presentation/applications/search_result_page_controller.dart';
 import 'package:polaris/guest/presentation/widgets/guest_event_item.dart';
 
 class SearchResultPage extends StatelessWidget {
@@ -92,7 +92,10 @@ class SearchResultPage extends StatelessWidget {
                           child: ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             itemCount: 8,
-                            itemBuilder: (ctx, index) => const GuestEventItem(),
+                            itemBuilder: (ctx, index) => GuestEventItem(
+                              id: index.toString(),
+                              onPressed: (value) {},
+                            ),
                             separatorBuilder: (ctx, index) =>
                                 const SizedBox(height: 16),
                           ),
