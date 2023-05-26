@@ -5,6 +5,7 @@ import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/guest/presentation/applications/detail_event_page_controller.dart';
+import 'package:polaris/route/app_route.dart';
 
 class DetailEventPage extends StatelessWidget {
   const DetailEventPage({super.key});
@@ -32,7 +33,11 @@ class DetailEventPage extends StatelessWidget {
                     )
                   : PrimaryButton(
                       title: "Daftar",
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(
+                          "${AppRoutes.payment}/${Get.parameters['id']}",
+                        );
+                      },
                     ),
             ),
             body: SafeArea(

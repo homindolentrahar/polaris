@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/payment_type_model.dart';
 import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
@@ -382,6 +384,193 @@ class DashedLines extends StatelessWidget {
       direction: direction,
       lineLength: length,
       lineThickness: thickness,
+    );
+  }
+}
+
+class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final bool showBack;
+  final String title;
+  final VoidCallback? onBackPressed;
+
+  const PrimaryAppBar({
+    super.key,
+    this.showBack = true,
+    required this.title,
+    this.onBackPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 16,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Visibility(
+              visible: showBack,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  PrimaryBackButton(onBackAction: onBackPressed),
+                  const SizedBox(width: 16),
+                ],
+              ),
+            ),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(72);
+}
+
+class PaymentTypeItem extends StatelessWidget {
+  final PaymentTypeModel data;
+  final bool isSelected;
+  final bool isSelectable;
+  final ValueChanged<PaymentTypeModel>? onPaymentSelected;
+
+  const PaymentTypeItem({
+    super.key,
+    required this.data,
+    this.isSelected = false,
+    this.isSelectable = false,
+    this.onPaymentSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Get.theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Get.theme.colorScheme.outline, width: 1),
+      ),
+      child: InkWell(
+        onTap: isSelectable
+            ? () {
+                onPaymentSelected?.call(data);
+              }
+            : null,
+        borderRadius: BorderRadius.circular(8),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.03),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.06),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconContainer(
+                backgroundColor: isSelected
+                    ? Get.theme.colorScheme.onSurface
+                    : Get.theme.colorScheme.background,
+                icon: Icon(
+                  Iconsax.money_recive,
+                  color: isSelected
+                      ? Get.theme.colorScheme.surface
+                      : Get.theme.colorScheme.onBackground,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.name,
+                      style: Get.theme.textTheme.headlineSmall?.copyWith(
+                        color: Get.theme.colorScheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 4,
+                      children: [
+                        Text(
+                          data.value,
+                          style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground),
+                        ),
+                        Text(
+                          "•",
+                          style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground),
+                        ),
+                        Text(
+                          data.correspondent,
+                          style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: isSelectable,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 16),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: SvgPicture.asset(
+                        isSelected
+                            ? Assets.icons.icSelected
+                            : Assets.icons.icUnselected,
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class IconContainer extends StatelessWidget {
+  final Widget icon;
+  final Color? backgroundColor;
+  final EdgeInsets? padding;
+  final double radius;
+
+  const IconContainer({
+    super.key,
+    required this.icon,
+    this.backgroundColor,
+    this.padding,
+    this.radius = 8,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding ?? const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Get.theme.colorScheme.background,
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: icon,
     );
   }
 }

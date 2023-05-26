@@ -126,6 +126,10 @@ class PrimaryBackButton extends StatelessWidget {
           : Theme.of(context).colorScheme.onSurface,
       splashColor: Theme.of(context).colorScheme.surface.withOpacity(0.10),
       highlightColor: Theme.of(context).colorScheme.surface.withOpacity(0.20),
+      onPressed: onBackAction ??
+          () {
+            Get.back();
+          },
       child: icon ??
           SvgPicture.asset(
             Assets.icons.icBack,
@@ -135,9 +139,6 @@ class PrimaryBackButton extends StatelessWidget {
                 ? Theme.of(context).colorScheme.onSurface
                 : Theme.of(context).colorScheme.surface,
           ),
-      onPressed: () {
-        Get.back();
-      },
     );
   }
 }
