@@ -57,8 +57,8 @@ class LandingPage extends StatelessWidget {
                       PrimaryButton(
                         title: "Cari Event",
                         onPressed: () {
-                          // Save the preference
                           // Goto Guest's home
+                          Get.toNamed(AppRoutes.guestHome);
                         },
                       ),
                       const SizedBox(height: 16),
