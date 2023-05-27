@@ -140,7 +140,7 @@ class DetailEventBanner extends StatelessWidget {
                   ),
                   const SizedBox(width: 2),
                   Text(
-                    StringHelper.formatDate(dateTime),
+                    StringHelper.formatDate(dateTime: dateTime),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onBackground),
                   ),
@@ -154,7 +154,7 @@ class DetailEventBanner extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                StringHelper.formatTime(dateTime),
+                StringHelper.formatTime(dateTime: dateTime),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),
@@ -389,15 +389,23 @@ class DashedLines extends StatelessWidget {
 }
 
 class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool showBack;
+  final bool showLeading;
+  final Widget? leadingIcon;
+  final Color? leadingBackground;
+  final EdgeInsets? leadingPadding;
+  final double leadingRadius;
   final String title;
-  final VoidCallback? onBackPressed;
+  final VoidCallback? onLeadingPressed;
 
   const PrimaryAppBar({
     super.key,
-    this.showBack = true,
+    this.showLeading = true,
+    this.leadingIcon,
+    this.leadingBackground,
+    this.leadingPadding,
+    this.leadingRadius = 32,
     required this.title,
-    this.onBackPressed,
+    this.onLeadingPressed,
   });
 
   @override
@@ -412,11 +420,22 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Visibility(
-              visible: showBack,
+              visible: showLeading,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  PrimaryBackButton(onBackAction: onBackPressed),
+                  leadingIcon != null
+                      ? PrimaryIconButton(
+                          icon: leadingIcon!,
+                          onPressed: onLeadingPressed,
+                          color: leadingBackground ??
+                              Get.theme.colorScheme.onSurface,
+                          radius: leadingRadius,
+                          padding: leadingPadding,
+                        )
+                      : PrimaryBackButton(
+                          onBackAction: onLeadingPressed,
+                        ),
                   const SizedBox(width: 16),
                 ],
               ),
@@ -571,6 +590,40 @@ class IconContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
       ),
       child: icon,
+    );
+  }
+}
+
+class DetailInfo extends StatelessWidget {
+  final String title;
+  final String value;
+  final CrossAxisAlignment align;
+
+  const DetailInfo({
+    super.key,
+    required this.title,
+    required this.value,
+    this.align = CrossAxisAlignment.start,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: align,
+      children: [
+        Text(
+          title,
+          style: Get.textTheme.titleSmall
+              ?.copyWith(color: Get.theme.colorScheme.onBackground),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: Get.textTheme.headlineSmall
+              ?.copyWith(color: Get.theme.colorScheme.onSurface),
+        ),
+      ],
     );
   }
 }

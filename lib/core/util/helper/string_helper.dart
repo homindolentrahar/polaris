@@ -16,11 +16,17 @@ abstract class StringHelper {
     ).format(amount);
   }
 
-  static String formatDate(DateTime dateTime) {
+  static String formatDate({
+    required DateTime dateTime,
+    String pattern = "dd MMM yyyy",
+  }) {
     return DateFormat("dd MMM yyyy").format(dateTime);
   }
 
-  static String formatTime(DateTime dateTime) {
+  static String formatTime({
+    required DateTime dateTime,
+    String pattern = "HH:mm",
+  }) {
     return "${DateFormat("HH:mm").format(dateTime)} WIB";
   }
 

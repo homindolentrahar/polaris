@@ -165,32 +165,41 @@ class PaymentConfirmFragment extends StatelessWidget {
               ),
             ),
             child: const Wrap(
-              direction: Axis.vertical,
               crossAxisAlignment: WrapCrossAlignment.start,
-              spacing: 8,
+              runSpacing: 8,
               children: [
-                _DetailInfo(title: "Nama Lengkap", value: "Marsha Lenathea"),
-                _DetailInfo(
-                  title: "Domisili",
-                  value:
-                      "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
+                DetailInfo(title: "Nama Lengkap", value: "Marsha Lenathea"),
+                Row(
+                  children: [
+                    Expanded(
+                      child: DetailInfo(
+                        title: "Domisili",
+                        value:
+                            "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
+                      ),
+                    ),
+                  ],
                 ),
-                _DetailInfo(
-                  title: "Alamat Email",
-                  value: "marhsalanime@gmail.com",
+                Row(
+                  children: [
+                    DetailInfo(
+                      title: "Alamat Email",
+                      value: "marhsalanime@gmail.com",
+                    ),
+                  ],
                 ),
-                _DetailInfo(
+                DetailInfo(
                   title: "Nomor Handphone",
                   value: "085711223355",
                 ),
                 Row(
                   children: [
-                    _DetailInfo(
+                    DetailInfo(
                       title: "Umur",
                       value: "17 tahun",
                     ),
                     SizedBox(width: 32),
-                    _DetailInfo(
+                    DetailInfo(
                       title: "Jenis Kelamin",
                       value: "Perempuan",
                     ),
@@ -201,37 +210,6 @@ class PaymentConfirmFragment extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _DetailInfo extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const _DetailInfo({
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: Get.textTheme.titleSmall
-              ?.copyWith(color: Get.theme.colorScheme.onBackground),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: Get.textTheme.headlineSmall
-              ?.copyWith(color: Get.theme.colorScheme.onSurface),
-        ),
-      ],
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/guest/presentation/applications/payment_page_controller.dart';
+import 'package:polaris/route/app_route.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -16,7 +17,7 @@ class PaymentPage extends StatelessWidget {
           return Scaffold(
             appBar: PrimaryAppBar(
               title: controller.steps[controller.stepIndex]['title'],
-              onBackPressed: () {
+              onLeadingPressed: () {
                 if (controller.stepIndex >= 1) {
                   controller.onTabChanged(controller.stepIndex - 1);
                 } else {
@@ -37,7 +38,12 @@ class PaymentPage extends StatelessWidget {
                     )
                   : PrimaryButton(
                       title: "Konfirmasi",
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offNamedUntil(
+                          AppRoutes.eTicket,
+                          (route) => route.settings.name == AppRoutes.guestHome,
+                        );
+                      },
                     ),
             ),
             body: SafeArea(

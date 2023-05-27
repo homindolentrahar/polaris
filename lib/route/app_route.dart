@@ -6,6 +6,7 @@ import 'package:polaris/auth/presentation/pages/otp_page.dart';
 import 'package:polaris/auth/presentation/pages/register_page.dart';
 import 'package:polaris/auth/presentation/pages/verification_page.dart';
 import 'package:polaris/guest/presentation/pages/detail_event_page.dart';
+import 'package:polaris/guest/presentation/pages/eticket_page.dart';
 import 'package:polaris/guest/presentation/pages/guest_home_page.dart';
 import 'package:polaris/guest/presentation/pages/payment_page.dart';
 import 'package:polaris/guest/presentation/pages/search_key_page.dart';
@@ -23,6 +24,7 @@ class AppRoutes {
   static const searchResult = "/search-result";
   static const event = "/event";
   static const payment = "/payment";
+  static const eTicket = "/e-ticket";
 
   static List<GetPage> pages = [
     GetPage(
@@ -100,6 +102,13 @@ class AppRoutes {
       transition: Transition.rightToLeftWithFade,
       page: () {
         return const PaymentPage();
+      },
+    ),
+    GetPage(
+      name: eTicket,
+      transition: Transition.downToUp,
+      page: () {
+        return const EticketPage();
       },
     ),
   ];
