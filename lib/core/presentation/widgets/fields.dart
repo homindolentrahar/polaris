@@ -21,6 +21,7 @@ class FormTextField extends StatelessWidget {
   final bool isRequired;
   final TextInputType keyboardType;
   final TextInputAction action;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final VoidCallback? onTap;
   final ValueChanged<String>? onSubmitted;
@@ -38,6 +39,7 @@ class FormTextField extends StatelessWidget {
     this.action = TextInputAction.done,
     this.isObscure = false,
     this.isRequired = true,
+    this.prefixIcon,
     this.suffixIcon,
     this.onTap,
     this.onSubmitted,
@@ -89,6 +91,7 @@ class FormTextField extends StatelessWidget {
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.background,
                     contentPadding: const EdgeInsets.all(20),
+                    prefixIcon: prefixIcon,
                     suffixIcon: suffixIcon,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -920,6 +923,63 @@ class FormSexField extends StatelessWidget {
           onSexChanged(result);
         }
       },
+    );
+  }
+}
+
+class FormLinkField extends StatelessWidget {
+  final String value;
+  final ValueChanged<String> onLinkCopied;
+
+  const FormLinkField({
+    super.key,
+    required this.value,
+    required this.onLinkCopied,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
+          decoration: BoxDecoration(
+            color: Get.theme.colorScheme.background,
+            border: Border.all(color: Get.theme.colorScheme.outline),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Iconsax.link_2,
+                color: Get.theme.colorScheme.onSurface,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                value,
+                style: Get.textTheme.headlineSmall
+                    ?.copyWith(color: Get.theme.colorScheme.onSurface),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        PrimaryIconButton(
+          color: Get.theme.primaryColor.withOpacity(0.15),
+          icon: Icon(
+            Iconsax.copy5,
+            color: Get.theme.primaryColor,
+            size: 20,
+          ),
+          onPressed: () => onLinkCopied(value),
+        ),
+      ],
     );
   }
 }

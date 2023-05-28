@@ -72,7 +72,7 @@ class LandingPage extends StatelessWidget {
                         title: "Kelola Event",
                         onPressed: () {
                           // Goto Auth
-                          Get.toNamed(AppRoutes.login);
+                          Get.toNamed(AppRoutes.admin);
                         },
                       ),
                     ],

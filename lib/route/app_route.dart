@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:polaris/admin/presentation/pages/home_page.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password_page.dart';
 import 'package:polaris/auth/presentation/pages/landing_page.dart';
 import 'package:polaris/auth/presentation/pages/login_page.dart';
@@ -25,6 +26,7 @@ class AppRoutes {
   static const event = "/event";
   static const payment = "/payment";
   static const eTicket = "/e-ticket";
+  static const admin = "/admin";
 
   static List<GetPage> pages = [
     GetPage(
@@ -109,6 +111,13 @@ class AppRoutes {
       transition: Transition.downToUp,
       page: () {
         return const EticketPage();
+      },
+    ),
+    GetPage(
+      name: admin,
+      transition: Transition.downToUp,
+      page: () {
+        return const HomePage();
       },
     ),
   ];

@@ -9,6 +9,6 @@ class VerificationPageController extends GetxController {
   }
 
   void skipVerification() {
-    Get.offNamed(AppRoutes.guestHome);
+    Get.offNamed(AppRoutes.admin);
   }
 }
