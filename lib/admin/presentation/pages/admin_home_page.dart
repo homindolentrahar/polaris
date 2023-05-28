@@ -5,8 +5,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/home_page_controller.dart';
 import 'package:polaris/admin/presentation/fragments/beranda_fragment.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class AdminHomePage extends StatelessWidget {
+  const AdminHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

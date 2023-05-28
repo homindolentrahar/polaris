@@ -4,6 +4,7 @@ import 'package:polaris/admin/presentation/application/beranda_controller.dart';
 import 'package:polaris/admin/presentation/widgets/admin_event_item.dart';
 import 'package:polaris/admin/presentation/widgets/beranda_summary.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
+import 'package:polaris/route/app_route.dart';
 
 class BerandaFragment extends StatelessWidget {
   const BerandaFragment({super.key});
@@ -61,17 +62,19 @@ class BerandaFragment extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Event Terkini",
+                      "Semua Event",
                       style: Get.textTheme.titleMedium
                           ?.copyWith(color: Get.theme.colorScheme.onSurface),
                     ),
                     PrimaryTextButton(
                       title: "Lihat Semua",
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.adminEvents);
+                      },
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,

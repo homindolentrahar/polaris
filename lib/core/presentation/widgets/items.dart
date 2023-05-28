@@ -413,7 +413,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24,
+          horizontal: 16,
           vertical: 16,
         ),
         child: Row(
@@ -436,7 +436,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : PrimaryBackButton(
                           onBackAction: onLeadingPressed,
                         ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 8),
                 ],
               ),
             ),

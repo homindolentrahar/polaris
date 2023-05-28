@@ -133,8 +133,8 @@ class PrimaryBackButton extends StatelessWidget {
       child: icon ??
           SvgPicture.asset(
             Assets.icons.icBack,
-            width: 16,
-            height: 16,
+            width: 12,
+            height: 12,
             color: isInverted
                 ? Theme.of(context).colorScheme.onSurface
                 : Theme.of(context).colorScheme.surface,
