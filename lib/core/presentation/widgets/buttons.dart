@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -179,6 +180,51 @@ class PrimaryIconButton extends StatelessWidget {
             border: border,
           ),
           child: icon,
+        ),
+      ),
+    );
+  }
+}
+
+class PrimaryDottedButton extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final VoidCallback onPressed;
+
+  const PrimaryDottedButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(8),
+      splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+      highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        padding: const EdgeInsets.all(16),
+        radius: const Radius.circular(8),
+        strokeCap: StrokeCap.round,
+        dashPattern: const [8, 8, 8, 8],
+        color: Get.theme.colorScheme.tertiary.withOpacity(0.45),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            icon,
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: Get.textTheme.titleSmall?.copyWith(
+                color: Get.theme.colorScheme.tertiary,
+              ),
+            ),
+          ],
         ),
       ),
     );

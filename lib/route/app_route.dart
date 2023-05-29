@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/pages/admin_events_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_home_page.dart';
+import 'package:polaris/admin/presentation/pages/create_event_page.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password_page.dart';
 import 'package:polaris/auth/presentation/pages/landing_page.dart';
 import 'package:polaris/auth/presentation/pages/login_page.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const eTicket = "/e-ticket";
   static const admin = "/admin";
   static const adminEvents = "/admin/events";
+  static const adminCreate = "/admin/create";
 
   static List<GetPage> pages = [
     GetPage(
@@ -127,6 +129,13 @@ class AppRoutes {
       transition: Transition.rightToLeftWithFade,
       page: () {
         return const AdminEventsPage();
+      },
+    ),
+    GetPage(
+      name: adminCreate,
+      transition: Transition.downToUp,
+      page: () {
+        return const CreateEventPage();
       },
     ),
   ];

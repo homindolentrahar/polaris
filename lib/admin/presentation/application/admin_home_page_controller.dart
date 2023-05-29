@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/navigation_item_model.dart';
 
-class HomePageController extends GetxController {
+class AdminHomePageController extends GetxController {
   final List<NavigationItemModel> navItems = [
     NavigationItemModel(
       index: 0,

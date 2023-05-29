@@ -627,3 +627,145 @@ class DetailInfo extends StatelessWidget {
     );
   }
 }
+
+class InfoChip extends StatelessWidget {
+  final String value;
+  final Color? valueColor;
+  final Color? color;
+  final double radius;
+  final EdgeInsets? padding;
+
+  const InfoChip({
+    super.key,
+    required this.value,
+    this.valueColor,
+    this.color,
+    this.radius = 32,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding ??
+          const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+      decoration: BoxDecoration(
+        color: color ?? Get.theme.colorScheme.onSurface,
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: Center(
+        child: Text(
+          value,
+          style: Get.textTheme.headlineSmall?.copyWith(
+            color: valueColor ?? Get.theme.colorScheme.surface,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TicketTypeItem extends StatelessWidget {
+  final TicketTypeModel data;
+
+  const TicketTypeItem({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Get.theme.colorScheme.outline),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconContainer(
+                icon: SvgPicture.asset(
+                  Assets.icons.icTicket,
+                  color: Get.theme.colorScheme.tertiary,
+                  width: 20,
+                  height: 20,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Reguler",
+                      style: Get.textTheme.headlineMedium
+                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "200 tiket",
+                      style: Get.textTheme.titleSmall
+                          ?.copyWith(color: Get.theme.colorScheme.onBackground),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              InfoChip(value: StringHelper.formatCompactCurrency(25000)),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: DashedLines(
+              length: Get.width,
+              color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
+            ),
+          ),
+          ...List.generate(
+            data.benefits.take(3).length,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    Assets.icons.icTick,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    width: 16,
+                    height: 16,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    data.benefits[index],
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.center,
+            child: Visibility(
+              visible: data.benefits.length > 3,
+              child: PrimaryTextButton(
+                title: "Selengkapnya +${data.benefits.length - 3}",
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -2,8 +2,9 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/admin/presentation/application/home_page_controller.dart';
+import 'package:polaris/admin/presentation/application/admin_home_page_controller.dart';
 import 'package:polaris/admin/presentation/fragments/beranda_fragment.dart';
+import 'package:polaris/route/app_route.dart';
 
 class AdminHomePage extends StatelessWidget {
   const AdminHomePage({super.key});
@@ -11,7 +12,7 @@ class AdminHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: HomePageController(),
+      init: AdminHomePageController(),
       builder: (controller) {
         return Scaffold(
           bottomNavigationBar: AnimatedBottomNavigationBar.builder(
@@ -59,7 +60,9 @@ class AdminHomePage extends StatelessWidget {
               color: Get.theme.colorScheme.onPrimary,
               size: 32,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AppRoutes.adminCreate);
+            },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           body: SafeArea(
