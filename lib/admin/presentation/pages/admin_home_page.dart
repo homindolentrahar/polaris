@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/admin_home_page_controller.dart';
 import 'package:polaris/admin/presentation/fragments/analytics_fragment.dart';
 import 'package:polaris/admin/presentation/fragments/beranda_fragment.dart';
+import 'package:polaris/admin/presentation/fragments/transactions_fragment.dart';
 import 'package:polaris/route/app_route.dart';
 
 class AdminHomePage extends StatelessWidget {
@@ -72,6 +73,7 @@ class AdminHomePage extends StatelessWidget {
               children: const [
                 BerandaFragment(),
                 AnalyticsFragment(),
+                TransactionsFragment(),
               ],
             ),
           ),

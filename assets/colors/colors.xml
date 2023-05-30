@@ -11,4 +11,6 @@
 <color name="view">#FF349EFF</color>
 <color name="click">#FF9747FF</color>
 <color name="ctr">#FFFF9901</color>
+<color name="success">#FF27AE60</color>
+<color name="error">#FFE81111</color>
 </resources>

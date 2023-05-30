@@ -378,7 +378,8 @@ class DashedLines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DottedLine(
-      dashColor: color ?? Theme.of(context).colorScheme.tertiary,
+      dashColor:
+          color ?? Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
       dashGapLength: gap,
       dashLength: width,
       direction: direction,
