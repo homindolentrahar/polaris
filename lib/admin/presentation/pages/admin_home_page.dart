@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/admin_home_page_controller.dart';
+import 'package:polaris/admin/presentation/fragments/analytics_fragment.dart';
 import 'package:polaris/admin/presentation/fragments/beranda_fragment.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -70,6 +71,7 @@ class AdminHomePage extends StatelessWidget {
               index: controller.navIndex,
               children: const [
                 BerandaFragment(),
+                AnalyticsFragment(),
               ],
             ),
           ),

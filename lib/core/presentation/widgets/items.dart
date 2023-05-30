@@ -769,3 +769,85 @@ class TicketTypeItem extends StatelessWidget {
     );
   }
 }
+
+class DateSelector extends StatelessWidget {
+  final Widget? icon;
+  final String title;
+  final ValueChanged<DateTime?> onDateSelected;
+
+  const DateSelector({
+    super.key,
+    this.icon,
+    required this.title,
+    required this.onDateSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Get.theme.colorScheme.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: Get.theme.colorScheme.outline,
+          width: 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: () {},
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.015),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: Get.textTheme.headlineSmall?.copyWith(
+                  color: Get.theme.colorScheme.tertiary,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Iconsax.arrow_down_1,
+                color: Get.theme.colorScheme.tertiary,
+                size: 16,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PrimarySubtitle extends StatelessWidget {
+  final String subtitle;
+  final Widget? trailing;
+
+  const PrimarySubtitle({
+    super.key,
+    required this.subtitle,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          subtitle,
+          style: Get.textTheme.titleMedium?.copyWith(
+            color: Get.theme.colorScheme.onSurface,
+          ),
+        ),
+        trailing ?? const SizedBox.shrink(),
+      ],
+    );
+  }
+}
