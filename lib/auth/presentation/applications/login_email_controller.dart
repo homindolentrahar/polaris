@@ -8,7 +8,7 @@ class LoginEmailController extends GetxController {
 
   void login() {
     if (formKey.currentState!.saveAndValidate()) {
-      Get.toNamed(AppRoutes.guestHome);
+      Get.toNamed(AppRoutes.admin);
     }
   }
 }

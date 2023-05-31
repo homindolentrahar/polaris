@@ -16,6 +16,14 @@ abstract class StringHelper {
     ).format(amount);
   }
 
+  static String formatCompactCurrency(int amount) {
+    return NumberFormat.compactCurrency(
+      locale: 'id_ID',
+      symbol: "Rp ",
+      decimalDigits: 0,
+    ).format(amount);
+  }
+
   static String formatDate({
     required DateTime dateTime,
     String pattern = "dd MMM yyyy",

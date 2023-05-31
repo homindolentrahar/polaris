@@ -27,7 +27,7 @@ class OtpPageController extends GetxController {
             update();
 
             if (tick == 57) {
-              Get.offNamed(AppRoutes.guestHome);
+              Get.offNamed(AppRoutes.admin);
             }
           }
         },
