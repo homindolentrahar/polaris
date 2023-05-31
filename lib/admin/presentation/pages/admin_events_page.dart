@@ -5,6 +5,7 @@ import 'package:polaris/admin/presentation/widgets/admin_event_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/route/app_route.dart';
 
 class AdminEventsPage extends StatelessWidget {
   const AdminEventsPage({super.key});
@@ -67,7 +68,12 @@ class AdminEventsPage extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemCount: 8,
                       itemBuilder: (ctx, index) => AdminEventItem(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(
+                            "${AppRoutes.adminEvents}/1",
+                            arguments: 0,
+                          );
+                        },
                       ),
                       separatorBuilder: (ctx, index) =>
                           const SizedBox(height: 16),

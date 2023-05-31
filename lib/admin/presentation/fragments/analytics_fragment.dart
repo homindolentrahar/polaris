@@ -6,6 +6,7 @@ import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/route/app_route.dart';
 
 class AnalyticsFragment extends StatelessWidget {
   const AnalyticsFragment({super.key});
@@ -68,7 +69,12 @@ class AnalyticsFragment extends StatelessWidget {
                   itemCount: 10,
                   separatorBuilder: (ctx, index) => const SizedBox(height: 16),
                   itemBuilder: (ctx, index) => StatsItem(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(
+                        "${AppRoutes.adminEvents}/1",
+                        arguments: 1,
+                      );
+                    },
                   ),
                 ),
               ),

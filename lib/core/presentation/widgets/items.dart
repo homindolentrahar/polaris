@@ -12,6 +12,7 @@ import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
+import 'package:readmore/readmore.dart';
 
 class ContactOrganizerItem extends StatelessWidget {
   final String imageUrl;
@@ -827,11 +828,13 @@ class DateSelector extends StatelessWidget {
 
 class PrimarySubtitle extends StatelessWidget {
   final String subtitle;
+  final double fontSize;
   final Widget? trailing;
 
   const PrimarySubtitle({
     super.key,
     required this.subtitle,
+    this.fontSize = 14,
     this.trailing,
   });
 
@@ -845,10 +848,45 @@ class PrimarySubtitle extends StatelessWidget {
           subtitle,
           style: Get.textTheme.titleMedium?.copyWith(
             color: Get.theme.colorScheme.onSurface,
+            fontSize: fontSize,
           ),
         ),
         trailing ?? const SizedBox.shrink(),
       ],
+    );
+  }
+}
+
+class ShowMoreText extends StatelessWidget {
+  final String value;
+  final int trimLine;
+
+  const ShowMoreText({
+    super.key,
+    required this.value,
+    this.trimLine = 3,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ReadMoreText(
+      value,
+      style: Theme.of(context)
+          .textTheme
+          .bodySmall
+          ?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+      moreStyle: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: Theme.of(context).primaryColor, fontSize: 12),
+      lessStyle: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: Theme.of(context).primaryColor, fontSize: 12),
+      trimLines: trimLine,
+      trimMode: TrimMode.Line,
+      trimExpandedText: "Sembunyikan",
+      trimCollapsedText: "Selengkapnya",
     );
   }
 }

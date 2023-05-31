@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_events_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_home_page.dart';
 import 'package:polaris/admin/presentation/pages/create_event_page.dart';
@@ -25,7 +26,7 @@ class AppRoutes {
   static const guestHome = "/guest";
   static const searchKey = "/search-key";
   static const searchResult = "/search-result";
-  static const event = "/event";
+  static const event = "/events";
   static const payment = "/payment";
   static const eTicket = "/e-ticket";
   static const admin = "/admin";
@@ -136,6 +137,13 @@ class AppRoutes {
       transition: Transition.downToUp,
       page: () {
         return const CreateEventPage();
+      },
+    ),
+    GetPage(
+      name: "$adminEvents/:id",
+      transition: Transition.rightToLeftWithFade,
+      page: () {
+        return const AdminDetailEventPage();
       },
     ),
   ];

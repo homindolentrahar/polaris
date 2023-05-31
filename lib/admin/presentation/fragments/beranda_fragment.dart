@@ -82,7 +82,12 @@ class BerandaFragment extends StatelessWidget {
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 16),
                   itemBuilder: (ctx, index) => AdminEventItem(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(
+                        "${AppRoutes.adminEvents}/1",
+                        arguments: 0,
+                      );
+                    },
                   ),
                 ),
               ],

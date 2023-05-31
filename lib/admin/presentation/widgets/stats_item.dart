@@ -7,10 +7,12 @@ import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class StatsItem extends StatelessWidget {
+  final bool isShowTickets;
   final VoidCallback onPressed;
 
   const StatsItem({
     super.key,
+    this.isShowTickets = true,
     required this.onPressed,
   });
 
@@ -61,27 +63,36 @@ class StatsItem extends StatelessWidget {
                         color: Get.theme.colorScheme.onBackground,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          Assets.icons.icTicket,
-                          width: 16,
-                          height: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "5 tiket tersisa",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.error,
-                                fontSize: 12,
+                    Visibility(
+                      visible: isShowTickets,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                Assets.icons.icTicket,
+                                width: 16,
+                                height: 16,
                               ),
-                        ),
-                      ],
+                              const SizedBox(width: 4),
+                              Text(
+                                "5 tiket tersisa",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      fontSize: 12,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
