@@ -9,6 +9,7 @@ class RegisterPageController extends GetxController {
   void register() {
     if (formKey.currentState!.saveAndValidate()) {
       final email = formKey.currentState!.value['email'];
+
       Get.toNamed(
         AppRoutes.verification,
         arguments: email,

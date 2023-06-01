@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:polaris/route/app_route.dart';
 
-class OtpPageController extends GetxController {
+class ForgotPasswordPageController extends GetxController {
   final formKey = GlobalKey<FormBuilderState>();
   int tick = 0;
   bool isResubmit = false;
@@ -25,10 +24,6 @@ class OtpPageController extends GetxController {
           if (tick >= 1) {
             tick -= 1;
             update();
-
-            if (tick == 57) {
-              Get.offNamed(AppRoutes.admin);
-            }
           }
         },
       );

@@ -1,9 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/applications/login_email_controller.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_email_controller.dart';
+import 'package:polaris/auth/presentation/widgets/auth_texts.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/route/app_route.dart';
@@ -13,29 +13,18 @@ class LoginEmailFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginEmailController>(
-      init: LoginEmailController(),
-      builder: (controller) {
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(bottom: 32),
+      child: GetBuilder<LoginEmailController>(
+        init: LoginEmailController(),
+        builder: (controller) {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Lama Tak Jumpa!",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge
-                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
-              ),
+              const AuthTitleText(text: "Lama Tak Jumpa!"),
               const SizedBox(height: 8),
-              Text(
-                "Kelola event-mu dengan mudah",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
-              ),
+              const AuthSubtitleText(text: "Kelola event-mu dengan mudah"),
               const SizedBox(height: 32),
               FormBuilder(
                 key: controller.formKey,
@@ -73,38 +62,20 @@ class LoginEmailFragment extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 32),
-                    RichText(
-                      text: TextSpan(
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary),
-                        children: [
-                          const TextSpan(text: "Belum punya akun?  "),
-                          TextSpan(
-                            text: "Daftar",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Get.toNamed(AppRoutes.register);
-                              },
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                        ],
-                      ),
+                    AuthFooterText(
+                      text: "Belum punya akun?  ",
+                      actionText: "Daftar",
+                      onActionPressed: () {
+                        Get.toNamed(AppRoutes.register);
+                      },
                     ),
-                    const SizedBox(height: 32),
                   ],
                 ),
               ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

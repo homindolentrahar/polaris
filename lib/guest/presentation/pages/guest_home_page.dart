@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
@@ -26,7 +27,18 @@ class GuestHomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const LocationInfo(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const LocationInfo(),
+                      PrimaryIconButton(
+                        icon: const Icon(Iconsax.logout5),
+                        onPressed: () {
+                          Get.offAllNamed(AppRoutes.landing);
+                        },
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 32),
                   FormSearchField(
                     name: "search_event",

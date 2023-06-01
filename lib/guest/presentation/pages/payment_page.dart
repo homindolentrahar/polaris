@@ -41,7 +41,7 @@ class PaymentPage extends StatelessWidget {
                       onPressed: () {
                         Get.offNamedUntil(
                           AppRoutes.eTicket,
-                          (route) => route.settings.name == AppRoutes.guestHome,
+                          (route) => route.settings.name == AppRoutes.guest,
                         );
                       },
                     ),
