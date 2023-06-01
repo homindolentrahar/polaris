@@ -33,7 +33,9 @@ dependencies:
 
   # Core
   get: ^4.6.5
-  freezed_annotation: ^2.2.0
+  get_storage: ^2.1.1
+  json_annotation: ^4.8.0
+  # freezed_annotation: ^2.2.0
   # UI
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
@@ -42,6 +44,9 @@ dependencies:
   pin_code_fields: ^7.4.0
   readmore: ^2.1.0
   dotted_line: ^3.1.0
+  dotted_border: ^2.0.0+3
+  animated_bottom_navigation_bar: ^1.2.0
+  fl_chart: ^0.62.0
   # Util
   intl: ^0.18.0
   flutter_svg: ^2.0.5
@@ -59,7 +64,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner:
   flutter_gen_runner:
-  freezed: ^2.3.4
+  json_serializable: ^6.7.0
+  # freezed: ^2.3.4
 
 flutter_gen:
   output: lib/gen/

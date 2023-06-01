@@ -41,7 +41,7 @@ class PaymentPage extends StatelessWidget {
                       onPressed: () {
                         Get.offNamedUntil(
                           AppRoutes.eTicket,
-                          (route) => route.settings.name == AppRoutes.guestHome,
+                          (route) => route.settings.name == AppRoutes.guest,
                         );
                       },
                     ),
@@ -49,13 +49,12 @@ class PaymentPage extends StatelessWidget {
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(
-                  top: 16,
                   left: 24,
                   right: 24,
-                  bottom: 32,
+                  top: 16,
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     PrimaryStepBar(
                       currentIndex: controller.stepIndex,

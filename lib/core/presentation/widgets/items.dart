@@ -12,6 +12,7 @@ import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
+import 'package:readmore/readmore.dart';
 
 class ContactOrganizerItem extends StatelessWidget {
   final String imageUrl;
@@ -378,7 +379,8 @@ class DashedLines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DottedLine(
-      dashColor: color ?? Theme.of(context).colorScheme.tertiary,
+      dashColor:
+          color ?? Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
       dashGapLength: gap,
       dashLength: width,
       direction: direction,
@@ -413,7 +415,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24,
+          horizontal: 16,
           vertical: 16,
         ),
         child: Row(
@@ -436,7 +438,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : PrimaryBackButton(
                           onBackAction: onLeadingPressed,
                         ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 8),
                 ],
               ),
             ),
@@ -624,6 +626,267 @@ class DetailInfo extends StatelessWidget {
               ?.copyWith(color: Get.theme.colorScheme.onSurface),
         ),
       ],
+    );
+  }
+}
+
+class InfoChip extends StatelessWidget {
+  final String value;
+  final Color? valueColor;
+  final Color? color;
+  final double radius;
+  final EdgeInsets? padding;
+
+  const InfoChip({
+    super.key,
+    required this.value,
+    this.valueColor,
+    this.color,
+    this.radius = 32,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding ??
+          const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+      decoration: BoxDecoration(
+        color: color ?? Get.theme.colorScheme.onSurface,
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: Center(
+        child: Text(
+          value,
+          style: Get.textTheme.headlineSmall?.copyWith(
+            color: valueColor ?? Get.theme.colorScheme.surface,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TicketTypeItem extends StatelessWidget {
+  final TicketTypeModel data;
+
+  const TicketTypeItem({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Get.theme.colorScheme.outline),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconContainer(
+                icon: SvgPicture.asset(
+                  Assets.icons.icTicket,
+                  color: Get.theme.colorScheme.tertiary,
+                  width: 20,
+                  height: 20,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Reguler",
+                      style: Get.textTheme.headlineMedium
+                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "200 tiket",
+                      style: Get.textTheme.titleSmall
+                          ?.copyWith(color: Get.theme.colorScheme.onBackground),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              InfoChip(value: StringHelper.formatCompactCurrency(25000)),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: DashedLines(
+              length: Get.width,
+              color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
+            ),
+          ),
+          ...List.generate(
+            data.benefits.take(3).length,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    Assets.icons.icTick,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    width: 16,
+                    height: 16,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    data.benefits[index],
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.center,
+            child: Visibility(
+              visible: data.benefits.length > 3,
+              child: PrimaryTextButton(
+                title: "Selengkapnya +${data.benefits.length - 3}",
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DateSelector extends StatelessWidget {
+  final Widget? icon;
+  final String title;
+  final ValueChanged<DateTime?> onDateSelected;
+
+  const DateSelector({
+    super.key,
+    this.icon,
+    required this.title,
+    required this.onDateSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Get.theme.colorScheme.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: Get.theme.colorScheme.outline,
+          width: 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: () {},
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.015),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: Get.textTheme.headlineSmall?.copyWith(
+                  color: Get.theme.colorScheme.tertiary,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Iconsax.arrow_down_1,
+                color: Get.theme.colorScheme.tertiary,
+                size: 16,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PrimarySubtitle extends StatelessWidget {
+  final String subtitle;
+  final double fontSize;
+  final Widget? trailing;
+
+  const PrimarySubtitle({
+    super.key,
+    required this.subtitle,
+    this.fontSize = 14,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          subtitle,
+          style: Get.textTheme.titleMedium?.copyWith(
+            color: Get.theme.colorScheme.onSurface,
+            fontSize: fontSize,
+          ),
+        ),
+        trailing ?? const SizedBox.shrink(),
+      ],
+    );
+  }
+}
+
+class ShowMoreText extends StatelessWidget {
+  final String value;
+  final int trimLine;
+
+  const ShowMoreText({
+    super.key,
+    required this.value,
+    this.trimLine = 3,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ReadMoreText(
+      value,
+      style: Theme.of(context)
+          .textTheme
+          .bodySmall
+          ?.copyWith(color: Theme.of(context).colorScheme.onBackground),
+      moreStyle: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: Theme.of(context).primaryColor, fontSize: 12),
+      lessStyle: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: Theme.of(context).primaryColor, fontSize: 12),
+      trimLines: trimLine,
+      trimMode: TrimMode.Line,
+      trimExpandedText: "Sembunyikan",
+      trimCollapsedText: "Selengkapnya",
     );
   }
 }

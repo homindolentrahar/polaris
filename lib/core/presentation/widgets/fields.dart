@@ -1,10 +1,15 @@
+import 'dart:typed_data';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:intl/intl.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:polaris/core/domain/model/contact_model.dart';
 import 'package:polaris/core/presentation/application/form_password_field_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/gen/assets.gen.dart';
@@ -21,6 +26,7 @@ class FormTextField extends StatelessWidget {
   final bool isRequired;
   final TextInputType keyboardType;
   final TextInputAction action;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final VoidCallback? onTap;
   final ValueChanged<String>? onSubmitted;
@@ -38,6 +44,7 @@ class FormTextField extends StatelessWidget {
     this.action = TextInputAction.done,
     this.isObscure = false,
     this.isRequired = true,
+    this.prefixIcon,
     this.suffixIcon,
     this.onTap,
     this.onSubmitted,
@@ -89,6 +96,7 @@ class FormTextField extends StatelessWidget {
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.background,
                     contentPadding: const EdgeInsets.all(20),
+                    prefixIcon: prefixIcon,
                     suffixIcon: suffixIcon,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -919,6 +927,326 @@ class FormSexField extends StatelessWidget {
         if (result != null) {
           onSexChanged(result);
         }
+      },
+    );
+  }
+}
+
+class FormLinkField extends StatelessWidget {
+  final String value;
+  final ValueChanged<String> onLinkCopied;
+
+  const FormLinkField({
+    super.key,
+    required this.value,
+    required this.onLinkCopied,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
+            decoration: BoxDecoration(
+              color: Get.theme.colorScheme.background,
+              border: Border.all(color: Get.theme.colorScheme.outline),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Iconsax.link_2,
+                  color: Get.theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    value,
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        PrimaryIconButton(
+          color: Get.theme.primaryColor.withOpacity(0.15),
+          icon: Icon(
+            Iconsax.copy5,
+            color: Get.theme.primaryColor,
+            size: 20,
+          ),
+          onPressed: () => onLinkCopied(value),
+        ),
+      ],
+    );
+  }
+}
+
+class FormDateTimeField extends StatelessWidget {
+  final bool enabled;
+  final DateTime? initialValue;
+  final String name;
+  final String hint;
+  final Widget? suffixIcon;
+  final InputType type;
+  final ValueChanged<DateTime?>? onDateChanged;
+
+  const FormDateTimeField({
+    super.key,
+    this.enabled = true,
+    this.initialValue,
+    required this.name,
+    required this.hint,
+    this.suffixIcon,
+    required this.type,
+    this.onDateChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilderField<DateTime>(
+        name: name,
+        initialValue: initialValue,
+        onChanged: onDateChanged,
+        builder: (field) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FormBuilderDateTimePicker(
+                inputType: type,
+                initialValue: field.value,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                format: type == InputType.date
+                    ? DateFormat("dd MMMM yyyy", 'id_ID')
+                    : DateFormat("HH:mm"),
+                name: "",
+                onChanged: field.didChange,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                decoration: InputDecoration(
+                  errorStyle: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(color: Theme.of(context).colorScheme.error),
+                  hintText: hint,
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.background,
+                  contentPadding: const EdgeInsets.all(20),
+                  suffixIcon: suffixIcon ??
+                      (type == InputType.date
+                          ? Icon(
+                              Iconsax.calendar5,
+                              color: Get.theme.colorScheme.tertiary,
+                              size: 16,
+                            )
+                          : Icon(
+                              Iconsax.calendar5,
+                              color: Get.theme.colorScheme.tertiary,
+                              size: 16,
+                            )),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                  focusedBorder: enabled
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            width: 1.5,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: Theme.of(context).colorScheme.outlineVariant,
+                          ),
+                        ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: field.hasError,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        field.errorText ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.error),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
+}
+
+class FormImageField extends StatelessWidget {
+  final String name;
+  final String hint;
+  final Widget? icon;
+  final ValueChanged<Uint8List?> onImagePicked;
+
+  const FormImageField({
+    super.key,
+    required this.name,
+    required this.hint,
+    this.icon,
+    required this.onImagePicked,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilderField<Uint8List>(
+      name: name,
+      onChanged: onImagePicked,
+      builder: (field) {
+        return Material(
+          color: Get.theme.colorScheme.surface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: InkWell(
+            onTap: () => field.didChange(null),
+            borderRadius: BorderRadius.circular(8),
+            splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.045),
+            highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.09),
+            child: DottedBorder(
+              borderType: BorderType.RRect,
+              padding: const EdgeInsets.all(16),
+              radius: const Radius.circular(8),
+              strokeCap: StrokeCap.round,
+              dashPattern: const [8, 8, 8, 8],
+              color: Get.theme.colorScheme.tertiary.withOpacity(0.45),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  icon ??
+                      Icon(
+                        Iconsax.gallery,
+                        color: Get.theme.colorScheme.tertiary,
+                        size: 20,
+                      ),
+                  const SizedBox(height: 8),
+                  Text(
+                    hint,
+                    textAlign: TextAlign.center,
+                    style: Get.theme.textTheme.titleSmall
+                        ?.copyWith(color: Get.theme.colorScheme.tertiary),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class FormAddContactPersonField extends StatelessWidget {
+  final String name;
+  final VoidCallback onAddPressed;
+  final ValueChanged<List<ContactModel>?> onContactsChanged;
+
+  const FormAddContactPersonField({
+    super.key,
+    required this.name,
+    required this.onAddPressed,
+    required this.onContactsChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilderField<List<ContactModel>>(
+      name: name,
+      onChanged: onContactsChanged,
+      builder: (field) {
+        return InkWell(
+          onTap: onAddPressed,
+          borderRadius: BorderRadius.circular(8),
+          splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+          highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+          child: DottedBorder(
+            borderType: BorderType.RRect,
+            padding: const EdgeInsets.all(16),
+            radius: const Radius.circular(8),
+            strokeCap: StrokeCap.round,
+            dashPattern: const [8, 8, 8, 8],
+            color: Get.theme.colorScheme.tertiary.withOpacity(0.45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Iconsax.add,
+                  color: Get.theme.colorScheme.tertiary,
+                  size: 20,
+                ),
+                Text(
+                  "Tambah Narahubung",
+                  style: Get.textTheme.titleSmall?.copyWith(
+                    color: Get.theme.colorScheme.tertiary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
