@@ -6,6 +6,7 @@ import 'package:polaris/admin/presentation/application/admin_home_page_controlle
 import 'package:polaris/admin/presentation/fragments/analytics_fragment.dart';
 import 'package:polaris/admin/presentation/fragments/beranda_fragment.dart';
 import 'package:polaris/admin/presentation/fragments/transactions_fragment.dart';
+import 'package:polaris/core/presentation/application/app_controller.dart';
 import 'package:polaris/route/app_route.dart';
 
 class AdminHomePage extends StatelessWidget {
@@ -63,7 +64,10 @@ class AdminHomePage extends StatelessWidget {
               size: 32,
             ),
             onPressed: () {
-              Get.toNamed(AppRoutes.adminCreate);
+              // Get.toNamed(AppRoutes.adminCreate);
+              Get.find<AppController>().removeAppMode();
+
+              Get.offAllNamed(AppRoutes.landing);
             },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

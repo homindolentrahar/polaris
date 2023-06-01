@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/fragments/login_email_fragment.dart';
-import 'package:polaris/auth/presentation/fragments/login_phone_fragment.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_email_fragment.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_phone_fragment.dart';
 
 class LoginPageController extends GetxController {
   int tabIndex = 0;

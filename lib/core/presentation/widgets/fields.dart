@@ -948,30 +948,37 @@ class FormLinkField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
-          decoration: BoxDecoration(
-            color: Get.theme.colorScheme.background,
-            border: Border.all(color: Get.theme.colorScheme.outline),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Iconsax.link_2,
-                color: Get.theme.colorScheme.onSurface,
-                size: 20,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                value,
-                style: Get.textTheme.headlineSmall
-                    ?.copyWith(color: Get.theme.colorScheme.onSurface),
-              )
-            ],
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
+            decoration: BoxDecoration(
+              color: Get.theme.colorScheme.background,
+              border: Border.all(color: Get.theme.colorScheme.outline),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Iconsax.link_2,
+                  color: Get.theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    value,
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         const SizedBox(width: 8),
