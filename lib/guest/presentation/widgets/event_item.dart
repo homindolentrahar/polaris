@@ -1,16 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class EventItem extends StatelessWidget {
-  final String id;
-  final ValueChanged<String> onPressed;
+  final Event data;
+  final ValueChanged<Event> onPressed;
 
-  const EventItem({super.key, required this.id, required this.onPressed});
+  const EventItem({
+    super.key,
+    required this.data,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,27 +30,25 @@ class EventItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () => onPressed(id),
+        onTap: () => onPressed(data),
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Hero(
-                    tag: id,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-                        width: 56,
-                        height: 56,
-                        fit: BoxFit.cover,
-                      ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: data.imageUrl,
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -54,7 +58,7 @@ class EventItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Matsuri Jogja 2023",
+                          data.title,
                           style: Get.textTheme.headlineMedium?.copyWith(
                             color: Get.theme.colorScheme.onSurface,
                           ),
@@ -84,13 +88,15 @@ class EventItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   InfoChip(
-                    value: StringHelper.formatCompactCurrency(25000),
+                    value: StringHelper.formatCompactCurrency(data.tickets
+                        .firstWhere((element) => element.amount > 0)
+                        .price),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
               Text(
-                "Lorem ipsum dolor sit met Lorem ipsum dolor sit met Lorem ipsum dolor sit met",
+                data.description,
                 style: Get.textTheme.titleSmall?.copyWith(
                   color: Get.theme.colorScheme.tertiary,
                 ),
@@ -105,43 +111,53 @@ class EventItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Iconsax.calendar5,
-                        color: Get.theme.colorScheme.onBackground,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        StringHelper.formatDate(dateTime: DateTime.now()),
-                        style: Get.textTheme.headlineSmall?.copyWith(
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Iconsax.calendar5,
                           color: Get.theme.colorScheme.onBackground,
-                          fontSize: 12,
+                          size: 16,
                         ),
-                      )
-                    ],
+                        const SizedBox(width: 4),
+                        Text(
+                          StringHelper.formatDate(dateTime: data.dateTime),
+                          style: Get.textTheme.headlineSmall?.copyWith(
+                            color: Get.theme.colorScheme.onBackground,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Iconsax.location5,
-                        color: Get.theme.colorScheme.onBackground,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        "Sleman, Yogyakarta",
-                        style: Get.textTheme.headlineSmall?.copyWith(
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Iconsax.location5,
                           color: Get.theme.colorScheme.onBackground,
-                          fontSize: 12,
+                          size: 16,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            data.venue.location,
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.textTheme.headlineSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

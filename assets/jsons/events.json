@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1",
+    "title": "Matsuri UII 2023",
+    "date_time": "2023-06-02T17:41:42.918",
+    "description": "Lorem ipsum dolor sit amet",
+    "url": "polaris.event/himatep/matsuri_2023",
+    "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "venue": {
+      "name": "Sky 7 Rooftop",
+      "location": "Kota Yogyakarta, Yogyakarta",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta"
+    },
+    "contacts": [
+      {
+        "id": "1",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "title": "Rojali Somat",
+        "subtitle": "Humas"
+      },
+      {
+        "id": "2",
+        "image_url": "",
+        "title": "Frieska Anastasya",
+        "subtitle": "Humas"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      "title": "Himajep UII",
+      "subtitle": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah"
+    },
+    "tickets": [
+      {
+        "id": "1",
+        "title": "Bronze",
+        "price": 45000,
+        "amount": 50,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan"]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Angular Bootcamp Ch. 2",
+    "date_time": "2023-06-02T17:41:42.918",
+    "description": "Lorem ipsum dolor sit amet",
+    "url": "polaris.event/himatep/angular_bootcamp_ch2",
+    "image_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "venue": {
+      "name": "Grand Residence Tempel",
+      "location": "Kota Yogyakarta, Yogyakarta",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta"
+    },
+    "contacts": [
+      {
+        "id": "1",
+        "image_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "title": "Rojali Somat",
+        "subtitle": "Humas"
+      },
+      {
+        "id": "2",
+        "image_url": "",
+        "title": "Frieska Anastasya",
+        "subtitle": "Humas"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "image_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      "title": "FIK UAD",
+      "subtitle": "Fakultas Universitas Aduh Deh"
+    },
+    "tickets": [
+      {
+        "id": "1",
+        "title": "Reguler",
+        "price": 500000,
+        "amount": 50,
+        "benefits": ["Totebag", "Mousepade", "Sertifikat"]
+      }
+    ]
+  }
+]

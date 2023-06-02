@@ -274,7 +274,7 @@ class _EventTicketItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                StringHelper.formatCurrency(data.price),
+                StringHelper.formatCurrency(data.price.toDouble()),
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge
@@ -345,7 +345,7 @@ class _EventTicketItem extends StatelessWidget {
                 onAmountChanged: onAmountChanged,
               ),
               Text(
-                StringHelper.formatCurrency(amount * data.price),
+                StringHelper.formatCurrency(amount * data.price.toDouble()),
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
