@@ -4,7 +4,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/beranda_controller.dart';
 import 'package:polaris/admin/presentation/widgets/admin_event_item.dart';
 import 'package:polaris/admin/presentation/widgets/beranda_summary.dart';
+import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
+import 'package:polaris/core/util/helper/log_helper.dart';
 import 'package:polaris/route/app_route.dart';
 
 class BerandaFragment extends StatelessWidget {
@@ -45,10 +47,16 @@ class BerandaFragment extends StatelessWidget {
                     ),
                     PopupMenuButton(
                       offset: const Offset(0, 56),
+                      onSelected: (value) {
+                        LogHelper.instance.info(value);
+
+                        if (value == 'logout') {
+                          Get.find<AuthController>().logout();
+                        }
+                      },
                       itemBuilder: (ctx) => [
                         PopupMenuItem(
                           value: "logout",
-                          onTap: () {},
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,

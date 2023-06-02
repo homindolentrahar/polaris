@@ -9,10 +9,12 @@ import 'package:polaris/auth/presentation/pages/login/login_page.dart';
 import 'package:polaris/auth/presentation/pages/otp/otp_page.dart';
 import 'package:polaris/auth/presentation/pages/register/register_page.dart';
 import 'package:polaris/auth/presentation/pages/verification/verification_page.dart';
+import 'package:polaris/core/presentation/pages/loader/loader_binding.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_page.dart';
 import 'package:polaris/guest/presentation/pages/detail_event_page.dart';
 import 'package:polaris/guest/presentation/pages/eticket_page.dart';
-import 'package:polaris/guest/presentation/pages/guest_home_page.dart';
+import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
+import 'package:polaris/guest/presentation/pages/home/home_page.dart';
 import 'package:polaris/guest/presentation/pages/payment_page.dart';
 import 'package:polaris/guest/presentation/pages/search_key_page.dart';
 import 'package:polaris/guest/presentation/pages/search_result_page.dart';
@@ -41,7 +43,7 @@ class AppRoutes {
     GetPage(
       name: loader,
       transition: Transition.rightToLeftWithFade,
-      // middlewares: [AppModeMiddleware()],
+      binding: LoaderBinding(),
       page: () {
         return const LoaderPage();
       },
@@ -91,8 +93,9 @@ class AppRoutes {
     GetPage(
       name: guest,
       transition: Transition.rightToLeftWithFade,
+      binding: HomeBinding(),
       page: () {
-        return const GuestHomePage();
+        return const HomePage();
       },
     ),
     GetPage(

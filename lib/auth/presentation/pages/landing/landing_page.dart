@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
-import 'package:polaris/core/presentation/application/app_controller.dart';
+import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/util/constants/app_constants.dart';
 import 'package:polaris/gen/assets.gen.dart';
-import 'package:polaris/route/app_route.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -48,10 +47,7 @@ class LandingPage extends StatelessWidget {
                       PrimaryButton(
                         title: "Cari Event",
                         onPressed: () async {
-                          await Get.find<AppController>()
-                              .saveAppMode(AppMode.guest);
-
-                          Get.offAllNamed(AppRoutes.guest);
+                          Get.find<AuthController>().login(AppMode.guest);
                         },
                       ),
                       const SizedBox(height: 16),
@@ -65,11 +61,7 @@ class LandingPage extends StatelessWidget {
                       PrimaryTextButton(
                         title: "Kelola Event",
                         onPressed: () async {
-                          // Get.toNamed(AppRoutes.login);
-                          await Get.find<AppController>()
-                              .saveAppMode(AppMode.admin);
-
-                          Get.offAllNamed(AppRoutes.admin);
+                          Get.find<AuthController>().login(AppMode.admin);
                         },
                       ),
                     ],

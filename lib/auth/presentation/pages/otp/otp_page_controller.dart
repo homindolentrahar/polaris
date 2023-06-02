@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:polaris/core/presentation/application/app_controller.dart';
+import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/util/constants/app_constants.dart';
-import 'package:polaris/route/app_route.dart';
 
 class OtpPageController extends GetxController {
   final formKey = GlobalKey<FormBuilderState>();
@@ -31,9 +30,7 @@ class OtpPageController extends GetxController {
             update();
 
             if (tick == 57) {
-              Get.find<AppController>().saveAppMode(AppMode.admin);
-
-              Get.offAllNamed(AppRoutes.admin);
+              Get.find<AuthController>().saveAppMode(AppMode.admin);
             }
           }
         },
