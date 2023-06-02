@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/guest/presentation/applications/search_result_page_controller.dart';
+import 'package:polaris/guest/presentation/pages/search/search_result_controller.dart';
+import 'package:polaris/guest/presentation/widgets/event_item.dart';
+import 'package:polaris/route/app_route.dart';
 
 class SearchResultPage extends StatelessWidget {
   const SearchResultPage({super.key});
@@ -15,8 +17,7 @@ class SearchResultPage extends StatelessWidget {
         title: Get.arguments['title'] ?? "Hasil Pencarian",
       ),
       body: SafeArea(
-        child: GetBuilder(
-          init: SearchResultPageController(),
+        child: GetBuilder<SearchResultController>(
           builder: (controller) {
             return Padding(
               padding: const EdgeInsets.only(
@@ -32,7 +33,9 @@ class SearchResultPage extends StatelessWidget {
                     name: "search",
                     hint: "Cari event",
                     initialValue: Get.arguments['value'],
-                    onSubmit: (value) {},
+                    onSubmit: (value) {
+                      controller.getAllEvents();
+                    },
                   ),
                   const SizedBox(height: 16),
                   FilterEventSelector(
@@ -43,7 +46,7 @@ class SearchResultPage extends StatelessWidget {
                   PrimarySubtitle(
                     subtitle: "Hasil pencarian",
                     trailing: Text(
-                      "34 event",
+                      "${controller.events.length} event",
                       style: Get.textTheme.headlineSmall?.copyWith(
                         color: Get.theme.colorScheme.onSurface,
                       ),
@@ -53,8 +56,15 @@ class SearchResultPage extends StatelessWidget {
                   Expanded(
                     child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 8,
-                      itemBuilder: (ctx, index) => Container(),
+                      itemCount: controller.events.length,
+                      itemBuilder: (ctx, index) => EventItem(
+                        data: controller.events[index],
+                        onPressed: (value) {
+                          Get.toNamed(
+                            "${AppRoutes.event}/${value.id}",
+                          );
+                        },
+                      ),
                       separatorBuilder: (ctx, index) =>
                           const SizedBox(height: 16),
                     ),

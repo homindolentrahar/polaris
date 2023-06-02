@@ -144,7 +144,9 @@ class HomePage extends StatelessWidget {
                     itemBuilder: (ctx, index) => EventItem(
                       data: controller.events[index],
                       onPressed: (value) {
-                        Get.toNamed("${AppRoutes.event}/${index}_euy");
+                        Get.toNamed(
+                          "${AppRoutes.event}/${value.id}",
+                        );
                       },
                     ),
                   ),

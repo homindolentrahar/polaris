@@ -16,8 +16,10 @@ import 'package:polaris/guest/presentation/pages/eticket_page.dart';
 import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
 import 'package:polaris/guest/presentation/pages/home/home_page.dart';
 import 'package:polaris/guest/presentation/pages/payment_page.dart';
-import 'package:polaris/guest/presentation/pages/search_key_page.dart';
-import 'package:polaris/guest/presentation/pages/search_result_page.dart';
+import 'package:polaris/guest/presentation/pages/search/search_key_binding.dart';
+import 'package:polaris/guest/presentation/pages/search/search_key_page.dart';
+import 'package:polaris/guest/presentation/pages/search/search_result_binding.dart';
+import 'package:polaris/guest/presentation/pages/search/search_result_page.dart';
 
 class AppRoutes {
   // Auth
@@ -101,6 +103,7 @@ class AppRoutes {
     GetPage(
       name: searchKey,
       transition: Transition.rightToLeftWithFade,
+      binding: SearchKeyBinding(),
       page: () {
         return const SearchKeyPage();
       },
@@ -108,6 +111,7 @@ class AppRoutes {
     GetPage(
       name: searchResult,
       transition: Transition.rightToLeftWithFade,
+      binding: SearchResultBinding(),
       page: () {
         return const SearchResultPage();
       },

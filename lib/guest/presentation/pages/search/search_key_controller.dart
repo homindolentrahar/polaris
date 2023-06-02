@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:polaris/core/domain/model/filter_event_model.dart';
 
-class SearchKeyPageController extends GetxController {
+class SearchKeyController extends GetxController {
   final List<FilterEventModel> filters = [
     FilterEventModel(
       value: 'musik',

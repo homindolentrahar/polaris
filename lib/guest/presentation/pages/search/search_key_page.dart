@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/guest/presentation/applications/search_key_page_controller.dart';
+import 'package:polaris/guest/presentation/pages/search/search_key_controller.dart';
 import 'package:polaris/route/app_route.dart';
 
 class SearchKeyPage extends StatelessWidget {
@@ -14,8 +14,7 @@ class SearchKeyPage extends StatelessWidget {
     return Scaffold(
       appBar: const PrimaryAppBar(title: "Cari Event"),
       body: SafeArea(
-        child: GetBuilder(
-          init: SearchKeyPageController(),
+        child: GetBuilder<SearchKeyController>(
           builder: (controller) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
