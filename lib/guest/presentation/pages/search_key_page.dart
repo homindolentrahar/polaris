@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
+import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/guest/presentation/applications/search_key_page_controller.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -12,6 +12,7 @@ class SearchKeyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PrimaryAppBar(title: "Cari Event"),
       body: SafeArea(
         child: GetBuilder(
           init: SearchKeyPageController(),
@@ -19,26 +20,6 @@ class SearchKeyPage extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const PrimaryBackButton(),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Cari Event",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
                 SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(
@@ -56,20 +37,16 @@ class SearchKeyPage extends StatelessWidget {
                           if (value != null && value.isNotEmpty) {
                             Get.toNamed(
                               AppRoutes.searchResult,
-                              arguments: value,
+                              arguments: {
+                                'title': "Hasil Pencarian",
+                                'value': value,
+                              },
                             );
                           }
                         },
                       ),
                       const SizedBox(height: 32),
-                      Text(
-                        "Pencarian Terakhir",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface),
-                      ),
+                      const PrimarySubtitle(subtitle: "Pencarian terakhir"),
                       const SizedBox(height: 16),
                       Wrap(
                         direction: Axis.horizontal,
@@ -82,7 +59,10 @@ class SearchKeyPage extends StatelessWidget {
                             onFilterSelected: (value) {
                               Get.toNamed(
                                 AppRoutes.searchResult,
-                                arguments: value.title,
+                                arguments: {
+                                  'title': "Hasil Pencarian",
+                                  'value': value.title,
+                                },
                               );
                             },
                           ),

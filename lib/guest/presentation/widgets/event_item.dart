@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
-class GuestEventItem extends StatelessWidget {
+class EventItem extends StatelessWidget {
   final String id;
   final ValueChanged<String> onPressed;
 
-  const GuestEventItem({super.key, required this.id, required this.onPressed});
+  const EventItem({super.key, required this.id, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.surface,
+      color: Get.theme.colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
+          color: Get.theme.colorScheme.outline,
           width: 1,
         ),
       ),
       child: InkWell(
         onTap: () => onPressed(id),
         borderRadius: BorderRadius.circular(8),
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -52,12 +55,9 @@ class GuestEventItem extends StatelessWidget {
                       children: [
                         Text(
                           "Matsuri Jogja 2023",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Get.textTheme.headlineMedium?.copyWith(
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Row(
@@ -67,17 +67,15 @@ class GuestEventItem extends StatelessWidget {
                               Assets.icons.icTicket,
                               width: 16,
                               height: 16,
+                              color: Get.theme.primaryColor,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "5 tiket tersisa",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                    fontSize: 12,
-                                  ),
+                              "Tiket tersedia",
+                              style: Get.textTheme.headlineSmall?.copyWith(
+                                color: Get.theme.primaryColor,
+                                fontSize: 12,
+                              ),
                             ),
                           ],
                         ),
@@ -85,40 +83,25 @@ class GuestEventItem extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    child: Text(
-                      "Rp. 25k",
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Theme.of(context).colorScheme.surface,
-                                fontSize: 12,
-                              ),
-                    ),
-                  )
+                  InfoChip(
+                    value: StringHelper.formatCompactCurrency(25000),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
               Text(
                 "Lorem ipsum dolor sit met Lorem ipsum dolor sit met Lorem ipsum dolor sit met",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall
-                    ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+                style: Get.textTheme.titleSmall?.copyWith(
+                  color: Get.theme.colorScheme.tertiary,
+                ),
               ),
-              const SizedBox(height: 8),
-              Divider(
-                color: Theme.of(context).colorScheme.tertiary.withOpacity(0.25),
-                thickness: 1.3,
-                indent: 8,
-                endIndent: 8,
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Divider(
+                  color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
+                  thickness: 1.3,
+                ),
               ),
-              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -128,19 +111,16 @@ class GuestEventItem extends StatelessWidget {
                     children: [
                       Icon(
                         Iconsax.calendar5,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "14 Apr 2023",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: 12,
-                            ),
+                        StringHelper.formatDate(dateTime: DateTime.now()),
+                        style: Get.textTheme.headlineSmall?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                          fontSize: 12,
+                        ),
                       )
                     ],
                   ),
@@ -150,20 +130,17 @@ class GuestEventItem extends StatelessWidget {
                     children: [
                       Icon(
                         Iconsax.location5,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         "Sleman, Yogyakarta",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: 12,
-                            ),
-                      )
+                        style: Get.textTheme.headlineSmall?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ],

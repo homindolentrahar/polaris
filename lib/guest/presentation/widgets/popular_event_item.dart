@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class PopularEventItem extends StatelessWidget {
@@ -28,8 +31,8 @@ class PopularEventItem extends StatelessWidget {
                   child: ShaderMask(
                     shaderCallback: (bounds) => LinearGradient(
                       colors: [
-                        Theme.of(context).colorScheme.onSurface.withOpacity(0),
-                        Theme.of(context).colorScheme.onSurface,
+                        Get.theme.colorScheme.onSurface.withOpacity(0),
+                        Get.theme.colorScheme.onSurface,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -51,16 +54,13 @@ class PopularEventItem extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Get.theme.colorScheme.onSurface,
                     border: Border.all(
                       width: 0.0,
                       strokeAlign: 0,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      color: Get.theme.colorScheme.onSurface,
                     ),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(8),
@@ -78,28 +78,24 @@ class PopularEventItem extends StatelessWidget {
                             Assets.icons.icTicket,
                             width: 16,
                             height: 16,
+                            color: Get.theme.colorScheme.secondary,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "5 tiket tersisa",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                  fontSize: 12,
-                                ),
+                            "Tiket tersedia",
+                            style: Get.textTheme.headlineSmall?.copyWith(
+                              color: Get.theme.colorScheme.secondary,
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
                       Text(
                         "Matsuri UII 2023",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.surface),
+                        style: Get.textTheme.headlineMedium?.copyWith(
+                          color: Get.theme.colorScheme.surface,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Row(
@@ -108,32 +104,26 @@ class PopularEventItem extends StatelessWidget {
                         children: [
                           Text(
                             "14 Apr 2023",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                            style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             "•",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                            style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            "Sleman, YK",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                          Expanded(
+                            child: Text(
+                              "Sleman, Yogyakarta",
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.textTheme.titleSmall?.copyWith(
+                                color: Get.theme.colorScheme.tertiary,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -145,20 +135,8 @@ class PopularEventItem extends StatelessWidget {
             Positioned(
               top: 16,
               right: 16,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Text(
-                  "Rp. 25k",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.surface,
-                        fontSize: 12,
-                      ),
-                ),
+              child: InfoChip(
+                value: StringHelper.formatCompactCurrency(25000),
               ),
             ),
           ],

@@ -414,10 +414,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
+        padding: const EdgeInsets.all(24),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -425,6 +422,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
               visible: showLeading,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   leadingIcon != null
                       ? PrimaryIconButton(
@@ -435,8 +433,15 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                           radius: leadingRadius,
                           padding: leadingPadding,
                         )
-                      : PrimaryBackButton(
-                          onBackAction: onLeadingPressed,
+                      : PrimaryIconButton(
+                          icon: SvgPicture.asset(
+                            Assets.icons.icBack,
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
+                          color: Colors.transparent,
+                          onPressed: () {
+                            Get.back();
+                          },
                         ),
                   const SizedBox(width: 8),
                 ],
@@ -456,7 +461,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(72);
+  Size get preferredSize => const Size.fromHeight(128);
 }
 
 class PaymentTypeItem extends StatelessWidget {

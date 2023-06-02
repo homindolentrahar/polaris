@@ -10,7 +10,7 @@ import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/log_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 import 'package:polaris/guest/presentation/pages/home/home_controller.dart';
-import 'package:polaris/guest/presentation/widgets/guest_event_item.dart';
+import 'package:polaris/guest/presentation/widgets/event_item.dart';
 import 'package:polaris/guest/presentation/widgets/location_info.dart';
 import 'package:polaris/guest/presentation/widgets/popular_event_item.dart';
 import 'package:polaris/route/app_route.dart';
@@ -122,7 +122,15 @@ class HomePage extends GetView<HomeController> {
                 subtitle: "Terkini",
                 trailing: PrimaryTextButton(
                   title: "Lihat Semua",
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(
+                      AppRoutes.searchResult,
+                      arguments: {
+                        'title': "Semua Event",
+                        'value': null,
+                      },
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 16),
@@ -133,7 +141,7 @@ class HomePage extends GetView<HomeController> {
                 separatorBuilder: (ctx, index) => const SizedBox(
                   height: 16,
                 ),
-                itemBuilder: (ctx, index) => GuestEventItem(
+                itemBuilder: (ctx, index) => EventItem(
                   id: "${index}_euy",
                   onPressed: (value) {
                     Get.toNamed("${AppRoutes.event}/${index}_euy");
