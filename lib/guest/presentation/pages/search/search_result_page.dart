@@ -61,7 +61,7 @@ class SearchResultPage extends StatelessWidget {
                         data: controller.events[index],
                         onPressed: (value) {
                           Get.toNamed(
-                            "${AppRoutes.event}/${value.id}",
+                            "${AppRoutes.guest}/${AppRoutes.events}/${value.id}",
                           );
                         },
                       ),

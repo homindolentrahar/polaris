@@ -48,10 +48,8 @@ class AdminDetailEventInfoFragment extends StatelessWidget {
                 const SizedBox(height: 8),
                 EventTicketSelector(
                   currentIndex: controller.ticketTypeIndex,
-                  amount: controller.ticketAmount,
-                  tickets: controller.tickets,
-                  onDecreased: controller.decreaseAmount,
-                  onIncreased: controller.increaseAmount,
+                  initialAmount: controller.ticketAmount,
+                  tickets: const [],
                   onAmountChanged: controller.onAmountChanged,
                   onTabChanged: controller.onTicketTypeChanged,
                 ),

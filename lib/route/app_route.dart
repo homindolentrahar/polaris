@@ -11,7 +11,10 @@ import 'package:polaris/auth/presentation/pages/register/register_page.dart';
 import 'package:polaris/auth/presentation/pages/verification/verification_page.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_binding.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_page.dart';
-import 'package:polaris/guest/presentation/pages/detail_event_page.dart';
+import 'package:polaris/guest/presentation/fragments/detail_event_info_fragment.dart';
+import 'package:polaris/guest/presentation/fragments/detail_event_register_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/detail_event_binding.dart';
+import 'package:polaris/guest/presentation/pages/detail/detail_event_page.dart';
 import 'package:polaris/guest/presentation/pages/eticket_page.dart';
 import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
 import 'package:polaris/guest/presentation/pages/home/home_page.dart';
@@ -30,16 +33,21 @@ class AppRoutes {
   static const forgotPassword = "/forgot-password";
   static const otp = "/otp";
   static const verification = "/verificiation";
-
+  // Guest
   static const guest = "/guest";
   static const searchKey = "/search-key";
   static const searchResult = "/search-result";
-  static const event = "/events";
+
   static const payment = "/payment";
   static const eTicket = "/e-ticket";
   static const admin = "/admin";
   static const adminEvents = "/admin/events";
   static const adminCreate = "/admin/create";
+
+  // General
+  static const events = "events";
+  static const info = "/info";
+  static const daftar = "/daftar";
 
   static List<GetPage> pages = [
     GetPage(
@@ -117,11 +125,24 @@ class AppRoutes {
       },
     ),
     GetPage(
-      name: "$event/:id",
+      name: "$guest/$events/:id",
       transition: Transition.rightToLeftWithFade,
+      binding: DetailEventBinding(),
       page: () {
         return const DetailEventPage();
       },
+      children: [
+        GetPage(
+          name: info,
+          transition: Transition.noTransition,
+          page: () => const DetailEventInfoFragment(),
+        ),
+        GetPage(
+          name: daftar,
+          transition: Transition.noTransition,
+          page: () => const DetailEventRegisterFragment(),
+        ),
+      ],
     ),
     GetPage(
       name: "$payment/:id",

@@ -3,19 +3,18 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/guest/presentation/applications/detail_event_register_controller.dart';
+import 'package:polaris/guest/presentation/pages/detail/detail_event_controller.dart';
 
 class DetailEventRegisterFragment extends StatelessWidget {
   const DetailEventRegisterFragment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: GetBuilder(
-        init: DetailEventRegisterController(),
-        builder: (controller) {
-          return FormBuilder(
+    return GetBuilder<DetailEventController>(
+      builder: (controller) {
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: FormBuilder(
             key: controller.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,38 +66,35 @@ class DetailEventRegisterFragment extends StatelessWidget {
                   children: [
                     Text(
                       "Tipe Tiket",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface),
+                      style: Get.textTheme.titleMedium?.copyWith(
+                        color: Get.theme.colorScheme.onSurface,
+                      ),
                     ),
                     Text(
-                      "${controller.tickets.length} tipe",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface),
+                      "${controller.event?.tickets.length} tipe",
+                      style: Get.textTheme.headlineSmall?.copyWith(
+                        color: Get.theme.colorScheme.onSurface,
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 EventTicketSelector(
-                  amount: controller.ticketAmount,
-                  currentIndex: controller.tabIndex,
-                  tickets: controller.tickets,
+                  initialAmount: controller.ticketAmount,
+                  currentIndex: controller.ticketTypeIndex,
+                  tickets: controller.event?.tickets ?? [],
                   onTabChanged: (index) {
-                    controller.onTabChanged(index);
+                    controller.onTicketTypeChanged(index);
                   },
-                  onDecreased: controller.decreaseAmount,
-                  onIncreased: controller.increaseAmount,
                   onAmountChanged: (value) {
                     controller.onAmountChanged(value);
                   },
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
