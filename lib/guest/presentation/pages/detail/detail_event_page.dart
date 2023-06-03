@@ -38,7 +38,7 @@ class DetailEventPage extends StatelessWidget {
                         title: "Daftar",
                         onPressed: () {
                           Get.toNamed(
-                            "${AppRoutes.payment}/${Get.parameters['id']}",
+                            "${AppRoutes.guest}/${AppRoutes.payment}/${Get.parameters['id']}",
                           );
                         },
                       ),
@@ -129,18 +129,6 @@ class DetailEventPage extends StatelessWidget {
                                 delegate: delegate,
                               ),
                             ),
-
-                            // Expanded(
-                            //   child: PageView.builder(
-                            //     physics: const NeverScrollableScrollPhysics(),
-                            //     controller: controller.pageController,
-                            //     itemCount: controller.fragments.length,
-                            //     itemBuilder: (ctx, index) {
-                            //       return controller.fragments[index]['fragment']
-                            //           as Widget;
-                            //     },
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),

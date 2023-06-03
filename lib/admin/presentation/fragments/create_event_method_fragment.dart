@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/create_event_page_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
-import 'package:polaris/core/presentation/widgets/items.dart';
 
 class CreateEventMethodFragment extends StatelessWidget {
   const CreateEventMethodFragment({super.key});
@@ -21,9 +20,7 @@ class CreateEventMethodFragment extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 1,
-                  itemBuilder: (ctx, index) => PaymentTypeItem(
-                    data: controller.paymentMethod,
-                  ),
+                  itemBuilder: (ctx, index) => Container(),
                   separatorBuilder: (ctx, index) => const SizedBox(height: 16),
                 ),
                 const SizedBox(height: 16),

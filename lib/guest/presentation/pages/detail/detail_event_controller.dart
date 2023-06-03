@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
-import 'package:polaris/guest/presentation/fragments/detail_event_info_fragment.dart';
-import 'package:polaris/guest/presentation/fragments/detail_event_register_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_info_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_register_fragment.dart';
 import 'package:polaris/route/app_route.dart';
 
 class DetailEventController extends GetxController {
@@ -18,7 +18,7 @@ class DetailEventController extends GetxController {
       'fragment': const DetailEventInfoFragment(),
     },
     {
-      'route': AppRoutes.daftar,
+      'route': AppRoutes.signup,
       'title': "Pendaftaran",
       'fragment': const DetailEventRegisterFragment(),
     },

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/event.dart';
-import 'package:polaris/core/domain/model/payment_type_model.dart';
+import 'package:polaris/core/domain/model/payment.dart';
 import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
@@ -462,9 +462,10 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                             color: Get.theme.colorScheme.onSurface,
                           ),
                           color: Colors.transparent,
-                          onPressed: () {
-                            Get.back();
-                          },
+                          onPressed: onLeadingPressed ??
+                              () {
+                                Get.back();
+                              },
                         ),
                   const SizedBox(width: 8),
                 ],
@@ -488,10 +489,10 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class PaymentTypeItem extends StatelessWidget {
-  final PaymentTypeModel data;
+  final PaymentType data;
   final bool isSelected;
   final bool isSelectable;
-  final ValueChanged<PaymentTypeModel>? onPaymentSelected;
+  final ValueChanged<PaymentType>? onPaymentSelected;
 
   const PaymentTypeItem({
     super.key,
@@ -562,7 +563,7 @@ class PaymentTypeItem extends StatelessWidget {
                               color: Get.theme.colorScheme.onBackground),
                         ),
                         Text(
-                          data.correspondent,
+                          data.pic,
                           style: Get.textTheme.titleSmall?.copyWith(
                               color: Get.theme.colorScheme.onBackground),
                         ),

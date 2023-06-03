@@ -11,14 +11,17 @@ import 'package:polaris/auth/presentation/pages/register/register_page.dart';
 import 'package:polaris/auth/presentation/pages/verification/verification_page.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_binding.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_page.dart';
-import 'package:polaris/guest/presentation/fragments/detail_event_info_fragment.dart';
-import 'package:polaris/guest/presentation/fragments/detail_event_register_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_info_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_register_fragment.dart';
 import 'package:polaris/guest/presentation/pages/detail/detail_event_binding.dart';
 import 'package:polaris/guest/presentation/pages/detail/detail_event_page.dart';
 import 'package:polaris/guest/presentation/pages/eticket_page.dart';
 import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
 import 'package:polaris/guest/presentation/pages/home/home_page.dart';
-import 'package:polaris/guest/presentation/pages/payment_page.dart';
+import 'package:polaris/guest/presentation/pages/payment/payment_binding.dart';
+import 'package:polaris/guest/presentation/pages/payment/fragments/payment_confirm_fragment.dart';
+import 'package:polaris/guest/presentation/pages/payment/fragments/payment_method_fragment.dart';
+import 'package:polaris/guest/presentation/pages/payment/payment_page.dart';
 import 'package:polaris/guest/presentation/pages/search/search_key_binding.dart';
 import 'package:polaris/guest/presentation/pages/search/search_key_page.dart';
 import 'package:polaris/guest/presentation/pages/search/search_result_binding.dart';
@@ -37,17 +40,20 @@ class AppRoutes {
   static const guest = "/guest";
   static const searchKey = "/search-key";
   static const searchResult = "/search-result";
-
-  static const payment = "/payment";
   static const eTicket = "/e-ticket";
+
+  static const info = "/info";
+  static const signup = "/signup";
+  static const method = "/method";
+  static const confirm = "/confirm";
+
   static const admin = "/admin";
   static const adminEvents = "/admin/events";
   static const adminCreate = "/admin/create";
 
   // General
   static const events = "events";
-  static const info = "/info";
-  static const daftar = "/daftar";
+  static const payment = "payment";
 
   static List<GetPage> pages = [
     GetPage(
@@ -128,9 +134,7 @@ class AppRoutes {
       name: "$guest/$events/:id",
       transition: Transition.rightToLeftWithFade,
       binding: DetailEventBinding(),
-      page: () {
-        return const DetailEventPage();
-      },
+      page: () => const DetailEventPage(),
       children: [
         GetPage(
           name: info,
@@ -138,18 +142,29 @@ class AppRoutes {
           page: () => const DetailEventInfoFragment(),
         ),
         GetPage(
-          name: daftar,
+          name: signup,
           transition: Transition.noTransition,
           page: () => const DetailEventRegisterFragment(),
         ),
       ],
     ),
     GetPage(
-      name: "$payment/:id",
+      name: "$guest/$payment/:id",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const PaymentPage();
-      },
+      binding: PaymentBinding(),
+      page: () => const PaymentPage(),
+      children: [
+        GetPage(
+          name: method,
+          transition: Transition.noTransition,
+          page: () => const PaymentMethodFragment(),
+        ),
+        GetPage(
+          name: confirm,
+          transition: Transition.noTransition,
+          page: () => const PaymentConfirmFragment(),
+        ),
+      ],
     ),
     GetPage(
       name: eTicket,

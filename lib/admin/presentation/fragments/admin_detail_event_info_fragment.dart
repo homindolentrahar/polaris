@@ -65,9 +65,7 @@ class AdminDetailEventInfoFragment extends StatelessWidget {
                   itemCount: 2,
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 8),
-                  itemBuilder: (ctx, index) => PaymentTypeItem(
-                    data: controller.payments[index],
-                  ),
+                  itemBuilder: (ctx, index) => Container(),
                 ),
                 const SizedBox(height: 16),
                 const PrimarySubtitle(

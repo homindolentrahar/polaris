@@ -145,13 +145,7 @@ class PaymentConfirmFragment extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-          Text(
-            "Data Diri",
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
-          ),
+          const PrimarySubtitle(subtitle: "Data Diri", fontSize: 16),
           const SizedBox(height: 16),
           Container(
             width: Get.width,
