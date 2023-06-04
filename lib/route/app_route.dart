@@ -3,11 +3,20 @@ import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_events_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_home_page.dart';
 import 'package:polaris/admin/presentation/pages/create_event_page.dart';
+import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_binding.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_page.dart';
 import 'package:polaris/auth/presentation/pages/landing/landing_page.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_email_binding.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_email_fragment.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_phone_binding.dart';
+import 'package:polaris/auth/presentation/pages/login/fragments/login_phone_fragment.dart';
+import 'package:polaris/auth/presentation/pages/login/login_binding.dart';
 import 'package:polaris/auth/presentation/pages/login/login_page.dart';
+import 'package:polaris/auth/presentation/pages/otp/otp_binding.dart';
 import 'package:polaris/auth/presentation/pages/otp/otp_page.dart';
+import 'package:polaris/auth/presentation/pages/register/register_binding.dart';
 import 'package:polaris/auth/presentation/pages/register/register_page.dart';
+import 'package:polaris/auth/presentation/pages/verification/verification_binding.dart';
 import 'package:polaris/auth/presentation/pages/verification/verification_page.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_binding.dart';
 import 'package:polaris/core/presentation/pages/loader/loader_page.dart';
@@ -37,6 +46,9 @@ class AppRoutes {
   static const forgotPassword = "/forgot-password";
   static const otp = "/otp";
   static const verification = "/verificiation";
+
+  static const email = "/email";
+  static const phone = "/phone";
   // Guest
   static const guest = "/guest";
   static const searchKey = "/search-key";
@@ -68,44 +80,51 @@ class AppRoutes {
     GetPage(
       name: landing,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const LandingPage();
-      },
+      page: () => const LandingPage(),
     ),
     GetPage(
       name: login,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const LoginPage();
-      },
+      binding: LoginBinding(),
+      page: () => const LoginPage(),
+      children: [
+        GetPage(
+          name: email,
+          transition: Transition.noTransition,
+          binding: LoginEmailBinding(),
+          page: () => const LoginEmailFragment(),
+        ),
+        GetPage(
+          name: phone,
+          transition: Transition.noTransition,
+          binding: LoginPhoneBinding(),
+          page: () => const LoginPhoneFragment(),
+        ),
+      ],
     ),
     GetPage(
       name: register,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const RegisterPage();
-      },
+      binding: RegisterBinding(),
+      page: () => const RegisterPage(),
     ),
     GetPage(
       name: forgotPassword,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const ForgotPasswordPage();
-      },
+      binding: ForgotPasswordBinding(),
+      page: () => const ForgotPasswordPage(),
     ),
     GetPage(
       name: otp,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const OtpPage();
-      },
+      binding: OtpBinding(),
+      page: () => const OtpPage(),
     ),
     GetPage(
       name: verification,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const VerificationPage();
-      },
+      binding: VerificationBinding(),
+      page: () => const VerificationPage(),
     ),
     GetPage(
       name: guest,

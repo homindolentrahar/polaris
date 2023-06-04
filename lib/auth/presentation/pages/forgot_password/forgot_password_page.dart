@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_page_controller.dart';
+import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/auth/presentation/widgets/auth_texts.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
@@ -19,8 +19,7 @@ class ForgotPasswordPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: GetBuilder<ForgotPasswordPageController>(
-            init: ForgotPasswordPageController(),
+          child: GetBuilder<ForgotPasswordController>(
             builder: (controller) {
               return Column(
                 mainAxisSize: MainAxisSize.max,

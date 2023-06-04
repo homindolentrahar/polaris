@@ -17,7 +17,6 @@ class LoginEmailFragment extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(bottom: 32),
       child: GetBuilder<LoginEmailController>(
-        init: LoginEmailController(),
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
