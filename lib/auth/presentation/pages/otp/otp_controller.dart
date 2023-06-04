@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/util/constants/app_constants.dart';
 
-class OtpPageController extends GetxController {
+class OtpController extends GetxController {
   final formKey = GlobalKey<FormBuilderState>();
 
   int tick = 0;

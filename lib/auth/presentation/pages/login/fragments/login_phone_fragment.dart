@@ -16,7 +16,6 @@ class LoginPhoneFragment extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(bottom: 32),
       child: GetBuilder<LoginPhoneController>(
-        init: LoginPhoneController(),
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
-class ForgotPasswordPageController extends GetxController {
+class ForgotPasswordController extends GetxController {
   final formKey = GlobalKey<FormBuilderState>();
   int tick = 0;
   bool isResubmit = false;
