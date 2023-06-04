@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "name": "GoPay",
+    "value": "08571122344",
+    "pic": "Johan Wagner"
+  },
+  {
+    "id": "2",
+    "name": "ShopeePay",
+    "value": "08571122344",
+    "pic": "Johan Wagner"
+  },
+  {
+    "id": "3",
+    "name": "Bank BCA",
+    "value": "23242412132103120",
+    "pic": "Kate Bishop"
+  },
+  {
+    "id": "4",
+    "name": "Bank BRI",
+    "value": "001321323442",
+    "pic": "Barry Allen"
+  }
+]

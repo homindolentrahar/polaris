@@ -48,10 +48,8 @@ class AdminDetailEventInfoFragment extends StatelessWidget {
                 const SizedBox(height: 8),
                 EventTicketSelector(
                   currentIndex: controller.ticketTypeIndex,
-                  amount: controller.ticketAmount,
-                  tickets: controller.tickets,
-                  onDecreased: controller.decreaseAmount,
-                  onIncreased: controller.increaseAmount,
+                  initialAmount: controller.ticketAmount,
+                  tickets: const [],
                   onAmountChanged: controller.onAmountChanged,
                   onTabChanged: controller.onTicketTypeChanged,
                 ),
@@ -67,9 +65,7 @@ class AdminDetailEventInfoFragment extends StatelessWidget {
                   itemCount: 2,
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 8),
-                  itemBuilder: (ctx, index) => PaymentTypeItem(
-                    data: controller.payments[index],
-                  ),
+                  itemBuilder: (ctx, index) => Container(),
                 ),
                 const SizedBox(height: 16),
                 const PrimarySubtitle(
