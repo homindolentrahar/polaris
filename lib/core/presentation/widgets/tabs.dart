@@ -194,3 +194,43 @@ class PrimaryStepBar extends StatelessWidget {
     );
   }
 }
+
+class PrimaryCarouselBar extends StatelessWidget {
+  final int activeIndex;
+  final int itemCount;
+
+  const PrimaryCarouselBar({
+    super.key,
+    required this.activeIndex,
+    required this.itemCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        itemCount,
+        (index) => AnimatedContainer(
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          width: index == activeIndex ? 48 : 16,
+          height: 16,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: index == activeIndex
+                ? Border.all(width: 0, color: Colors.transparent)
+                : Border.all(
+                    color: Get.theme.colorScheme.tertiary.withOpacity(0.5),
+                  ),
+            color: index == activeIndex
+                ? Get.theme.primaryColor
+                : Get.theme.colorScheme.background,
+          ),
+        ),
+      ).toList(),
+    );
+  }
+}

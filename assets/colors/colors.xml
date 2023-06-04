@@ -5,6 +5,7 @@
 <color name="gray">#FFA8B2C6</color>
 <color name="light">#FFF6F7F8</color>
 <color name="primary">#FF113CE8</color>
+<color name="primary_alt">#FF7A93F5</color>
 <color name="field_border">#26A8B2C6</color>
 <color name="border">#40A8B2C6</color>
 <color name="error">#FFE81111</color>

@@ -75,7 +75,7 @@ class AdminDetailEventPage extends StatelessWidget {
                         child: DetailEventBanner(
                           title: "Matsuri UII 203",
                           dateTime: DateTime.now(),
-                          ticketsLeft: 5,
+                          ticketTypes: 5,
                         ),
                       ),
                       Positioned(

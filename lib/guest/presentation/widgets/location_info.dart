@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/presentation/widgets/buttons.dart';
 
 class LocationInfo extends StatelessWidget {
-  const LocationInfo({super.key});
+  final ValueChanged<String> onLocationPicked;
+
+  const LocationInfo({super.key, required this.onLocationPicked});
 
   @override
   Widget build(BuildContext context) {
@@ -10,28 +14,13 @@ class LocationInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Material(
-          color: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.circular(8),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(8),
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.outlineVariant,
-                  width: 1,
-                ),
-              ),
-              child: Icon(
-                Iconsax.location5,
-                size: 16,
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-            ),
+        PrimaryIconButton(
+          icon: Icon(
+            Iconsax.location5,
+            size: 16,
+            color: Get.theme.colorScheme.tertiary,
           ),
+          onPressed: () => onLocationPicked(""),
         ),
         const SizedBox(width: 16),
         Column(
@@ -40,18 +29,16 @@ class LocationInfo extends StatelessWidget {
           children: [
             Text(
               "Lokasimu",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+              style: Get.textTheme.bodySmall?.copyWith(
+                color: Get.theme.colorScheme.tertiary,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               "Sleman, Yogyakarta",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: Get.textTheme.headlineSmall?.copyWith(
+                color: Get.theme.colorScheme.onSurface,
+              ),
             ),
           ],
         ),

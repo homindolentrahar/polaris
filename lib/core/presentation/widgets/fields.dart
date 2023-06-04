@@ -13,7 +13,11 @@ import 'package:polaris/core/domain/model/contact_model.dart';
 import 'package:polaris/core/presentation/application/form_password_field_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/gen/assets.gen.dart';
-import 'package:polaris/guest/presentation/applications/detail_event_register_controller.dart';
+
+enum SexType {
+  male,
+  female,
+}
 
 class FormTextField extends StatelessWidget {
   final bool enabled;
@@ -722,9 +726,9 @@ class FormAmountField extends StatelessWidget {
           icon: Icon(
             Iconsax.minus,
             size: 16,
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Get.theme.colorScheme.tertiary,
           ),
-          color: Theme.of(context).colorScheme.onSurface,
+          color: Get.theme.colorScheme.onSurface,
           onPressed: initialAmount <= 0 ? null : onDecreased,
         ),
         const SizedBox(width: 8),
@@ -742,13 +746,13 @@ class FormAmountField extends StatelessWidget {
               onTap: () async {
                 final int? amount = await Get.bottomSheet(
                   Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: Get.width,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 16,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),
@@ -760,12 +764,9 @@ class FormAmountField extends StatelessWidget {
                       children: [
                         Text(
                           "Jumlah Tiket",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Get.textTheme.titleMedium?.copyWith(
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         FormTextField(
@@ -793,9 +794,9 @@ class FormAmountField extends StatelessWidget {
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.colorScheme.background,
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.outlineVariant,
+                    color: Get.theme.colorScheme.outlineVariant,
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -803,12 +804,12 @@ class FormAmountField extends StatelessWidget {
                 child: Text(
                   initialAmount == 0 ? hint : initialAmount.toString(),
                   style: initialAmount == 0
-                      ? Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary,
-                          )
-                      : Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
+                      ? Get.textTheme.bodySmall?.copyWith(
+                          color: Get.theme.colorScheme.tertiary,
+                        )
+                      : Get.textTheme.titleSmall?.copyWith(
+                          color: Get.theme.colorScheme.onSurface,
+                        ),
                 ),
               ),
             );
@@ -819,9 +820,9 @@ class FormAmountField extends StatelessWidget {
           icon: Icon(
             Iconsax.add,
             size: 16,
-            color: Theme.of(context).colorScheme.tertiary,
+            color: Get.theme.colorScheme.tertiary,
           ),
-          color: Theme.of(context).colorScheme.onSurface,
+          color: Get.theme.colorScheme.onSurface,
           onPressed: initialAmount >= maxAmount ? null : onIncreased,
         ),
       ],
@@ -948,30 +949,37 @@ class FormLinkField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
-          decoration: BoxDecoration(
-            color: Get.theme.colorScheme.background,
-            border: Border.all(color: Get.theme.colorScheme.outline),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Iconsax.link_2,
-                color: Get.theme.colorScheme.onSurface,
-                size: 20,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                value,
-                style: Get.textTheme.headlineSmall
-                    ?.copyWith(color: Get.theme.colorScheme.onSurface),
-              )
-            ],
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
+            decoration: BoxDecoration(
+              color: Get.theme.colorScheme.background,
+              border: Border.all(color: Get.theme.colorScheme.outline),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Iconsax.link_2,
+                  color: Get.theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    value,
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         const SizedBox(width: 8),

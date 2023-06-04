@@ -189,8 +189,8 @@ class PrimaryIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: onPressed != null
-          ? color ?? Theme.of(context).colorScheme.background
-          : Theme.of(context).colorScheme.background,
+          ? color ?? Get.theme.colorScheme.background
+          : Get.theme.colorScheme.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
       ),

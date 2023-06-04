@@ -3,37 +3,68 @@ import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_events_page.dart';
 import 'package:polaris/admin/presentation/pages/admin_home_page.dart';
 import 'package:polaris/admin/presentation/pages/create_event_page.dart';
-import 'package:polaris/auth/presentation/pages/forgot_password_page.dart';
-import 'package:polaris/auth/presentation/pages/landing_page.dart';
-import 'package:polaris/auth/presentation/pages/login_page.dart';
-import 'package:polaris/auth/presentation/pages/otp_page.dart';
-import 'package:polaris/auth/presentation/pages/register_page.dart';
-import 'package:polaris/auth/presentation/pages/verification_page.dart';
-import 'package:polaris/guest/presentation/pages/detail_event_page.dart';
-import 'package:polaris/guest/presentation/pages/eticket_page.dart';
-import 'package:polaris/guest/presentation/pages/guest_home_page.dart';
-import 'package:polaris/guest/presentation/pages/payment_page.dart';
-import 'package:polaris/guest/presentation/pages/search_key_page.dart';
-import 'package:polaris/guest/presentation/pages/search_result_page.dart';
+import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_page.dart';
+import 'package:polaris/auth/presentation/pages/landing/landing_page.dart';
+import 'package:polaris/auth/presentation/pages/login/login_page.dart';
+import 'package:polaris/auth/presentation/pages/otp/otp_page.dart';
+import 'package:polaris/auth/presentation/pages/register/register_page.dart';
+import 'package:polaris/auth/presentation/pages/verification/verification_page.dart';
+import 'package:polaris/core/presentation/pages/loader/loader_binding.dart';
+import 'package:polaris/core/presentation/pages/loader/loader_page.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_info_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_register_fragment.dart';
+import 'package:polaris/guest/presentation/pages/detail/detail_event_binding.dart';
+import 'package:polaris/guest/presentation/pages/detail/detail_event_page.dart';
+import 'package:polaris/guest/presentation/pages/eticket/eticket_binding.dart';
+import 'package:polaris/guest/presentation/pages/eticket/eticket_page.dart';
+import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
+import 'package:polaris/guest/presentation/pages/home/home_page.dart';
+import 'package:polaris/guest/presentation/pages/payment/payment_binding.dart';
+import 'package:polaris/guest/presentation/pages/payment/fragments/payment_confirm_fragment.dart';
+import 'package:polaris/guest/presentation/pages/payment/fragments/payment_method_fragment.dart';
+import 'package:polaris/guest/presentation/pages/payment/payment_page.dart';
+import 'package:polaris/guest/presentation/pages/search/search_key_binding.dart';
+import 'package:polaris/guest/presentation/pages/search/search_key_page.dart';
+import 'package:polaris/guest/presentation/pages/search/search_result_binding.dart';
+import 'package:polaris/guest/presentation/pages/search/search_result_page.dart';
 
 class AppRoutes {
-  static const landing = "/";
+  // Auth
+  static const loader = "/";
+  static const landing = "/landing";
   static const login = "/login";
   static const register = "/register";
   static const forgotPassword = "/forgot-password";
   static const otp = "/otp";
   static const verification = "/verificiation";
-  static const guestHome = "/guest";
+  // Guest
+  static const guest = "/guest";
   static const searchKey = "/search-key";
   static const searchResult = "/search-result";
-  static const event = "/events";
-  static const payment = "/payment";
   static const eTicket = "/e-ticket";
+
+  static const info = "/info";
+  static const signup = "/signup";
+  static const method = "/method";
+  static const confirm = "/confirm";
+
   static const admin = "/admin";
   static const adminEvents = "/admin/events";
   static const adminCreate = "/admin/create";
 
+  // General
+  static const events = "events";
+  static const payment = "payment";
+
   static List<GetPage> pages = [
+    GetPage(
+      name: loader,
+      transition: Transition.rightToLeftWithFade,
+      binding: LoaderBinding(),
+      page: () {
+        return const LoaderPage();
+      },
+    ),
     GetPage(
       name: landing,
       transition: Transition.rightToLeftWithFade,
@@ -77,15 +108,17 @@ class AppRoutes {
       },
     ),
     GetPage(
-      name: guestHome,
+      name: guest,
       transition: Transition.rightToLeftWithFade,
+      binding: HomeBinding(),
       page: () {
-        return const GuestHomePage();
+        return const HomePage();
       },
     ),
     GetPage(
       name: searchKey,
       transition: Transition.rightToLeftWithFade,
+      binding: SearchKeyBinding(),
       page: () {
         return const SearchKeyPage();
       },
@@ -93,27 +126,51 @@ class AppRoutes {
     GetPage(
       name: searchResult,
       transition: Transition.rightToLeftWithFade,
+      binding: SearchResultBinding(),
       page: () {
         return const SearchResultPage();
       },
     ),
     GetPage(
-      name: "$event/:id",
+      name: "$guest/$events/:id",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const DetailEventPage();
-      },
+      binding: DetailEventBinding(),
+      page: () => const DetailEventPage(),
+      children: [
+        GetPage(
+          name: info,
+          transition: Transition.noTransition,
+          page: () => const DetailEventInfoFragment(),
+        ),
+        GetPage(
+          name: signup,
+          transition: Transition.noTransition,
+          page: () => const DetailEventRegisterFragment(),
+        ),
+      ],
     ),
     GetPage(
-      name: "$payment/:id",
+      name: "$guest/$payment/:id",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const PaymentPage();
-      },
+      binding: PaymentBinding(),
+      page: () => const PaymentPage(),
+      children: [
+        GetPage(
+          name: method,
+          transition: Transition.noTransition,
+          page: () => const PaymentMethodFragment(),
+        ),
+        GetPage(
+          name: confirm,
+          transition: Transition.noTransition,
+          page: () => const PaymentConfirmFragment(),
+        ),
+      ],
     ),
     GetPage(
       name: eTicket,
       transition: Transition.downToUp,
+      binding: EticketBinding(),
       page: () {
         return const EticketPage();
       },

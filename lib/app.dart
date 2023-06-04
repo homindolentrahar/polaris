@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/ui/app_theme.dart';
+import 'package:polaris/main.dart';
 import 'package:polaris/route/app_route.dart';
 
 class PolarisApp extends StatelessWidget {
@@ -16,13 +15,20 @@ class PolarisApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Polaris",
       getPages: AppRoutes.pages,
-      initialRoute: AppRoutes.landing,
+      initialRoute: AppRoutes.loader,
+      initialBinding: BindingsBuilder(
+        () {
+          injectAppModules();
+        },
+      ),
       navigatorObservers: [
         GetObserver(
           (routing) {
-            log("Get Current route: ${Get.currentRoute}");
+            // LogHelper.instance.info(
+            //   "Routes History: ${Get.routeTree.routes.map((e) => e.name).toList()}",
+            // );
           },
-        ),
+        )
       ],
     );
   }

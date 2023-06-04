@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/application/beranda_controller.dart';
 import 'package:polaris/admin/presentation/widgets/admin_event_item.dart';
 import 'package:polaris/admin/presentation/widgets/beranda_summary.dart';
+import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
+import 'package:polaris/core/util/helper/log_helper.dart';
 import 'package:polaris/route/app_route.dart';
 
 class BerandaFragment extends StatelessWidget {
@@ -42,13 +45,46 @@ class BerandaFragment extends StatelessWidget {
                         ),
                       ],
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(32),
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.cover,
+                    PopupMenuButton(
+                      offset: const Offset(0, 56),
+                      onSelected: (value) {
+                        LogHelper.instance.info(value);
+
+                        if (value == 'logout') {
+                          Get.find<AuthController>().logout();
+                        }
+                      },
+                      itemBuilder: (ctx) => [
+                        PopupMenuItem(
+                          value: "logout",
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Iconsax.logout5,
+                                color: Get.theme.colorScheme.error,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "Logout",
+                                style: Get.textTheme.headlineSmall?.copyWith(
+                                  color: Get.theme.colorScheme.error,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(32),
+                        child: Image.network(
+                          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                          width: 48,
+                          height: 48,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ],

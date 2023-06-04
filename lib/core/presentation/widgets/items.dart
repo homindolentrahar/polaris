@@ -1,11 +1,11 @@
-import 'dart:developer';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/core/domain/model/payment_type_model.dart';
+import 'package:polaris/core/domain/model/event.dart';
+import 'package:polaris/core/domain/model/payment.dart';
 import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
@@ -38,8 +38,8 @@ class ContactOrganizerItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              imageUrl,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
               width: 48,
               height: 48,
               fit: BoxFit.cover,
@@ -84,7 +84,7 @@ class ContactOrganizerItem extends StatelessWidget {
 class DetailEventBanner extends StatelessWidget {
   final String title;
   final DateTime dateTime;
-  final int ticketsLeft;
+  final int ticketTypes;
   final bool isAuthorVisible;
   final String? authorImageUrl;
   final String? authorName;
@@ -93,7 +93,7 @@ class DetailEventBanner extends StatelessWidget {
     super.key,
     required this.title,
     required this.dateTime,
-    required this.ticketsLeft,
+    required this.ticketTypes,
     this.isAuthorVisible = false,
     this.authorImageUrl,
     this.authorName,
@@ -104,14 +104,14 @@ class DetailEventBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Get.theme.colorScheme.surface,
           border: Border.all(
-            color: Theme.of(context).colorScheme.outline,
+            color: Get.theme.colorScheme.outline,
           ),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
+              color: Get.theme.colorScheme.onSurface.withOpacity(0.15),
               blurRadius: 15,
             ),
           ]),
@@ -121,9 +121,9 @@ class DetailEventBanner extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
+            style: Get.textTheme.headlineLarge?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 8),
           Row(
@@ -136,47 +136,69 @@ class DetailEventBanner extends StatelessWidget {
                 children: [
                   Icon(
                     Iconsax.calendar5,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Get.theme.colorScheme.onBackground,
                     size: 16,
                   ),
                   const SizedBox(width: 2),
                   Text(
                     StringHelper.formatDate(dateTime: dateTime),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground),
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onBackground,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
               const SizedBox(width: 4),
               Text(
                 "•",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Get.textTheme.headlineSmall?.copyWith(
+                  color: Get.theme.colorScheme.onBackground,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(width: 4),
-              Text(
-                StringHelper.formatTime(dateTime: dateTime),
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Iconsax.clock5,
+                    color: Get.theme.colorScheme.onBackground,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 2),
+                  Text(
+                    StringHelper.formatTime(dateTime: dateTime),
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onBackground,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Row(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 Assets.icons.icTicket,
                 width: 20,
                 height: 20,
+                color: Get.theme.primaryColor,
               ),
               const SizedBox(width: 4),
               Text(
-                "$ticketsLeft tersisa",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: Theme.of(context).colorScheme.error),
+                "$ticketTypes tipe tiket",
+                style: Get.textTheme.headlineSmall?.copyWith(
+                  color: Get.theme.primaryColor,
+                ),
               ),
             ],
           ),
@@ -188,60 +210,62 @@ class DetailEventBanner extends StatelessWidget {
 
 class EventTicketSelector extends StatelessWidget {
   final int currentIndex;
-  final int amount;
-  final List<TicketTypeModel> tickets;
-  final VoidCallback onDecreased;
-  final VoidCallback onIncreased;
+  final int initialAmount;
+  final List<EventTicket> tickets;
   final ValueChanged<int> onAmountChanged;
   final ValueChanged<int> onTabChanged;
 
   const EventTicketSelector({
     super.key,
     required this.currentIndex,
-    required this.amount,
+    required this.initialAmount,
     required this.tickets,
-    required this.onDecreased,
-    required this.onIncreased,
     required this.onAmountChanged,
     required this.onTabChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    log("Amount: $amount");
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        PrimaryTabBar(
-          isDense: true,
-          currentIndex: currentIndex,
-          titles: tickets.map((e) => e.title).toList(),
-          onTabChanged: onTabChanged,
-        ),
-        const SizedBox(height: 16),
-        IndexedStack(
-          index: currentIndex,
-          children: tickets
-              .map(
-                (e) => _EventTicketItem(
-                  amount: amount,
-                  data: e,
-                  onDecreased: onDecreased,
-                  onIncreased: onIncreased,
-                  onAmountChanged: onAmountChanged,
-                ),
-              )
-              .toList(),
-        ),
-      ],
-    );
+    return tickets.length > 1
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              PrimaryTabBar(
+                isDense: true,
+                currentIndex: currentIndex,
+                titles: tickets.map((e) => e.title).toList(),
+                onTabChanged: onTabChanged,
+              ),
+              const SizedBox(height: 16),
+              IndexedStack(
+                index: currentIndex,
+                children: tickets
+                    .map(
+                      (e) => _EventTicketItem(
+                        amount: initialAmount,
+                        data: e,
+                        onDecreased: () => onAmountChanged(initialAmount - 1),
+                        onIncreased: () => onAmountChanged(initialAmount + 1),
+                        onAmountChanged: onAmountChanged,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
+          )
+        : _EventTicketItem(
+            amount: initialAmount,
+            data: tickets.first,
+            onDecreased: () => onAmountChanged(initialAmount - 1),
+            onIncreased: () => onAmountChanged(initialAmount + 1),
+            onAmountChanged: onAmountChanged,
+          );
   }
 }
 
 class _EventTicketItem extends StatelessWidget {
   final int amount;
-  final TicketTypeModel data;
+  final EventTicket data;
   final VoidCallback onDecreased;
   final VoidCallback onIncreased;
   final ValueChanged<int> onAmountChanged;
@@ -262,7 +286,7 @@ class _EventTicketItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline,
+          color: Get.theme.colorScheme.outline,
           width: 1,
         ),
       ),
@@ -274,11 +298,10 @@ class _EventTicketItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                StringHelper.formatCurrency(data.price),
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge
-                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                StringHelper.formatCurrency(data.price.toDouble()),
+                style: Get.textTheme.headlineLarge?.copyWith(
+                  color: Get.theme.colorScheme.onSurface,
+                ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -290,11 +313,11 @@ class _EventTicketItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    "${data.ticketsLeft} tersisa",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.error,
-                          fontSize: 12,
-                        ),
+                    "${data.amount} tersisa",
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.error,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -310,16 +333,16 @@ class _EventTicketItem extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     Assets.icons.icTick,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Get.theme.colorScheme.onSurface,
                     width: 16,
                     height: 16,
                   ),
                   const SizedBox(width: 8),
                   Text(
                     data.benefits[index],
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
+                    style: Get.textTheme.titleSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
                   ),
                 ],
               ),
@@ -329,7 +352,7 @@ class _EventTicketItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: DashedLines(
               length: double.infinity,
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.25),
+              color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
             ),
           ),
           Row(
@@ -339,16 +362,16 @@ class _EventTicketItem extends StatelessWidget {
                 initialAmount: amount,
                 name: "amount",
                 hint: "Jumlah",
-                maxAmount: data.ticketsLeft,
+                maxAmount: data.amount,
                 onDecreased: onDecreased,
                 onIncreased: onIncreased,
                 onAmountChanged: onAmountChanged,
               ),
               Text(
-                StringHelper.formatCurrency(amount * data.price),
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
+                StringHelper.formatCurrency(amount * data.price.toDouble()),
+                style: Get.textTheme.headlineMedium?.copyWith(
+                  color: Get.theme.colorScheme.onSurface,
+                ),
               ),
             ],
           ),
@@ -414,10 +437,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
+        padding: const EdgeInsets.all(24),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -425,6 +445,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
               visible: showLeading,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   leadingIcon != null
                       ? PrimaryIconButton(
@@ -435,8 +456,16 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                           radius: leadingRadius,
                           padding: leadingPadding,
                         )
-                      : PrimaryBackButton(
-                          onBackAction: onLeadingPressed,
+                      : PrimaryIconButton(
+                          icon: SvgPicture.asset(
+                            Assets.icons.icBack,
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
+                          color: Colors.transparent,
+                          onPressed: onLeadingPressed ??
+                              () {
+                                Get.back();
+                              },
                         ),
                   const SizedBox(width: 8),
                 ],
@@ -456,14 +485,14 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(72);
+  Size get preferredSize => const Size.fromHeight(128);
 }
 
 class PaymentTypeItem extends StatelessWidget {
-  final PaymentTypeModel data;
+  final PaymentType data;
   final bool isSelected;
   final bool isSelectable;
-  final ValueChanged<PaymentTypeModel>? onPaymentSelected;
+  final ValueChanged<PaymentType>? onPaymentSelected;
 
   const PaymentTypeItem({
     super.key,
@@ -534,7 +563,7 @@ class PaymentTypeItem extends StatelessWidget {
                               color: Get.theme.colorScheme.onBackground),
                         ),
                         Text(
-                          data.correspondent,
+                          data.pic,
                           style: Get.textTheme.titleSmall?.copyWith(
                               color: Get.theme.colorScheme.onBackground),
                         ),
