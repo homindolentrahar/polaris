@@ -13,7 +13,7 @@ class AppTheme {
       brightness: Brightness.light,
       primary: ColorName.primary,
       onPrimary: ColorName.white,
-      secondary: ColorName.primary,
+      secondary: ColorName.primaryAlt,
       onSecondary: ColorName.white,
       error: ColorName.error,
       onError: ColorName.white,

@@ -1,21 +1,26 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:polaris/core/domain/model/event.dart';
+import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class PopularEventItem extends StatelessWidget {
-  final String id;
-  final ValueChanged<String> onPressed;
+  final Event data;
+  final ValueChanged<Event> onPressed;
 
   const PopularEventItem({
     super.key,
-    required this.id,
+    required this.data,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPressed(""),
+      onTap: () => onPressed(data),
       child: SizedBox(
         width: 232,
         child: Stack(
@@ -24,12 +29,12 @@ class PopularEventItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Hero(
-                  tag: id,
+                  tag: data.id,
                   child: ShaderMask(
                     shaderCallback: (bounds) => LinearGradient(
                       colors: [
-                        Theme.of(context).colorScheme.onSurface.withOpacity(0),
-                        Theme.of(context).colorScheme.onSurface,
+                        Get.theme.colorScheme.onSurface.withOpacity(0),
+                        Get.theme.colorScheme.onSurface,
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -40,8 +45,8 @@ class PopularEventItem extends StatelessWidget {
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),
                       ),
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+                      child: CachedNetworkImage(
+                        imageUrl: data.imageUrl,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 248,
@@ -51,16 +56,13 @@ class PopularEventItem extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Get.theme.colorScheme.onSurface,
                     border: Border.all(
                       width: 0.0,
                       strokeAlign: 0,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      color: Get.theme.colorScheme.onSurface,
                     ),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(8),
@@ -78,28 +80,24 @@ class PopularEventItem extends StatelessWidget {
                             Assets.icons.icTicket,
                             width: 16,
                             height: 16,
+                            color: Get.theme.colorScheme.secondary,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "5 tiket tersisa",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                  fontSize: 12,
-                                ),
+                            "Tiket tersedia",
+                            style: Get.textTheme.headlineSmall?.copyWith(
+                              color: Get.theme.colorScheme.secondary,
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        "Matsuri UII 2023",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.surface),
+                        data.title,
+                        style: Get.textTheme.headlineMedium?.copyWith(
+                          color: Get.theme.colorScheme.surface,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Row(
@@ -107,33 +105,27 @@ class PopularEventItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "14 Apr 2023",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                            StringHelper.formatDate(dateTime: data.dateTime),
+                            style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             "•",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                            style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            "Sleman, YK",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
+                          Expanded(
+                            child: Text(
+                              data.venue.location,
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.textTheme.titleSmall?.copyWith(
+                                color: Get.theme.colorScheme.tertiary,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -145,19 +137,11 @@ class PopularEventItem extends StatelessWidget {
             Positioned(
               top: 16,
               right: 16,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Text(
-                  "Rp. 25k",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.surface,
-                        fontSize: 12,
-                      ),
+              child: InfoChip(
+                value: StringHelper.formatCompactCurrency(
+                  data.tickets
+                      .firstWhere((element) => element.amount > 0)
+                      .price,
                 ),
               ),
             ),

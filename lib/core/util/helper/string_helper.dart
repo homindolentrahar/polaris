@@ -8,7 +8,7 @@ abstract class StringHelper {
     return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 
-  static String formatCurrency(int amount) {
+  static String formatCurrency(double amount) {
     return NumberFormat.currency(
       locale: 'id_ID',
       symbol: "Rp ",
@@ -16,7 +16,7 @@ abstract class StringHelper {
     ).format(amount);
   }
 
-  static String formatCompactCurrency(int amount) {
+  static String formatCompactCurrency(double amount) {
     return NumberFormat.compactCurrency(
       locale: 'id_ID',
       symbol: "Rp ",

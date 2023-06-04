@@ -9,7 +9,24 @@ import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class MapDirection extends StatelessWidget {
-  const MapDirection({super.key});
+  final String location;
+  final String locationAddress;
+  final String destination;
+  final String destinationAddress;
+  final double length;
+  final double estimatedTime;
+  final VoidCallback onSeeMapPressed;
+
+  const MapDirection({
+    super.key,
+    required this.location,
+    required this.locationAddress,
+    required this.destination,
+    required this.destinationAddress,
+    required this.length,
+    required this.estimatedTime,
+    required this.onSeeMapPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +40,8 @@ class MapDirection extends StatelessWidget {
               ShaderMask(
                 shaderCallback: (rect) => LinearGradient(
                   colors: [
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.50),
+                    Get.theme.colorScheme.onSurface.withOpacity(0.75),
+                    Get.theme.colorScheme.onSurface.withOpacity(0.50),
                   ],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
@@ -51,20 +68,21 @@ class MapDirection extends StatelessWidget {
                 child: PrimaryButton(
                   icon: Icon(
                     Iconsax.map_15,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Get.theme.colorScheme.onSurface,
                     size: 16,
                   ),
                   title: "Lihat Peta",
-                  titleStyle:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontSize: 12,
-                          ),
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  titleStyle: Get.textTheme.headlineSmall?.copyWith(
+                    color: Get.theme.colorScheme.onSurface,
+                    fontSize: 12,
+                  ),
+                  backgroundColor: Get.theme.colorScheme.surface,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   radius: 16,
-                  onPressed: () {},
+                  onPressed: onSeeMapPressed,
                 ),
               ),
             ],
@@ -81,7 +99,7 @@ class MapDirection extends StatelessWidget {
               bottomRight: Radius.circular(8),
             ),
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline,
+              color: Get.theme.colorScheme.outline,
               width: 1,
             ),
           ),
@@ -93,28 +111,32 @@ class MapDirection extends StatelessWidget {
                 children: [
                   Text(
                     "Arahan Lokasi",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface),
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "23km",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        "${length}km",
+                        style: Get.textTheme.titleSmall?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         "•",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        style: Get.textTheme.titleSmall?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "10min",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
+                        "${estimatedTime.toInt()}min",
+                        style: Get.textTheme.titleSmall?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                        ),
                       ),
                     ],
                   ),
@@ -122,9 +144,9 @@ class MapDirection extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: DottedLine(
-                  dashColor: Theme.of(context).colorScheme.outline,
+                  dashColor: Get.theme.colorScheme.outline,
                   dashGapLength: 8,
                   dashLength: 8,
                   lineThickness: 1,
@@ -140,20 +162,20 @@ class MapDirection extends StatelessWidget {
                     children: [
                       Icon(
                         Iconsax.location5,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         size: 20,
                       ),
                       DottedLine(
                         direction: Axis.vertical,
-                        dashColor: Theme.of(context).colorScheme.tertiary,
+                        dashColor: Get.theme.colorScheme.tertiary,
                         dashGapLength: 8,
                         dashLength: 4,
                         lineThickness: 1,
-                        lineLength: 104,
+                        lineLength: 64,
                       ),
                       SvgPicture.asset(
                         Assets.icons.icDirection,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         width: 20,
                         height: 20,
                       ),
@@ -167,71 +189,50 @@ class MapDirection extends StatelessWidget {
                       children: [
                         Text(
                           "Lokasimu",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.tertiary,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "Rumah",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
+                          location,
+                          style: Get.textTheme.headlineSmall?.copyWith(
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
-                              ),
+                          locationAddress,
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.onBackground,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           "Lokasi Event",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.tertiary,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "Jogja Expo Center",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
+                          destination,
+                          style: Get.textTheme.headlineSmall?.copyWith(
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
-                              ),
+                          destinationAddress,
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.onBackground,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
             ],
           ),
         ),
