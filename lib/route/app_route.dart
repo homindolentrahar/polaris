@@ -15,7 +15,8 @@ import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_i
 import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_register_fragment.dart';
 import 'package:polaris/guest/presentation/pages/detail/detail_event_binding.dart';
 import 'package:polaris/guest/presentation/pages/detail/detail_event_page.dart';
-import 'package:polaris/guest/presentation/pages/eticket_page.dart';
+import 'package:polaris/guest/presentation/pages/eticket/eticket_binding.dart';
+import 'package:polaris/guest/presentation/pages/eticket/eticket_page.dart';
 import 'package:polaris/guest/presentation/pages/home/home_binding.dart';
 import 'package:polaris/guest/presentation/pages/home/home_page.dart';
 import 'package:polaris/guest/presentation/pages/payment/payment_binding.dart';
@@ -169,6 +170,7 @@ class AppRoutes {
     GetPage(
       name: eTicket,
       transition: Transition.downToUp,
+      binding: EticketBinding(),
       page: () {
         return const EticketPage();
       },
