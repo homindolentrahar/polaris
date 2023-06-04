@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/pages/register/register_page_controller.dart';
+import 'package:polaris/auth/presentation/pages/register/register_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/auth/presentation/widgets/auth_texts.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
@@ -18,8 +18,7 @@ class RegisterPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: GetBuilder<RegisterPageController>(
-            init: RegisterPageController(),
+          child: GetBuilder<RegisterController>(
             builder: (controller) {
               return Column(
                 mainAxisSize: MainAxisSize.max,

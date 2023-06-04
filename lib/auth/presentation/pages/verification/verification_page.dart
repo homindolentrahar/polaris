@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/pages/verification/verification_page_controller.dart';
+import 'package:polaris/auth/presentation/pages/verification/verification_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/auth/presentation/widgets/auth_texts.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
@@ -15,8 +15,7 @@ class VerificationPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: GetBuilder<VerificationPageController>(
-            init: VerificationPageController(),
+          child: GetBuilder<VerificationController>(
             builder: (controller) {
               return Column(
                 mainAxisSize: MainAxisSize.max,

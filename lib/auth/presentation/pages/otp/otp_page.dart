@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:polaris/auth/presentation/pages/otp/otp_page_controller.dart';
+import 'package:polaris/auth/presentation/pages/otp/otp_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/auth/presentation/widgets/auth_texts.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
@@ -19,8 +19,7 @@ class OtpPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: GetBuilder<OtpPageController>(
-            init: OtpPageController(),
+          child: GetBuilder<OtpController>(
             builder: (controller) {
               return Column(
                 mainAxisSize: MainAxisSize.max,

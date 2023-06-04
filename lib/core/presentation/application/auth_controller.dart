@@ -78,6 +78,7 @@ class AuthController extends GetxController {
 
   Future<void> saveAppMode(AppMode mode) async {
     await storage.write(key: AppConstants.appModeKey, value: mode.name);
+    authState.value = getStateByMode(mode);
   }
 
   Future<void> clearAuthData() async {
