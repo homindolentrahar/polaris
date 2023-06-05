@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/admin/domain/models/analytics_model.dart';
 import 'package:polaris/core/data/repositories/analytics_repository.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
-import 'package:polaris/core/domain/model/analytics.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/domain/model/filter_event_model.dart';
 

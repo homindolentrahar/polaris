@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/core/domain/model/analytics.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/colors.gen.dart';

@@ -1,4 +1,4 @@
-import 'package:polaris/core/domain/model/analytics.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/util/helper/json_helper.dart';
 
 class AnalyticsRepository {

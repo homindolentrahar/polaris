@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/route/app_route.dart';
 
 class AdminDetailEventTransactionsFragment extends StatelessWidget {
   const AdminDetailEventTransactionsFragment({super.key});
@@ -36,15 +34,7 @@ class AdminDetailEventTransactionsFragment extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             itemCount: 10,
             separatorBuilder: (ctx, index) => const SizedBox(height: 16),
-            itemBuilder: (ctx, index) => TransactionsItem(
-              type: TransactionType.income,
-              onPressed: () {
-                Get.toNamed(
-                  "${AppRoutes.adminEvents}/1",
-                  arguments: 2,
-                );
-              },
-            ),
+            itemBuilder: (ctx, index) => Container(),
           ),
         ],
       ),

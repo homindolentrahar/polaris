@@ -3,7 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/domain/models/beranda_summary_model.dart';
 import 'package:polaris/core/data/repositories/analytics_repository.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
-import 'package:polaris/core/domain/model/analytics.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
 
 class HomeController extends GetxController {

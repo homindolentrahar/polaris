@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'analytics.g.dart';
+part 'analytic.g.dart';
 
 @JsonSerializable()
 class Analytic {
@@ -25,7 +25,7 @@ class Analytic {
   });
 
   factory Analytic.fromJson(Map<String, dynamic> json) =>
-      _$AnalyticsFromJson(json);
+      _$AnalyticFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AnalyticsToJson(this);
+  Map<String, dynamic> toJson() => _$AnalyticToJson(this);
 }

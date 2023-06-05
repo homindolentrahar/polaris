@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/core/domain/model/analytics.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';

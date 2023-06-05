@@ -35,7 +35,7 @@ abstract class StringHelper {
     required DateTime dateTime,
     String pattern = "HH:mm",
   }) {
-    return "${DateFormat("HH:mm").format(dateTime)} WIB";
+    return DateFormat("HH:mm").format(dateTime);
   }
 
   static String formatMonth(DateTime dateTime) {
