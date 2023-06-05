@@ -11,7 +11,7 @@ class HomeController extends GetxController {
   final AnalyticsRepository analyticsRepository = AnalyticsRepository();
 
   List<Event> recentEvents = List.empty();
-  List<Analytics> totalAnalytics = List.empty();
+  List<Analytic> totalAnalytics = List.empty();
 
   @override
   void onInit() {

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/application/admin_detail_event_page_controller.dart';
-import 'package:polaris/admin/presentation/widgets/analytics_bar.dart';
-import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/route/app_route.dart';
 
 class AdminDetailEventAnalyticsFragment extends StatelessWidget {
   const AdminDetailEventAnalyticsFragment({super.key});
@@ -21,9 +18,9 @@ class AdminDetailEventAnalyticsFragment extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AnalyticsBar(
-                data: controller.analytics,
-              ),
+              // AnalyticsBar(
+              //   data: controller.analytics,
+              // ),
               const SizedBox(height: 32),
               FormSearchField(
                 name: "search",
@@ -43,14 +40,7 @@ class AdminDetailEventAnalyticsFragment extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 10,
                 separatorBuilder: (ctx, index) => const SizedBox(height: 16),
-                itemBuilder: (ctx, index) => StatsItem(
-                  onPressed: () {
-                    Get.toNamed(
-                      "${AppRoutes.adminEvents}/1",
-                      arguments: 1,
-                    );
-                  },
-                ),
+                itemBuilder: (ctx, index) => Container(),
               )
             ],
           ),

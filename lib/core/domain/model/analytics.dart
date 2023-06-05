@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'analytics.g.dart';
 
 @JsonSerializable()
-class Analytics {
+class Analytic {
   final String id;
   @JsonKey(name: "event_id")
   final String eventId;
@@ -14,7 +14,7 @@ class Analytics {
   final int clicks;
   final double ctr;
 
-  Analytics({
+  Analytic({
     required this.id,
     required this.eventId,
     required this.eventName,
@@ -24,7 +24,7 @@ class Analytics {
     required this.ctr,
   });
 
-  factory Analytics.fromJson(Map<String, dynamic> json) =>
+  factory Analytic.fromJson(Map<String, dynamic> json) =>
       _$AnalyticsFromJson(json);
 
   Map<String, dynamic> toJson() => _$AnalyticsToJson(this);

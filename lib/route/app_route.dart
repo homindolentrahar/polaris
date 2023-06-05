@@ -212,17 +212,17 @@ class AppRoutes {
       children: [
         GetPage(
           name: home,
-          transition: Transition.noTransition,
+          transition: Transition.fadeIn,
           page: () => const HomeFragment(),
         ),
         GetPage(
           name: analytics,
-          transition: Transition.noTransition,
+          transition: Transition.fadeIn,
           page: () => const AnalyticsFragment(),
         ),
         GetPage(
           name: transactions,
-          transition: Transition.noTransition,
+          transition: Transition.fadeIn,
           page: () => const TransactionsFragment(),
         ),
       ],

@@ -38,6 +38,10 @@ abstract class StringHelper {
     return "${DateFormat("HH:mm").format(dateTime)} WIB";
   }
 
+  static String formatMonth(DateTime dateTime) {
+    return DateFormat("MMM").format(dateTime);
+  }
+
   static String obscurePhone(String phone) {
     return phone.replaceRange(3, 9, "*******");
   }
