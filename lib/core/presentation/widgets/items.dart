@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/domain/model/payment.dart';
-import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
@@ -694,7 +693,7 @@ class InfoChip extends StatelessWidget {
 }
 
 class TicketTypeItem extends StatelessWidget {
-  final TicketTypeModel data;
+  final EventTicket? data;
 
   const TicketTypeItem({super.key, required this.data});
 
@@ -729,13 +728,13 @@ class TicketTypeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Reguler",
+                      data?.title ?? "",
                       style: Get.textTheme.headlineMedium
                           ?.copyWith(color: Get.theme.colorScheme.onSurface),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "200 tiket",
+                      "${data?.amount} tiket",
                       style: Get.textTheme.titleSmall
                           ?.copyWith(color: Get.theme.colorScheme.onBackground),
                     ),
@@ -743,7 +742,8 @@ class TicketTypeItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              InfoChip(value: StringHelper.formatCompactCurrency(25000)),
+              InfoChip(
+                  value: StringHelper.formatCompactCurrency(data?.price ?? 0)),
             ],
           ),
           Padding(
@@ -754,7 +754,7 @@ class TicketTypeItem extends StatelessWidget {
             ),
           ),
           ...List.generate(
-            data.benefits.take(3).length,
+            data?.benefits.take(3).length ?? 0,
             (index) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
@@ -768,7 +768,7 @@ class TicketTypeItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    data.benefits[index],
+                    data?.benefits[index] ?? "",
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
@@ -781,9 +781,9 @@ class TicketTypeItem extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Visibility(
-              visible: data.benefits.length > 3,
+              visible: (data?.benefits.length ?? 0) > 3,
               child: PrimaryTextButton(
-                title: "Selengkapnya +${data.benefits.length - 3}",
+                title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
                 onPressed: () {},
               ),
             ),

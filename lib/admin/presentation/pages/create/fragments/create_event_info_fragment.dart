@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/admin/presentation/application/create_event_page_controller.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/maps.dart';
 
@@ -12,7 +12,7 @@ class CreateEventInfoFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: Get.find<CreateEventPageController>(),
+      init: Get.find<CreateEventController>(),
       builder: (controller) {
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

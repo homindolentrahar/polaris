@@ -100,7 +100,7 @@ class PrimaryStepBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(8),
@@ -144,43 +144,45 @@ class PrimaryStepBar extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            (index + 1).toString(),
-                            style: Get.textTheme.headlineSmall?.copyWith(
-                              color: Get.theme.colorScheme.surface,
-                              fontSize: 12,
-                            ),
+                        Visibility(
+                          visible: currentIndex == index,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  (index + 1).toString(),
+                                  style: Get.textTheme.headlineSmall?.copyWith(
+                                    color: Get.theme.colorScheme.surface,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                            ],
                           ),
                         ),
-                        const SizedBox(width: 8),
                         Text(
                           titles[index],
                           style: index == currentIndex
-                              ? Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontSize: isDense ? 12 : 14,
-                                  )
-                              : Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
-                                    fontSize: isDense ? 12 : 14,
-                                  ),
+                              ? Get.textTheme.headlineSmall?.copyWith(
+                                  color: Get.theme.colorScheme.onSurface,
+                                  fontSize: isDense ? 12 : 14,
+                                )
+                              : Get.textTheme.titleMedium?.copyWith(
+                                  color: Get.theme.colorScheme.tertiary,
+                                  fontSize: isDense ? 12 : 14,
+                                ),
                         ),
                       ],
                     ),

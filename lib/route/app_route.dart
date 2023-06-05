@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_binding.dart';
 import 'package:polaris/admin/presentation/pages/detail/main_detail_event_binding.dart';
 import 'package:polaris/admin/presentation/pages/detail/main_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_binding.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_page.dart';
 import 'package:polaris/admin/presentation/pages/main/main_binding.dart';
 import 'package:polaris/admin/presentation/pages/main/main_page.dart';
-import 'package:polaris/admin/presentation/pages/create_event_page.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_page.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_binding.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_page.dart';
 import 'package:polaris/auth/presentation/pages/landing/landing_page.dart';
@@ -213,6 +214,7 @@ class AppRoutes {
     GetPage(
       name: "$admin/$events/$create",
       transition: Transition.downToUp,
+      binding: CreateEventBinding(),
       page: () => const CreateEventPage(),
     ),
     GetPage(
