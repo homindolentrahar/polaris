@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/pages/main/fragments/analytics_controller.dart';
-import 'package:polaris/admin/presentation/application/transactions_controller.dart';
+import 'package:polaris/admin/presentation/pages/main/fragments/transactions_controller.dart';
 import 'package:polaris/admin/presentation/pages/main/main_controller.dart';
 
 import 'fragments/home_controller.dart';

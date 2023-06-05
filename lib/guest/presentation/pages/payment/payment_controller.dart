@@ -20,9 +20,9 @@ class PaymentController extends GetxController {
     },
   ];
 
-  List<PaymentType> types = List.empty();
+  List<PaymentMethod> types = List.empty();
   int stepIndex = 0;
-  PaymentType? selectedPayment;
+  PaymentMethod? selectedPayment;
 
   @override
   void onInit() {
@@ -32,7 +32,7 @@ class PaymentController extends GetxController {
   }
 
   Future<void> getAllPaymentTypes() async {
-    types = await repository.getAllPaymentTypes();
+    types = await repository.getAllPaymentMethods();
     update();
   }
 
@@ -41,7 +41,7 @@ class PaymentController extends GetxController {
     update();
   }
 
-  void onPaymentChanged(PaymentType data) {
+  void onPaymentChanged(PaymentMethod data) {
     selectedPayment = data;
     update();
   }

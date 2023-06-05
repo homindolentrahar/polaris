@@ -72,7 +72,7 @@ class AnalyticsFragment extends StatelessWidget {
                   data: controller.events[index],
                   onPressed: (value) {
                     Get.toNamed(
-                      "${AppRoutes.adminEvents}/1",
+                      "${AppRoutes.admin}/${AppRoutes.events}/${value.id}",
                       arguments: 1,
                     );
                   },

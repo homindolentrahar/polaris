@@ -42,11 +42,13 @@ class EventVenue {
   final String name;
   final String location;
   final String address;
+  final int capacity;
 
   EventVenue({
     required this.name,
     required this.location,
     required this.address,
+    required this.capacity,
   });
 
   factory EventVenue.fromJson(Map<String, dynamic> json) =>

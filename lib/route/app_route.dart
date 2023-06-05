@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_binding.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_binding.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_page.dart';
 import 'package:polaris/admin/presentation/pages/main/main_binding.dart';
@@ -64,8 +65,6 @@ class AppRoutes {
 
   // Admin
   static const admin = "/admin";
-  static const adminEvents = "/admin/events";
-  static const adminCreate = "/admin/create";
 
   static const home = "/home";
   static const analytics = "/analytics";
@@ -197,9 +196,7 @@ class AppRoutes {
       name: eTicket,
       transition: Transition.downToUp,
       binding: EticketBinding(),
-      page: () {
-        return const EticketPage();
-      },
+      page: () => const EticketPage(),
     ),
     GetPage(
       name: admin,
@@ -216,16 +213,13 @@ class AppRoutes {
     GetPage(
       name: "$admin/$events/$create",
       transition: Transition.downToUp,
-      page: () {
-        return const CreateEventPage();
-      },
+      page: () => const CreateEventPage(),
     ),
     GetPage(
-      name: "$adminEvents/:id",
+      name: "$admin/$events/:id",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const AdminDetailEventPage();
-      },
+      binding: MainDetailEventBinding(),
+      page: () => const MainDetailEventPage(),
     ),
   ];
 }

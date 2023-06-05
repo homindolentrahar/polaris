@@ -14,7 +14,7 @@ class PaymentMethodFragment extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemCount: controller.types.length,
           separatorBuilder: (ctx, index) => const SizedBox(height: 16),
-          itemBuilder: (ctx, index) => PaymentTypeItem(
+          itemBuilder: (ctx, index) => PaymentMethodItem(
             isSelectable: true,
             isSelected: controller.selectedPayment == controller.types[index],
             data: controller.types[index],

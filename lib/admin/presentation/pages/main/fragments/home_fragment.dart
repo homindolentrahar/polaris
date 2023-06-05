@@ -133,7 +133,7 @@ class HomeFragment extends StatelessWidget {
                   data: controller.recentEvents[index],
                   onPressed: (value) {
                     Get.toNamed(
-                      "${AppRoutes.adminEvents}/${value.id}",
+                      "${AppRoutes.admin}/${AppRoutes.events}/${value.id}",
                       arguments: 0,
                     );
                   },

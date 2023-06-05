@@ -3,21 +3,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'payment.g.dart';
 
 @JsonSerializable()
-class PaymentType {
+class PaymentMethod {
   final String id;
   final String name;
   final String value;
   final String pic;
 
-  PaymentType({
+  PaymentMethod({
     required this.id,
     required this.name,
     required this.value,
     required this.pic,
   });
 
-  factory PaymentType.fromJson(Map<String, dynamic> json) =>
-      _$PaymentTypeFromJson(json);
+  factory PaymentMethod.fromJson(Map<String, dynamic> json) =>
+      _$PaymentMethodFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PaymentTypeToJson(this);
+  Map<String, dynamic> toJson() => _$PaymentMethodToJson(this);
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
@@ -339,7 +340,9 @@ class MapPicker extends StatelessWidget {
 }
 
 class MapVenueInfo extends StatelessWidget {
-  const MapVenueInfo({super.key});
+  final EventVenue? venue;
+
+  const MapVenueInfo({super.key, required this.venue});
 
   @override
   Widget build(BuildContext context) {
@@ -353,8 +356,8 @@ class MapVenueInfo extends StatelessWidget {
               ShaderMask(
                 shaderCallback: (rect) => LinearGradient(
                   colors: [
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.50),
+                    Get.theme.colorScheme.onSurface.withOpacity(0.75),
+                    Get.theme.colorScheme.onSurface.withOpacity(0.50),
                   ],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
@@ -381,18 +384,19 @@ class MapVenueInfo extends StatelessWidget {
                 child: PrimaryButton(
                   icon: Icon(
                     Iconsax.map_15,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Get.theme.colorScheme.onSurface,
                     size: 16,
                   ),
                   title: "Lihat Peta",
-                  titleStyle:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontSize: 12,
-                          ),
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  titleStyle: Get.textTheme.headlineSmall?.copyWith(
+                    color: Get.theme.colorScheme.onSurface,
+                    fontSize: 12,
+                  ),
+                  backgroundColor: Get.theme.colorScheme.surface,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   radius: 16,
                   onPressed: () {},
                 ),
@@ -439,7 +443,7 @@ class MapVenueInfo extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "500 orang",
+                        "${venue?.capacity} orang",
                         style: Get.textTheme.headlineSmall?.copyWith(
                           color: Get.theme.colorScheme.onBackground,
                           fontSize: 12,
@@ -469,33 +473,23 @@ class MapVenueInfo extends StatelessWidget {
                       children: [
                         Text(
                           "Lokasi Event",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.tertiary,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "Jogja Expo Center",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
+                          venue?.location ?? "",
+                          style: Get.textTheme.headlineSmall?.copyWith(
+                            color: Get.theme.colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
-                              ),
+                          venue?.address ?? "",
+                          style: Get.textTheme.titleSmall?.copyWith(
+                            color: Get.theme.colorScheme.onBackground,
+                          ),
                         ),
                       ],
                     ),

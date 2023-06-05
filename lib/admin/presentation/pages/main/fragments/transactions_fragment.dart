@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/transactions_controller.dart';
+import 'package:polaris/admin/presentation/pages/main/fragments/transactions_controller.dart';
 import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
@@ -66,7 +66,7 @@ class TransactionsFragment extends StatelessWidget {
                     data: controller.transactions[index],
                     onPressed: (value) {
                       Get.toNamed(
-                        "${AppRoutes.adminEvents}/1",
+                        "${AppRoutes.admin}/${AppRoutes.events}/${value.eventId}",
                         arguments: 2,
                       );
                     },

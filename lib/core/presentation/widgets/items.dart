@@ -237,25 +237,18 @@ class EventTicketSelector extends StatelessWidget {
                 onTabChanged: onTabChanged,
               ),
               const SizedBox(height: 16),
-              IndexedStack(
-                index: currentIndex,
-                children: tickets
-                    .map(
-                      (e) => _EventTicketItem(
-                        amount: initialAmount,
-                        data: e,
-                        onDecreased: () => onAmountChanged(initialAmount - 1),
-                        onIncreased: () => onAmountChanged(initialAmount + 1),
-                        onAmountChanged: onAmountChanged,
-                      ),
-                    )
-                    .toList(),
+              _EventTicketItem(
+                amount: initialAmount,
+                data: tickets[currentIndex],
+                onDecreased: () => onAmountChanged(initialAmount - 1),
+                onIncreased: () => onAmountChanged(initialAmount + 1),
+                onAmountChanged: onAmountChanged,
               ),
             ],
           )
         : _EventTicketItem(
             amount: initialAmount,
-            data: tickets.first,
+            data: tickets[currentIndex],
             onDecreased: () => onAmountChanged(initialAmount - 1),
             onIncreased: () => onAmountChanged(initialAmount + 1),
             onAmountChanged: onAmountChanged,
@@ -488,13 +481,13 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(128);
 }
 
-class PaymentTypeItem extends StatelessWidget {
-  final PaymentType data;
+class PaymentMethodItem extends StatelessWidget {
+  final PaymentMethod data;
   final bool isSelected;
   final bool isSelectable;
-  final ValueChanged<PaymentType>? onPaymentSelected;
+  final ValueChanged<PaymentMethod>? onPaymentSelected;
 
-  const PaymentTypeItem({
+  const PaymentMethodItem({
     super.key,
     required this.data,
     this.isSelected = false,
