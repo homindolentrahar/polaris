@@ -6,6 +6,7 @@ class NavigationItemModel {
   final String title;
   final Widget icon;
   final Widget activeIcon;
+  final Widget fragment;
 
   NavigationItemModel({
     required this.index,
@@ -13,5 +14,6 @@ class NavigationItemModel {
     required this.title,
     required this.icon,
     required this.activeIcon,
+    required this.fragment,
   });
 }

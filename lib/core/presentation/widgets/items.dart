@@ -816,18 +816,14 @@ class DateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Get.theme.colorScheme.background,
+      color: Get.theme.colorScheme.primary.withOpacity(0.15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(
-          color: Get.theme.colorScheme.outline,
-          width: 1,
-        ),
       ),
       child: InkWell(
         onTap: () {},
-        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.015),
-        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.15),
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -835,17 +831,18 @@ class DateSelector extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Icon(
+                Iconsax.calendar5,
+                color: Get.theme.colorScheme.primary,
+                size: 16,
+              ),
+              const SizedBox(width: 8),
               Text(
                 title,
                 style: Get.textTheme.headlineSmall?.copyWith(
-                  color: Get.theme.colorScheme.tertiary,
+                  color: Get.theme.colorScheme.primary,
+                  fontSize: 12,
                 ),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                Iconsax.arrow_down_1,
-                color: Get.theme.colorScheme.tertiary,
-                size: 16,
               ),
             ],
           ),

@@ -97,13 +97,18 @@ class HomeFragment extends StatelessWidget {
                 uniqueUrl: "polaris.event/himatep/events",
                 items: controller.getAnalyticsSummary(),
                 onUrlCopied: (value) {
+                  if (Get.isSnackbarOpen) {
+                    Get.closeAllSnackbars();
+                  }
                   Get.snackbar(
-                    "",
-                    "URL berhasil disalin",
+                    "URL Disalin",
+                    value,
                     backgroundColor: Get.theme.colorScheme.onSurface,
                     borderRadius: 8,
                     snackStyle: SnackStyle.GROUNDED,
                     snackPosition: SnackPosition.BOTTOM,
+                    colorText: Get.theme.colorScheme.surface,
+                    margin: EdgeInsets.zero,
                   );
                 },
               ),

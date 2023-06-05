@@ -1,7 +1,4 @@
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/pages/main/fragments/analytics_fragment.dart';
-import 'package:polaris/admin/presentation/pages/main/fragments/home_fragment.dart';
-import 'package:polaris/admin/presentation/pages/main/fragments/transactions_fragment.dart';
 import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_binding.dart';
 import 'package:polaris/admin/presentation/pages/main/main_events_page.dart';
@@ -209,23 +206,6 @@ class AppRoutes {
       transition: Transition.rightToLeftWithFade,
       binding: MainBinding(),
       page: () => const MainPage(),
-      children: [
-        GetPage(
-          name: home,
-          transition: Transition.fadeIn,
-          page: () => const HomeFragment(),
-        ),
-        GetPage(
-          name: analytics,
-          transition: Transition.fadeIn,
-          page: () => const AnalyticsFragment(),
-        ),
-        GetPage(
-          name: transactions,
-          transition: Transition.fadeIn,
-          page: () => const TransactionsFragment(),
-        ),
-      ],
     ),
     GetPage(
       name: "$admin/$events",

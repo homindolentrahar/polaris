@@ -54,9 +54,6 @@ class MainPage extends StatelessWidget {
                 },
                 onTap: (index) {
                   controller.onNavChanged(index);
-                  delegate.toNamed(
-                    AppRoutes.admin + controller.navItems[index].route,
-                  );
                 },
               ),
               floatingActionButton: FloatingActionButton(
@@ -76,10 +73,12 @@ class MainPage extends StatelessWidget {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endDocked,
               body: SafeArea(
-                child: GetRouterOutlet(
-                  delegate: delegate,
-                  anchorRoute: AppRoutes.admin,
-                  initialRoute: AppRoutes.admin + AppRoutes.home,
+                child: PageView.builder(
+                  controller: controller.pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.navItems.length,
+                  itemBuilder: (ctx, index) =>
+                      controller.navItems[index].fragment,
                 ),
               ),
             );
