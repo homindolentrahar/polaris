@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/admin_search_page_controller.dart';
-import 'package:polaris/admin/presentation/widgets/admin_event_item.dart';
+import 'package:polaris/admin/presentation/pages/main/main_events_controller.dart';
+import 'package:polaris/admin/presentation/widgets/main_event_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/route/app_route.dart';
 
-class AdminEventsPage extends StatelessWidget {
-  const AdminEventsPage({super.key});
+class MainEventsPage extends StatelessWidget {
+  const MainEventsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,9 @@ class AdminEventsPage extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 24,
             right: 24,
-            bottom: 16,
+            bottom: 24,
           ),
-          child: GetBuilder(
-            init: AdminSearchPageController(),
+          child: GetBuilder<MainEventsController>(
             builder: (controller) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,45 +37,31 @@ class AdminEventsPage extends StatelessWidget {
                     onFilterSelected: (filter) {},
                   ),
                   const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Hasil Pencarian",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                  PrimarySubtitle(
+                    subtitle: "Hasil pencarian",
+                    trailing: Text(
+                      "${controller.events.length} event",
+                      style: Get.textTheme.headlineSmall?.copyWith(
+                        color: Get.theme.colorScheme.onSurface,
                       ),
-                      Text(
-                        "34 event",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                      ),
-                    ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
                     child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 8,
-                      itemBuilder: (ctx, index) => AdminEventItem(
-                        onPressed: () {
+                      itemCount: controller.events.length,
+                      separatorBuilder: (ctx, index) =>
+                          const SizedBox(height: 16),
+                      itemBuilder: (ctx, index) => MainEventItem(
+                        data: controller.events[index],
+                        onPressed: (value) {
                           Get.toNamed(
-                            "${AppRoutes.adminEvents}/1",
+                            "${AppRoutes.admin}/${AppRoutes.events}/${value.id}",
                             arguments: 0,
                           );
                         },
                       ),
-                      separatorBuilder: (ctx, index) =>
-                          const SizedBox(height: 16),
                     ),
                   ),
                 ],

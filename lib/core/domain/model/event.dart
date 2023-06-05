@@ -16,6 +16,7 @@ class Event {
   final List<EventContact> contacts;
   final EventContact author;
   final List<EventTicket> tickets;
+  final EventAnalytics analytics;
 
   Event({
     required this.id,
@@ -28,6 +29,7 @@ class Event {
     required this.contacts,
     required this.author,
     required this.tickets,
+    required this.analytics,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
@@ -115,4 +117,22 @@ class EventTicket {
       _$EventTicketFromJson(json);
 
   Map<String, dynamic> toJson() => _$EventTicketToJson(this);
+}
+
+@JsonSerializable()
+class EventAnalytics {
+  final int clicks;
+  final int views;
+  final double ctr;
+
+  EventAnalytics({
+    required this.clicks,
+    required this.views,
+    required this.ctr,
+  });
+
+  factory EventAnalytics.fromJson(Map<String, dynamic> json) =>
+      _$EventAnalyticsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EventAnalyticsToJson(this);
 }

@@ -1,15 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
-class AdminEventItem extends StatelessWidget {
-  final VoidCallback onPressed;
+class MainEventItem extends StatelessWidget {
+  final Event data;
+  final ValueChanged<Event> onPressed;
 
-  const AdminEventItem({
+  const MainEventItem({
     super.key,
+    required this.data,
     required this.onPressed,
   });
 
@@ -19,15 +23,13 @@ class AdminEventItem extends StatelessWidget {
       color: Get.theme.colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(
-          color: Get.theme.colorScheme.outline,
-        ),
+        side: BorderSide(color: Get.theme.colorScheme.outline),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
         highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.1),
-        onTap: onPressed,
+        onTap: () => onPressed(data),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
@@ -35,8 +37,8 @@ class AdminEventItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+                child: CachedNetworkImage(
+                  imageUrl: data.imageUrl,
                   width: 56,
                   height: 56,
                   fit: BoxFit.cover,
@@ -55,23 +57,21 @@ class AdminEventItem extends StatelessWidget {
                           Assets.icons.icTicket,
                           width: 16,
                           height: 16,
+                          color: Get.theme.colorScheme.secondary,
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          "5 tiket tersisa",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.error,
-                                fontSize: 12,
-                              ),
+                          "${data.tickets.length} tipe tiket",
+                          style: Get.textTheme.headlineSmall?.copyWith(
+                            color: Get.theme.colorScheme.secondary,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "Matsuri Jogja 2023",
+                      data.title,
                       style: Get.textTheme.headlineSmall?.copyWith(
                         color: Get.theme.colorScheme.onSurface,
                       ),
@@ -87,32 +87,24 @@ class AdminEventItem extends StatelessWidget {
                           children: [
                             Icon(
                               Iconsax.calendar5,
-                              color: Theme.of(context).colorScheme.onBackground,
+                              color: Get.theme.colorScheme.onBackground,
                               size: 16,
                             ),
                             const SizedBox(width: 2),
                             Text(
-                              StringHelper.formatDate(dateTime: DateTime.now()),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onBackground),
+                              StringHelper.formatDate(dateTime: data.dateTime),
+                              style: Get.textTheme.titleMedium?.copyWith(
+                                color: Get.theme.colorScheme.onBackground,
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(width: 4),
                         Text(
                           "•",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground),
+                          style: Get.textTheme.titleMedium?.copyWith(
+                            color: Get.theme.colorScheme.onBackground,
+                          ),
                         ),
                         const SizedBox(width: 4),
                         Expanded(
@@ -122,23 +114,18 @@ class AdminEventItem extends StatelessWidget {
                             children: [
                               Icon(
                                 Iconsax.location5,
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Get.theme.colorScheme.onBackground,
                                 size: 16,
                               ),
                               const SizedBox(width: 2),
                               Expanded(
                                 child: Text(
-                                  "Sleman, Yogyakarta",
+                                  data.venue.location,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground),
+                                  style: Get.textTheme.titleMedium?.copyWith(
+                                    color: Get.theme.colorScheme.onBackground,
+                                  ),
                                 ),
                               ),
                             ],
@@ -162,7 +149,7 @@ class AdminEventItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "220",
+                              data.analytics.views.toString(),
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,
@@ -181,7 +168,7 @@ class AdminEventItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "456",
+                              data.analytics.clicks.toString(),
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,
@@ -200,7 +187,7 @@ class AdminEventItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "25%",
+                              "${data.analytics.ctr}%",
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,

@@ -6,11 +6,15 @@ import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/list_helper.dart';
 
 class BerandaSummary extends StatelessWidget {
-  final List<BerandaSummaryModel> items;
+  final String uniqueUrl;
+  final List<HomeAnalyticsSummary> items;
+  final ValueChanged<String> onUrlCopied;
 
   const BerandaSummary({
     super.key,
+    required this.uniqueUrl,
     required this.items,
+    required this.onUrlCopied,
   });
 
   @override
@@ -27,7 +31,7 @@ class BerandaSummary extends StatelessWidget {
           Wrap(
             runSpacing: 16,
             children:
-                ListHelper.getGrouppedList<BerandaSummaryModel>(list: items)
+                ListHelper.getGrouppedList<HomeAnalyticsSummary>(list: items)
                     .map(
                       (list) => Row(
                         mainAxisSize: MainAxisSize.max,
@@ -45,8 +49,10 @@ class BerandaSummary extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           FormLinkField(
-            value: "polaris.event/himatep/events",
-            onLinkCopied: (value) {},
+            value: uniqueUrl,
+            onLinkCopied: (value) {
+              onUrlCopied(value);
+            },
           ),
         ],
       ),
@@ -55,7 +61,7 @@ class BerandaSummary extends StatelessWidget {
 }
 
 class _BerandaSummaryItem extends StatelessWidget {
-  final BerandaSummaryModel data;
+  final HomeAnalyticsSummary data;
 
   const _BerandaSummaryItem({
     required this.data,
@@ -81,8 +87,9 @@ class _BerandaSummaryItem extends StatelessWidget {
           children: [
             Text(
               data.value,
-              style: Get.textTheme.headlineLarge
-                  ?.copyWith(color: Get.theme.colorScheme.onSurface),
+              style: Get.textTheme.headlineLarge?.copyWith(
+                color: Get.theme.colorScheme.onSurface,
+              ),
             ),
             const SizedBox(height: 4),
             Text(

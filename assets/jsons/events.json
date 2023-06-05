@@ -60,7 +60,12 @@
           "Totebag"
         ]
       }
-    ]
+    ],
+    "analytics": {
+      "clicks": 256,
+      "views": 512,
+      "ctr": 56.0
+    }
   },
   {
     "id": "2",
@@ -115,6 +120,11 @@
           "Sertifikat"
         ]
       }
-    ]
+    ],
+    "analytics": {
+      "clicks": 256,
+      "views": 512,
+      "ctr": 56.0
+    }
   }
 ]
