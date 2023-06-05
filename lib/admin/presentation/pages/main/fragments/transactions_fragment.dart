@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/transactions_controller.dart';
+import 'package:polaris/admin/presentation/pages/main/fragments/transactions_controller.dart';
 import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
@@ -12,12 +12,10 @@ class TransactionsFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: TransactionsController(),
+    return GetBuilder<TransactionsController>(
       builder: (controller) {
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        return Padding(
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,27 +47,26 @@ class TransactionsFragment extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               PrimarySubtitle(
-                subtitle: "Hasil Terkini",
+                subtitle: "Hasil",
                 trailing: Text(
-                  "34 event",
+                  "${controller.transactions.length} transaksi",
                   style: Get.textTheme.headlineSmall?.copyWith(
                     color: Get.theme.colorScheme.onSurface,
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                height: 480,
+              Expanded(
                 child: ListView.separated(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
+                  itemCount: controller.transactions.length,
                   separatorBuilder: (ctx, index) => const SizedBox(height: 16),
                   itemBuilder: (ctx, index) => TransactionsItem(
-                    type: TransactionType.income,
-                    onPressed: () {
+                    data: controller.transactions[index],
+                    onPressed: (value) {
                       Get.toNamed(
-                        "${AppRoutes.adminEvents}/1",
+                        "${AppRoutes.admin}/${AppRoutes.events}/${value.eventId}",
                         arguments: 2,
                       );
                     },

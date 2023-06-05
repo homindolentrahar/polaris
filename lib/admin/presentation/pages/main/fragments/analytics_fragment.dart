@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/analytics_controller.dart';
+import 'package:polaris/admin/presentation/pages/main/fragments/analytics_controller.dart';
 import 'package:polaris/admin/presentation/widgets/analytics_bar.dart';
 import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
@@ -13,8 +13,7 @@ class AnalyticsFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: AnalyticsController(),
+    return GetBuilder<AnalyticsController>(
       builder: (controller) {
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -27,18 +26,18 @@ class AnalyticsFragment extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Analytics",
+                    "Analitik",
                     style: Get.textTheme.headlineMedium
                         ?.copyWith(color: Get.theme.colorScheme.onSurface),
                   ),
                   DateSelector(
-                    title: "Bulan Ini",
+                    title: "Tahun Ini",
                     onDateSelected: (value) {},
                   ),
                 ],
               ),
               const SizedBox(height: 32),
-              AnalyticsBar(data: controller.analytics),
+              AnalyticsBar(data: controller.totalAnalytics),
               const SizedBox(height: 32),
               FormSearchField(
                 name: "search",
@@ -54,28 +53,29 @@ class AnalyticsFragment extends StatelessWidget {
               PrimarySubtitle(
                 subtitle: "Hasil Terkini",
                 trailing: Text(
-                  "34 event",
+                  "${controller.events.length} event",
                   style: Get.textTheme.headlineSmall?.copyWith(
                     color: Get.theme.colorScheme.onSurface,
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                height: 480,
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  separatorBuilder: (ctx, index) => const SizedBox(height: 16),
-                  itemBuilder: (ctx, index) => StatsItem(
-                    onPressed: () {
-                      Get.toNamed(
-                        "${AppRoutes.adminEvents}/1",
-                        arguments: 1,
-                      );
-                    },
+              ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.events.length,
+                separatorBuilder: (ctx, index) => const SizedBox(height: 16),
+                itemBuilder: (ctx, index) => StatsItem(
+                  analytic: controller.monthlyAnalytics.firstWhere(
+                    (element) => element.eventId == controller.events[index].id,
                   ),
+                  data: controller.events[index],
+                  onPressed: (value) {
+                    Get.toNamed(
+                      "${AppRoutes.admin}/${AppRoutes.events}/${value.id}",
+                      arguments: 1,
+                    );
+                  },
                 ),
               ),
             ],

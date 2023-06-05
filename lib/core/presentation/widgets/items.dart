@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/domain/model/payment.dart';
-import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
@@ -237,25 +236,18 @@ class EventTicketSelector extends StatelessWidget {
                 onTabChanged: onTabChanged,
               ),
               const SizedBox(height: 16),
-              IndexedStack(
-                index: currentIndex,
-                children: tickets
-                    .map(
-                      (e) => _EventTicketItem(
-                        amount: initialAmount,
-                        data: e,
-                        onDecreased: () => onAmountChanged(initialAmount - 1),
-                        onIncreased: () => onAmountChanged(initialAmount + 1),
-                        onAmountChanged: onAmountChanged,
-                      ),
-                    )
-                    .toList(),
+              _EventTicketItem(
+                amount: initialAmount,
+                data: tickets[currentIndex],
+                onDecreased: () => onAmountChanged(initialAmount - 1),
+                onIncreased: () => onAmountChanged(initialAmount + 1),
+                onAmountChanged: onAmountChanged,
               ),
             ],
           )
         : _EventTicketItem(
             amount: initialAmount,
-            data: tickets.first,
+            data: tickets[currentIndex],
             onDecreased: () => onAmountChanged(initialAmount - 1),
             onIncreased: () => onAmountChanged(initialAmount + 1),
             onAmountChanged: onAmountChanged,
@@ -488,13 +480,13 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(128);
 }
 
-class PaymentTypeItem extends StatelessWidget {
-  final PaymentType data;
+class PaymentMethodItem extends StatelessWidget {
+  final PaymentMethod data;
   final bool isSelected;
   final bool isSelectable;
-  final ValueChanged<PaymentType>? onPaymentSelected;
+  final ValueChanged<PaymentMethod>? onPaymentSelected;
 
-  const PaymentTypeItem({
+  const PaymentMethodItem({
     super.key,
     required this.data,
     this.isSelected = false,
@@ -701,7 +693,7 @@ class InfoChip extends StatelessWidget {
 }
 
 class TicketTypeItem extends StatelessWidget {
-  final TicketTypeModel data;
+  final EventTicket? data;
 
   const TicketTypeItem({super.key, required this.data});
 
@@ -736,13 +728,13 @@ class TicketTypeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Reguler",
+                      data?.title ?? "",
                       style: Get.textTheme.headlineMedium
                           ?.copyWith(color: Get.theme.colorScheme.onSurface),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "200 tiket",
+                      "${data?.amount} tiket",
                       style: Get.textTheme.titleSmall
                           ?.copyWith(color: Get.theme.colorScheme.onBackground),
                     ),
@@ -750,7 +742,8 @@ class TicketTypeItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              InfoChip(value: StringHelper.formatCompactCurrency(25000)),
+              InfoChip(
+                  value: StringHelper.formatCompactCurrency(data?.price ?? 0)),
             ],
           ),
           Padding(
@@ -761,7 +754,7 @@ class TicketTypeItem extends StatelessWidget {
             ),
           ),
           ...List.generate(
-            data.benefits.take(3).length,
+            data?.benefits.take(3).length ?? 0,
             (index) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
@@ -775,7 +768,7 @@ class TicketTypeItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    data.benefits[index],
+                    data?.benefits[index] ?? "",
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
@@ -788,9 +781,9 @@ class TicketTypeItem extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Visibility(
-              visible: data.benefits.length > 3,
+              visible: (data?.benefits.length ?? 0) > 3,
               child: PrimaryTextButton(
-                title: "Selengkapnya +${data.benefits.length - 3}",
+                title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
                 onPressed: () {},
               ),
             ),
@@ -816,18 +809,14 @@ class DateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Get.theme.colorScheme.background,
+      color: Get.theme.colorScheme.primary.withOpacity(0.15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(
-          color: Get.theme.colorScheme.outline,
-          width: 1,
-        ),
       ),
       child: InkWell(
         onTap: () {},
-        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.015),
-        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.15),
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -835,17 +824,18 @@ class DateSelector extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Icon(
+                Iconsax.calendar5,
+                color: Get.theme.colorScheme.primary,
+                size: 16,
+              ),
+              const SizedBox(width: 8),
               Text(
                 title,
                 style: Get.textTheme.headlineSmall?.copyWith(
-                  color: Get.theme.colorScheme.tertiary,
+                  color: Get.theme.colorScheme.primary,
+                  fontSize: 12,
                 ),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                Iconsax.arrow_down_1,
-                color: Get.theme.colorScheme.tertiary,
-                size: 16,
               ),
             ],
           ),

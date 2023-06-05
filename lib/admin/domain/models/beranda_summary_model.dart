@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BerandaSummaryModel {
+class HomeAnalyticsSummary {
   final IconData icon;
   final String title;
   final String value;
 
-  BerandaSummaryModel({
+  HomeAnalyticsSummary({
     required this.icon,
     required this.title,
     required this.value,

@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/transaction.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 import 'package:polaris/gen/colors.gen.dart';
 
-enum TransactionType { income, expense }
-
 class TransactionsItem extends StatelessWidget {
-  final TransactionType type;
-  final VoidCallback onPressed;
+  final Transaction data;
+  final ValueChanged<Transaction> onPressed;
 
   const TransactionsItem({
     super.key,
-    required this.type,
+    required this.data,
     required this.onPressed,
   });
 
@@ -27,7 +26,7 @@ class TransactionsItem extends StatelessWidget {
         side: BorderSide(color: Get.theme.colorScheme.outline),
       ),
       child: InkWell(
-        onTap: onPressed,
+        onTap: () => onPressed(data),
         borderRadius: BorderRadius.circular(8),
         splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.015),
         highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.025),
@@ -58,7 +57,7 @@ class TransactionsItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "INV-1332132344",
+                          data.invoiceCode,
                           style: Get.textTheme.headlineSmall?.copyWith(
                             color: Get.theme.colorScheme.onSurface,
                           ),
@@ -74,34 +73,25 @@ class TransactionsItem extends StatelessWidget {
                               children: [
                                 Icon(
                                   Iconsax.calendar5,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                  size: 16,
+                                  color: Get.theme.colorScheme.onBackground,
+                                  size: 12,
                                 ),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 2),
                                 Text(
                                   StringHelper.formatDate(
-                                      dateTime: DateTime.now()),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground),
+                                    dateTime: data.dateTime,
+                                  ),
+                                  style: Get.textTheme.titleSmall?.copyWith(
+                                    color: Get.theme.colorScheme.onBackground,
+                                  ),
                                 ),
                               ],
                             ),
                             Text(
                               "•",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onBackground),
+                              style: Get.textTheme.titleSmall?.copyWith(
+                                color: Get.theme.colorScheme.onBackground,
+                              ),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.min,
@@ -109,25 +99,19 @@ class TransactionsItem extends StatelessWidget {
                               children: [
                                 Icon(
                                   Iconsax.clock5,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                  size: 16,
+                                  color: Get.theme.colorScheme.onBackground,
+                                  size: 12,
                                 ),
                                 const SizedBox(width: 2),
                                 Text(
                                   StringHelper.formatTime(
-                                    dateTime: DateTime.now(),
+                                    dateTime: data.dateTime,
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground),
+                                  style: Get.textTheme.titleSmall?.copyWith(
+                                    color: Get.theme.colorScheme.onBackground,
+                                  ),
                                 ),
                               ],
                             ),
@@ -135,7 +119,7 @@ class TransactionsItem extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "GoPay",
+                          data.paymentName,
                           style: Get.textTheme.headlineSmall?.copyWith(
                             color: Get.theme.primaryColor,
                             fontSize: 12,
@@ -146,13 +130,9 @@ class TransactionsItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   InfoChip(
-                    value: StringHelper.formatCompactCurrency(25000),
-                    valueColor: type == TransactionType.expense
-                        ? ColorName.error
-                        : ColorName.success,
-                    color: (type == TransactionType.expense
-                            ? ColorName.error
-                            : ColorName.success)
+                    value: StringHelper.formatCompactCurrency(data.price),
+                    valueColor: data.paid ? ColorName.success : ColorName.error,
+                    color: (data.paid ? ColorName.success : ColorName.error)
                         .withOpacity(0.25),
                   ),
                 ],
@@ -173,18 +153,15 @@ class TransactionsItem extends StatelessWidget {
                     children: [
                       Icon(
                         Iconsax.calendar_15,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "Matsuri UII 2023",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
+                        data.eventName,
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                        ),
                       ),
                     ],
                   ),
@@ -194,19 +171,16 @@ class TransactionsItem extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         Assets.icons.icUser,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Get.theme.colorScheme.onBackground,
                         width: 16,
                         height: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "Jorgen Faunder",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
+                        data.user,
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                        ),
                       ),
                     ],
                   )

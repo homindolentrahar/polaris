@@ -1,0 +1,54 @@
+[
+  {
+    "id": "1",
+    "invoice_code": "INV-123123122141",
+    "date_time": "2023-06-02T17:41:42.918",
+    "payment_id": "1",
+    "payment_name": "GoPay",
+    "price": 45000,
+    "event_id": "1",
+    "event_name": "Matsuri UII 2023",
+    "user_id": "1",
+    "user": "Jorgen Kraus",
+    "paid": false
+  },
+  {
+    "id": "2",
+    "invoice_code": "INV-123123122431",
+    "date_time": "2023-06-02T17:41:42.918",
+    "payment_id": "2",
+    "payment_name": "ShopeePay",
+    "price": 65000,
+    "event_id": "1",
+    "event_name": "Matsuri UII 2023",
+    "user_id": "1",
+    "user": "Jorgen Kraus",
+    "paid": true
+  },
+  {
+    "id": "3",
+    "invoice_code": "INV-123123122454",
+    "date_time": "2023-06-02T17:41:42.918",
+    "payment_id": "1",
+    "payment_name": "GoPay",
+    "price": 125000,
+    "event_id": "1",
+    "event_name": "Matsuri UII 2023",
+    "user_id": "1",
+    "user": "Jorgen Kraus",
+    "paid": true
+  },
+  {
+    "id": "4",
+    "invoice_code": "INV-123123122454",
+    "date_time": "2023-06-02T17:41:42.918",
+    "payment_id": "2",
+    "payment_name": "ShopeePay",
+    "price": 125000,
+    "event_id": "1",
+    "event_name": "Matsuri UII 2023",
+    "user_id": "1",
+    "user": "Jorgen Kraus",
+    "paid": false
+  }
+]

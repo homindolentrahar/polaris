@@ -1,21 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/admin/presentation/application/admin_detail_event_page_controller.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/route/app_route.dart';
 
-class AdminDetailEventPage extends StatelessWidget {
-  const AdminDetailEventPage({super.key});
+class MainDetailEventPage extends StatelessWidget {
+  const MainDetailEventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: Get.put(
-        AdminDetailEventPageController(Get.arguments as int),
-      ),
+    return GetBuilder<MainDetailEventController>(
       builder: (controller) {
         return Scaffold(
           bottomNavigationBar: Padding(
@@ -30,11 +28,7 @@ class AdminDetailEventPage extends StatelessWidget {
                 size: 16,
               ),
               title: "Generate URL",
-              onPressed: () {
-                Get.toNamed(
-                  "${AppRoutes.payment}/${Get.parameters['id']}",
-                );
-              },
+              onPressed: () {},
             ),
           ),
           body: SafeArea(
@@ -51,18 +45,16 @@ class AdminDetailEventPage extends StatelessWidget {
                         child: ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
                             colors: [
-                              Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.35),
-                              Theme.of(context).colorScheme.onSurface,
+                              Get.theme.colorScheme.onSurface.withOpacity(0.35),
+                              Get.theme.colorScheme.onSurface,
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ).createShader(bounds),
                           blendMode: BlendMode.srcATop,
-                          child: Image.network(
-                            "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+                          child: CachedNetworkImage(
+                            imageUrl: controller.event?.imageUrl ??
+                                "https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
@@ -73,9 +65,10 @@ class AdminDetailEventPage extends StatelessWidget {
                         right: 16,
                         bottom: -48,
                         child: DetailEventBanner(
-                          title: "Matsuri UII 203",
-                          dateTime: DateTime.now(),
-                          ticketTypes: 5,
+                          title: controller.event?.title ?? "",
+                          dateTime:
+                              controller.event?.dateTime ?? DateTime.now(),
+                          ticketTypes: controller.event?.tickets.length ?? 0,
                         ),
                       ),
                       Positioned(
@@ -100,7 +93,11 @@ class AdminDetailEventPage extends StatelessWidget {
                               ),
                               spacing: 8,
                               backgroundColor: Get.theme.colorScheme.surface,
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(
+                                  "${AppRoutes.admin}/${AppRoutes.events}/${AppRoutes.create}",
+                                );
+                              },
                             ),
                           ],
                         ),

@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/pages/admin_detail_event_page.dart';
-import 'package:polaris/admin/presentation/pages/admin_events_page.dart';
-import 'package:polaris/admin/presentation/pages/admin_home_page.dart';
-import 'package:polaris/admin/presentation/pages/create_event_page.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_binding.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_binding.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_page.dart';
+import 'package:polaris/admin/presentation/pages/main/main_events_binding.dart';
+import 'package:polaris/admin/presentation/pages/main/main_events_page.dart';
+import 'package:polaris/admin/presentation/pages/main/main_binding.dart';
+import 'package:polaris/admin/presentation/pages/main/main_page.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_page.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_binding.dart';
 import 'package:polaris/auth/presentation/pages/forgot_password/forgot_password_page.dart';
 import 'package:polaris/auth/presentation/pages/landing/landing_page.dart';
@@ -60,13 +64,16 @@ class AppRoutes {
   static const method = "/method";
   static const confirm = "/confirm";
 
+  // Admin
   static const admin = "/admin";
-  static const adminEvents = "/admin/events";
-  static const adminCreate = "/admin/create";
 
+  static const home = "/home";
+  static const analytics = "/analytics";
+  static const transactions = "/transactions";
   // General
   static const events = "events";
   static const payment = "payment";
+  static const create = "create";
 
   static List<GetPage> pages = [
     GetPage(
@@ -190,37 +197,31 @@ class AppRoutes {
       name: eTicket,
       transition: Transition.downToUp,
       binding: EticketBinding(),
-      page: () {
-        return const EticketPage();
-      },
+      page: () => const EticketPage(),
     ),
     GetPage(
       name: admin,
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const AdminHomePage();
-      },
+      binding: MainBinding(),
+      page: () => const MainPage(),
     ),
     GetPage(
-      name: adminEvents,
+      name: "$admin/$events",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const AdminEventsPage();
-      },
+      binding: MainEventsBinding(),
+      page: () => const MainEventsPage(),
     ),
     GetPage(
-      name: adminCreate,
+      name: "$admin/$events/$create",
       transition: Transition.downToUp,
-      page: () {
-        return const CreateEventPage();
-      },
+      binding: CreateEventBinding(),
+      page: () => const CreateEventPage(),
     ),
     GetPage(
-      name: "$adminEvents/:id",
+      name: "$admin/$events/:id",
       transition: Transition.rightToLeftWithFade,
-      page: () {
-        return const AdminDetailEventPage();
-      },
+      binding: MainDetailEventBinding(),
+      page: () => const MainDetailEventPage(),
     ),
   ];
 }

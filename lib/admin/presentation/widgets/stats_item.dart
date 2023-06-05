@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:polaris/core/domain/model/analytic.dart';
+import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 class StatsItem extends StatelessWidget {
+  final Event data;
+  final Analytic analytic;
   final bool isShowTickets;
-  final VoidCallback onPressed;
+  final ValueChanged<Event> onPressed;
 
   const StatsItem({
     super.key,
+    required this.data,
+    required this.analytic,
     this.isShowTickets = true,
     required this.onPressed,
   });
@@ -30,7 +36,7 @@ class StatsItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
         highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.1),
-        onTap: onPressed,
+        onTap: () => onPressed(data),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
@@ -51,14 +57,14 @@ class StatsItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Matsuri Jogja 2023",
+                      data.title,
                       style: Get.textTheme.headlineMedium?.copyWith(
                         color: Get.theme.colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      StringHelper.formatDate(dateTime: DateTime.now()),
+                      StringHelper.formatDate(dateTime: data.dateTime),
                       style: Get.textTheme.titleSmall?.copyWith(
                         color: Get.theme.colorScheme.onBackground,
                       ),
@@ -76,18 +82,15 @@ class StatsItem extends StatelessWidget {
                                 Assets.icons.icTicket,
                                 width: 16,
                                 height: 16,
+                                color: Get.theme.colorScheme.secondary,
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                "5 tiket tersisa",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                      fontSize: 12,
-                                    ),
+                                "${data.tickets.length} tipe tiket",
+                                style: Get.textTheme.headlineSmall?.copyWith(
+                                  color: Get.theme.colorScheme.secondary,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -110,7 +113,7 @@ class StatsItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "220",
+                              analytic.views.toString(),
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,
@@ -129,7 +132,7 @@ class StatsItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "456",
+                              analytic.clicks.toString(),
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,
@@ -148,7 +151,7 @@ class StatsItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "25%",
+                              "${analytic.ctr}%",
                               style: Get.textTheme.headlineSmall?.copyWith(
                                 color: Get.theme.colorScheme.tertiary,
                                 fontSize: 12,

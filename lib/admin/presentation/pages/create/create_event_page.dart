@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/create_event_page_controller.dart';
+import 'package:polaris/admin/presentation/pages/create/create_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
@@ -11,8 +11,7 @@ class CreateEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: Get.put(CreateEventPageController()),
+    return GetBuilder<CreateEventController>(
       builder: (controller) {
         return Scaffold(
           appBar: PrimaryAppBar(

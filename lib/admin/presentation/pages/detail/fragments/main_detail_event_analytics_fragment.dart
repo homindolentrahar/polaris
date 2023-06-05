@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:polaris/admin/presentation/application/admin_detail_event_page_controller.dart';
+import 'package:polaris/admin/presentation/pages/detail/main_detail_event_controller.dart';
 import 'package:polaris/admin/presentation/widgets/analytics_bar.dart';
 import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
-import 'package:polaris/route/app_route.dart';
 
-class AdminDetailEventAnalyticsFragment extends StatelessWidget {
-  const AdminDetailEventAnalyticsFragment({super.key});
+class MainDetailEventAnalyticsFragment extends StatelessWidget {
+  const MainDetailEventAnalyticsFragment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: Get.find<AdminDetailEventPageController>(),
+    return GetBuilder<MainDetailEventController>(
       builder: (controller) {
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -22,7 +20,7 @@ class AdminDetailEventAnalyticsFragment extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AnalyticsBar(
-                data: controller.analytics,
+                data: controller.totalAnalytics,
               ),
               const SizedBox(height: 32),
               FormSearchField(
@@ -41,15 +39,14 @@ class AdminDetailEventAnalyticsFragment extends StatelessWidget {
               ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: controller.events.length,
                 separatorBuilder: (ctx, index) => const SizedBox(height: 16),
                 itemBuilder: (ctx, index) => StatsItem(
-                  onPressed: () {
-                    Get.toNamed(
-                      "${AppRoutes.adminEvents}/1",
-                      arguments: 1,
-                    );
-                  },
+                  data: controller.events[index],
+                  analytic: controller.monthlyAnalytics.firstWhere(
+                    (element) => element.eventId == controller.events[index].id,
+                  ),
+                  onPressed: (value) {},
                 ),
               )
             ],
