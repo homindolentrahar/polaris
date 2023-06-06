@@ -6,10 +6,12 @@ import 'package:polaris/admin/presentation/pages/detail/fragments/main_detail_ev
 import 'package:polaris/admin/presentation/pages/detail/fragments/main_detail_event_transactions_fragment.dart';
 import 'package:polaris/core/data/repositories/analytics_repository.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
+import 'package:polaris/core/data/repositories/filters_repository.dart';
 import 'package:polaris/core/data/repositories/payments_repository.dart';
 import 'package:polaris/core/data/repositories/transactions_repository.dart';
 import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
+import 'package:polaris/core/domain/model/general.dart';
 import 'package:polaris/core/domain/model/payment.dart';
 import 'package:polaris/core/domain/model/transaction.dart';
 
@@ -19,6 +21,7 @@ class MainDetailEventController extends GetxController {
   final AnalyticsRepository analyticsRepository = AnalyticsRepository();
   final TransactionsRepository transactionsRepository =
       TransactionsRepository();
+  final FiltersRepository filtersRepository = FiltersRepository();
   final fragments = [
     {
       'title': "Info",
@@ -33,16 +36,6 @@ class MainDetailEventController extends GetxController {
       'fragment': const MainDetailEventTransactionsFragment(),
     },
   ];
-  // final List<FilterEventModel> analyticsFilters = [
-  //   FilterEventModel(
-  //     value: 'ctr_greater_50',
-  //     title: "CTR > 50%",
-  //   ),
-  //   FilterEventModel(
-  //     value: 'sold_out',
-  //     title: "Tiket Habis",
-  //   ),
-  // ];
 
   Event? event;
   List<Event> events = List.empty();
@@ -51,6 +44,10 @@ class MainDetailEventController extends GetxController {
   Map<DateTime, List<Analytic>> totalAnalytics = {};
   List<Analytic> monthlyAnalytics = List.empty();
   List<Transaction> transactions = List.empty();
+  List<FilterSortData> filters = List.empty();
+  List<FilterSortData> sorts = List.empty();
+  FilterSortData? selectedFilter;
+  FilterSortData? selectedSort;
   int tabIndex = 0;
   int ticketTypeIndex = 0;
   int ticketAmount = 0;
@@ -74,6 +71,8 @@ class MainDetailEventController extends GetxController {
 
   Future<void> getAllEvents() async {
     events = await eventsRepository.getAllEvents();
+    filters = await filtersRepository.getFilters("events");
+    sorts = await filtersRepository.getSorts("events");
     update();
   }
 
@@ -132,6 +131,25 @@ class MainDetailEventController extends GetxController {
 
   void onTicketTypeChanged(int index) {
     ticketTypeIndex = index;
+    update();
+  }
+
+  void onFilterSelected(FilterSortData filter) {
+    if (selectedFilter?.id == filter.id) {
+      selectedFilter = null;
+    } else {
+      selectedFilter = filter;
+    }
+    update();
+  }
+
+  void onSortSelected(FilterSortData filter) {
+    selectedSort = filter;
+    update();
+  }
+
+  void clearSelectedSort() {
+    selectedSort = null;
     update();
   }
 }

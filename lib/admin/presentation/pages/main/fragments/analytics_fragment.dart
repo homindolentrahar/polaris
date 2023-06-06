@@ -4,6 +4,7 @@ import 'package:polaris/admin/presentation/pages/main/fragments/analytics_contro
 import 'package:polaris/admin/presentation/widgets/analytics_bar.dart';
 import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -44,11 +45,18 @@ class AnalyticsFragment extends StatelessWidget {
                 onSubmit: (value) {},
               ),
               const SizedBox(height: 16),
-              // FilterSelector(
-              //   filters: const [],
-              //   onFilterSelected: (filter) {},
-              //   onSortSelected: () {},
-              // ),
+              FilterSelector(
+                selectedSort: controller.selectedSort,
+                selectedFilter: controller.selectedFilter,
+                sorts: controller.sorts,
+                filters: controller.filters,
+                sortTitle: "Urutkan Event",
+                onFilterSelected: controller.onFilterSelected,
+                onSortCleared: controller.clearSelectedSort,
+                onSortSelected: (value) async {
+                  controller.onSortSelected(value);
+                },
+              ),
               const SizedBox(height: 32),
               PrimarySubtitle(
                 subtitle: "Hasil Terkini",

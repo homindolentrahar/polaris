@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/guest/presentation/pages/search/search_key_controller.dart';
 import 'package:polaris/route/app_route.dart';
@@ -51,20 +52,20 @@ class SearchKeyPage extends StatelessWidget {
                         spacing: 8,
                         runSpacing: 8,
                         children: List.generate(
-                          0,
-                          // (index) => FilterEventChip(
-                          //   data: controller.filters[index],
-                          //   onFilterSelected: (value) {
-                          //     Get.toNamed(
-                          //       AppRoutes.searchResult,
-                          //       arguments: {
-                          //         'title': "Hasil Pencarian",
-                          //         'value': value.title,
-                          //       },
-                          //     );
-                          //   },
-                          // ),
-                          (index) => Container(),
+                          controller.filters.length,
+                          (index) => FilterItemChip(
+                            isSelected: false,
+                            data: controller.filters[index],
+                            onFilterSelected: (value) {
+                              Get.toNamed(
+                                AppRoutes.searchResult,
+                                arguments: {
+                                  'title': "Hasil Pencarian",
+                                  'value': value.title,
+                                },
+                              );
+                            },
+                          ),
                         ).toList(),
                       ),
                     ],

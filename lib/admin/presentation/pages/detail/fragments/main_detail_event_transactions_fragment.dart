@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/pages/detail/main_detail_event_controller.dart';
 import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 
 class MainDetailEventTransactionsFragment extends StatelessWidget {
@@ -21,6 +22,19 @@ class MainDetailEventTransactionsFragment extends StatelessWidget {
                 name: "search",
                 hint: "Cari transaksi",
                 onSubmit: (value) {},
+              ),
+              const SizedBox(height: 16),
+              FilterSelector(
+                selectedSort: controller.selectedSort,
+                selectedFilter: controller.selectedFilter,
+                sorts: controller.sorts,
+                filters: controller.filters,
+                sortTitle: "Urutkan Event",
+                onFilterSelected: controller.onFilterSelected,
+                onSortCleared: controller.clearSelectedSort,
+                onSortSelected: (value) async {
+                  controller.onSortSelected(value);
+                },
               ),
               const SizedBox(height: 32),
               PrimarySubtitle(

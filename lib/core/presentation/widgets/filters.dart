@@ -65,7 +65,7 @@ class FilterSelector extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: filters.length,
               separatorBuilder: (context, index) => const SizedBox(width: 8),
-              itemBuilder: (ctx, index) => FilterChip(
+              itemBuilder: (ctx, index) => FilterItemChip(
                 isSelected: filters[index].id == selectedFilter?.id,
                 data: filters[index],
                 onFilterSelected: (value) {
@@ -80,12 +80,12 @@ class FilterSelector extends StatelessWidget {
   }
 }
 
-class FilterChip extends StatelessWidget {
+class FilterItemChip extends StatelessWidget {
   final bool isSelected;
   final FilterSortData data;
   final ValueChanged<FilterSortData> onFilterSelected;
 
-  const FilterChip({
+  const FilterItemChip({
     super.key,
     required this.isSelected,
     required this.data,

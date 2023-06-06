@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/general.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
+import 'package:polaris/core/presentation/widgets/fields.dart';
 
 class SortSheet extends StatelessWidget {
   final String title;
@@ -90,6 +92,67 @@ class SortSheet extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          const SizedBox(height: 16),
+          FormTextField(
+            name: "urutan",
+            hint: "Urutan",
+            initialValue: "Menaik",
+            enabled: false,
+            suffixIcon: Icon(
+              Iconsax.sort,
+              color: Get.theme.colorScheme.onSurface,
+              size: 20,
+            ),
+            onTap: () {
+              Get.dialog(
+                AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  content: Container(
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: FormBuilderRadioGroup(
+                      initialValue: "ascending",
+                      name: "urutan",
+                      orientation: OptionsOrientation.vertical,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.zero,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                      ),
+                      onChanged: (value) {
+                        Get.back();
+                      },
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "ascending",
+                          child: Text(
+                            "Menaik",
+                            style: Get.textTheme.titleMedium?.copyWith(
+                              color: Get.theme.colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                        FormBuilderFieldOption(
+                          value: "descending",
+                          child: Text(
+                            "Menurun",
+                            style: Get.textTheme.titleMedium?.copyWith(
+                              color: Get.theme.colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(height: 32),
           PrimaryButton(
