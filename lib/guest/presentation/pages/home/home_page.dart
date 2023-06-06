@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
-import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/log_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
@@ -93,10 +92,11 @@ class HomePage extends StatelessWidget {
                     onSubmit: (value) {},
                   ),
                   const SizedBox(height: 16),
-                  FilterEventSelector(
-                    models: controller.filters,
-                    onFilterSelected: (value) {},
-                  ),
+                  // FilterSelector(
+                  //   filters: const [],
+                  //   onFilterSelected: (value) {},
+                  //   onSortSelected: () {},
+                  // ),
                   const SizedBox(height: 32),
                   const PrimarySubtitle(subtitle: "Event Populer"),
                   const SizedBox(height: 16),

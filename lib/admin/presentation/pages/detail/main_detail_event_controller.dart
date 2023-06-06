@@ -10,9 +10,7 @@ import 'package:polaris/core/data/repositories/payments_repository.dart';
 import 'package:polaris/core/data/repositories/transactions_repository.dart';
 import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
-import 'package:polaris/core/domain/model/filter_event_model.dart';
 import 'package:polaris/core/domain/model/payment.dart';
-import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/domain/model/transaction.dart';
 
 class MainDetailEventController extends GetxController {
@@ -35,53 +33,16 @@ class MainDetailEventController extends GetxController {
       'fragment': const MainDetailEventTransactionsFragment(),
     },
   ];
-  final List<FilterEventModel> analyticsFilters = [
-    FilterEventModel(
-      value: 'ctr_greater_50',
-      title: "CTR > 50%",
-    ),
-    FilterEventModel(
-      value: 'sold_out',
-      title: "Tiket Habis",
-    ),
-  ];
-  final List<TicketTypeModel> tickets = [
-    TicketTypeModel(
-      id: "reguler",
-      title: "Reguler",
-      price: 56000,
-      ticketsLeft: 19,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-      ],
-    ),
-    TicketTypeModel(
-      id: "silver",
-      title: "Silver",
-      price: 80000,
-      ticketsLeft: 89,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-        "1 buah Softdrink",
-        "1 ticket gacha",
-      ],
-    ),
-    TicketTypeModel(
-      id: "gold",
-      title: "Gold",
-      price: 120000,
-      ticketsLeft: 50,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-        "2 buah Softdrink",
-        "5 ticket gacha",
-        "Totebage Eksklusif",
-      ],
-    ),
-  ];
+  // final List<FilterEventModel> analyticsFilters = [
+  //   FilterEventModel(
+  //     value: 'ctr_greater_50',
+  //     title: "CTR > 50%",
+  //   ),
+  //   FilterEventModel(
+  //     value: 'sold_out',
+  //     title: "Tiket Habis",
+  //   ),
+  // ];
 
   Event? event;
   List<Event> events = List.empty();

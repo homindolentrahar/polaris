@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
-import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/guest/presentation/pages/search/search_result_controller.dart';
 import 'package:polaris/guest/presentation/widgets/event_item.dart';
@@ -38,10 +37,11 @@ class SearchResultPage extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 16),
-                  FilterEventSelector(
-                    models: controller.filters,
-                    onFilterSelected: (filter) {},
-                  ),
+                  // FilterSelector(
+                  //   filters: const [],
+                  //   onFilterSelected: (filter) {},
+                  //   onSortSelected: () {},
+                  // ),
                   const SizedBox(height: 32),
                   PrimarySubtitle(
                     subtitle: "Hasil pencarian",

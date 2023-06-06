@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/pages/main/fragments/transactions_controller.dart';
 import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
-import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -41,10 +40,11 @@ class TransactionsFragment extends StatelessWidget {
                 onSubmit: (value) {},
               ),
               const SizedBox(height: 16),
-              FilterEventSelector(
-                models: controller.filters,
-                onFilterSelected: (filter) {},
-              ),
+              // FilterSelector(
+              //   filters: const [],
+              //   onFilterSelected: (filter) {},
+              //   onSortSelected: () {},
+              // ),
               const SizedBox(height: 32),
               PrimarySubtitle(
                 subtitle: "Hasil",

@@ -4,7 +4,6 @@ import 'package:polaris/admin/presentation/pages/detail/main_detail_event_contro
 import 'package:polaris/admin/presentation/widgets/analytics_bar.dart';
 import 'package:polaris/admin/presentation/widgets/stats_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
-import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 
 class MainDetailEventAnalyticsFragment extends StatelessWidget {
@@ -29,10 +28,11 @@ class MainDetailEventAnalyticsFragment extends StatelessWidget {
                 onSubmit: (value) {},
               ),
               const SizedBox(height: 16),
-              FilterEventSelector(
-                models: controller.analyticsFilters,
-                onFilterSelected: (filter) {},
-              ),
+              // FilterSelector(
+              //   filters: const [],
+              //   onFilterSelected: (filter) {},
+              //   onSortSelected: () {},
+              // ),
               const SizedBox(height: 32),
               const PrimarySubtitle(subtitle: "Rincian"),
               const SizedBox(height: 16),
