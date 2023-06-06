@@ -144,34 +144,26 @@ class PrimaryStepBar extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Visibility(
-                          visible: currentIndex == index,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  (index + 1).toString(),
-                                  style: Get.textTheme.headlineSmall?.copyWith(
-                                    color: Get.theme.colorScheme.surface,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                            ],
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: currentIndex == index
+                                ? Get.theme.colorScheme.onSurface
+                                : Get.theme.colorScheme.tertiary,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            (index + 1).toString(),
+                            style: Get.textTheme.headlineSmall?.copyWith(
+                              color: Get.theme.colorScheme.surface,
+                              fontSize: 10,
+                            ),
                           ),
                         ),
+                        const SizedBox(width: 8),
                         Text(
                           titles[index],
                           style: index == currentIndex

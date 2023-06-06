@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/data/repositories/payments_repository.dart';
 import 'package:polaris/core/domain/model/payment.dart';
@@ -7,6 +8,7 @@ import 'package:polaris/route/app_route.dart';
 
 class PaymentController extends GetxController {
   final PaymentsRepository repository = PaymentsRepository();
+  final PageController pageController = PageController();
   final List<Map<String, dynamic>> steps = [
     {
       'route': AppRoutes.method,
@@ -38,6 +40,11 @@ class PaymentController extends GetxController {
 
   void onTabChanged(int index) {
     stepIndex = index;
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
     update();
   }
 

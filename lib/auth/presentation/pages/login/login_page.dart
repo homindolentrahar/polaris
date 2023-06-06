@@ -4,7 +4,6 @@ import 'package:polaris/auth/presentation/pages/login/login_controller.dart';
 import 'package:polaris/auth/presentation/widgets/auth_image_banner.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/gen/assets.gen.dart';
-import 'package:polaris/route/app_route.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -38,18 +37,16 @@ class LoginPage extends StatelessWidget {
                                   .toList(),
                               onTabChanged: (index) {
                                 controller.onTabChanged(index);
-                                delegate.toNamed(
-                                  "${AppRoutes.login}${controller.fragments[index]['route']}",
-                                );
                               },
                             ),
                             const SizedBox(height: 32),
                             Expanded(
-                              child: GetRouterOutlet(
-                                anchorRoute: AppRoutes.login,
-                                initialRoute:
-                                    "${AppRoutes.login}${AppRoutes.email}",
-                                delegate: delegate,
+                              child: PageView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                controller: controller.pageController,
+                                itemCount: controller.fragments.length,
+                                itemBuilder: (ctx, index) => controller
+                                    .fragments[index]['fragment'] as Widget,
                               ),
                             ),
                           ],

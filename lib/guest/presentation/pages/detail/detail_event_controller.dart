@@ -11,6 +11,7 @@ import 'package:polaris/route/app_route.dart';
 class DetailEventController extends GetxController {
   final EventsRepository repository = EventsRepository();
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+  final PageController pageController = PageController();
   final fragments = [
     {
       'route': AppRoutes.info,
@@ -44,6 +45,11 @@ class DetailEventController extends GetxController {
 
   void onTabChanged(int index) {
     tabIndex = index;
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
     update();
   }
 
