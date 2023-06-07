@@ -4,6 +4,6 @@ import 'package:polaris/admin/presentation/pages/detail/main_detail_event_contro
 class MainDetailEventBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MainDetailEventController());
+    Get.put(MainDetailEventController());
   }
 }

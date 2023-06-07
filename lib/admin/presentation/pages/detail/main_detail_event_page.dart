@@ -41,7 +41,7 @@ class MainDetailEventPage extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Hero(
-                        tag: Get.parameters['id'] as String,
+                        tag: controller.event?.id ?? "",
                         child: ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
                             colors: [
