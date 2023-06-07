@@ -541,3 +541,66 @@ class AddTicketSheet extends StatelessWidget {
     );
   }
 }
+
+class AddPaymentMethodSheet extends StatelessWidget {
+  const AddPaymentMethodSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Tambah Metode Pembayaran",
+            style: Get.textTheme.headlineSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 32),
+          const FormTextField(
+            name: "name",
+            hint: "Nama Metode",
+            action: TextInputAction.next,
+          ),
+          const SizedBox(height: 16),
+          const FormTextField(
+            name: "value",
+            hint: "Nomor Rekening / Handphone",
+            keyboardType: TextInputType.number,
+            action: TextInputAction.next,
+          ),
+          const SizedBox(height: 16),
+          FormTextField(
+            name: "pci",
+            hint: "Nama PIC",
+            keyboardType: TextInputType.number,
+            action: TextInputAction.next,
+            prefixIcon: Icon(
+              Iconsax.user,
+              color: Get.theme.colorScheme.tertiary,
+              size: 16,
+            ),
+          ),
+          const SizedBox(height: 32),
+          PrimaryButton(
+            title: "Tambah",
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
