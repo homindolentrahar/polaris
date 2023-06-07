@@ -56,6 +56,31 @@ class FormTextField extends StatelessWidget {
     this.validators,
   });
 
+  factory FormTextField.underline({
+    bool enabled = true,
+    TextEditingController? controller,
+    String? initialValue,
+    required String name,
+    required String hint,
+    int lines = 1,
+    TextInputType keyboardType = TextInputType.text,
+    TextInputAction action = TextInputAction.done,
+    bool isObscure = false,
+    bool isRequired = true,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
+    VoidCallback? onTap,
+    ValueChanged<String>? onSubmitted,
+    List<String? Function(String?)>? validators,
+  }) =>
+      FormTextField(
+        enabled: enabled,
+        controller: controller,
+        initialValue: initialValue,
+        name: name,
+        hint: hint,
+      );
+
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<String>(

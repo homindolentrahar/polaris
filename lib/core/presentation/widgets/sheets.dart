@@ -1,6 +1,6 @@
-import 'dart:typed_data';
-
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -301,25 +301,240 @@ class AddPicSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Get.theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
+    Rx<Uint8List?> profileImage = Rx(null);
+
+    return Obx(
+      () => Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Get.theme.colorScheme.surface,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Tambah Narahubung",
+              style: Get.textTheme.headlineSmall?.copyWith(
+                color: Get.theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 32),
+            Align(
+              alignment: Alignment.center,
+              child: Material(
+                color: Get.theme.colorScheme.surface,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(360),
+                  onTap: () {
+                    Get.bottomSheet(
+                      PickImageSheet(
+                        showRemove: profileImage.value != null,
+                        onImagePicked: (value) {
+                          profileImage.value = value;
+                          Get.back();
+                        },
+                        onImageRemoved: () {
+                          profileImage.value = null;
+                          Get.back();
+                        },
+                      ),
+                    );
+                  },
+                  child: profileImage.value != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(360),
+                          child: Image.memory(
+                            profileImage.value!,
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : DottedBorder(
+                          dashPattern: const [4, 4, 4, 4],
+                          color: Get.theme.colorScheme.tertiary,
+                          borderType: BorderType.Circle,
+                          padding: EdgeInsets.zero,
+                          child: SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: Icon(
+                              Iconsax.user,
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            FormTextField(
+              name: "nama",
+              hint: "Nama Lengkap",
+              action: TextInputAction.next,
+              prefixIcon: Icon(
+                Iconsax.user,
+                color: Get.theme.colorScheme.tertiary,
+                size: 16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            FormTextField(
+              name: "phone",
+              hint: "Nomor Handphone",
+              keyboardType: TextInputType.number,
+              prefixIcon: Icon(
+                Iconsax.call,
+                color: Get.theme.colorScheme.tertiary,
+                size: 16,
+              ),
+            ),
+            const SizedBox(height: 32),
+            PrimaryButton(
+              width: Get.width,
+              title: "Tambah",
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class AddTicketSheet extends StatelessWidget {
+  const AddTicketSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final RxList<String> benefits = RxList(
+      [""],
+    );
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Tambah Narahubung",
+            "Tambah Tiket",
             style: Get.textTheme.headlineSmall?.copyWith(
               color: Get.theme.colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
+          ),
+          const SizedBox(height: 32),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const FormTextField(
+                    name: "category",
+                    hint: "Nama Kategori",
+                    action: TextInputAction.next,
+                  ),
+                  const SizedBox(height: 16),
+                  const Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: FormTextField(
+                          name: "amount",
+                          hint: "Jumlah Tiket",
+                          keyboardType: TextInputType.number,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: FormTextField(
+                          name: "price",
+                          hint: "Harga",
+                          keyboardType: TextInputType.number,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Keuntungan",
+                    style: Get.textTheme.headlineSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Obx(
+                    () => Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: List.generate(
+                        benefits.length,
+                        (index) => Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: FormTextField(
+                                name: "benefit_$index",
+                                hint: "Keuntungan #${index + 1}",
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            PrimaryIconButton(
+                              color:
+                                  Get.theme.colorScheme.error.withOpacity(0.15),
+                              icon: Icon(
+                                Iconsax.trash,
+                                color: Get.theme.colorScheme.error,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                benefits.removeAt(index);
+                              },
+                            ),
+                          ],
+                        ),
+                      ).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  PrimaryDottedButton(
+                    icon: Icon(
+                      Iconsax.add,
+                      color: Get.theme.colorScheme.tertiary,
+                      size: 16,
+                    ),
+                    title: "Tambah Keuntungan",
+                    onPressed: () {
+                      benefits.add("");
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+          PrimaryButton(
+            title: "Tambah",
+            onPressed: () {},
           ),
         ],
       ),

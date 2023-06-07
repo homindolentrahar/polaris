@@ -695,101 +695,115 @@ class InfoChip extends StatelessWidget {
 
 class TicketTypeItem extends StatelessWidget {
   final EventTicket? data;
+  final ValueChanged<EventTicket?> onItemSelected;
 
-  const TicketTypeItem({super.key, required this.data});
+  const TicketTypeItem({
+    super.key,
+    required this.data,
+    required this.onItemSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Get.theme.colorScheme.surface,
+    return Material(
+      color: Get.theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Get.theme.colorScheme.outline),
+        side: BorderSide(
+          color: Get.theme.colorScheme.outline,
+        ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      child: InkWell(
+        onTap: () => onItemSelected(null),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconContainer(
-                icon: SvgPicture.asset(
-                  Assets.icons.icTicket,
-                  color: Get.theme.colorScheme.tertiary,
-                  width: 20,
-                  height: 20,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data?.title ?? "",
-                      style: Get.textTheme.headlineMedium
-                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "${data?.amount} tiket",
-                      style: Get.textTheme.titleSmall
-                          ?.copyWith(color: Get.theme.colorScheme.onBackground),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              InfoChip(
-                  value: StringHelper.formatCompactCurrency(data?.price ?? 0)),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: DashedLines(
-              length: Get.width,
-              color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
-            ),
-          ),
-          ...List.generate(
-            data?.benefits.take(3).length ?? 0,
-            (index) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    Assets.icons.icTick,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    width: 16,
-                    height: 16,
+                  IconContainer(
+                    icon: SvgPicture.asset(
+                      Assets.icons.icTicket,
+                      color: Get.theme.colorScheme.tertiary,
+                      width: 20,
+                      height: 20,
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    data?.benefits[index] ?? "",
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data?.title ?? "",
+                          style: Get.textTheme.headlineMedium?.copyWith(
+                              color: Get.theme.colorScheme.onSurface),
                         ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "${data?.amount} tiket",
+                          style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground),
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(width: 16),
+                  InfoChip(
+                      value:
+                          StringHelper.formatCompactCurrency(data?.price ?? 0)),
                 ],
               ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.center,
-            child: Visibility(
-              visible: (data?.benefits.length ?? 0) > 3,
-              child: PrimaryTextButton(
-                title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
-                onPressed: () {},
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: DashedLines(
+                  length: Get.width,
+                  color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
+                ),
               ),
-            ),
+              ...List.generate(
+                data?.benefits.take(3).length ?? 0,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        Assets.icons.icTick,
+                        color: Theme.of(context).colorScheme.onBackground,
+                        width: 16,
+                        height: 16,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        data?.benefits[index] ?? "",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.center,
+                child: Visibility(
+                  visible: (data?.benefits.length ?? 0) > 3,
+                  child: PrimaryTextButton(
+                    title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
