@@ -5,14 +5,15 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/pages/create/create_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/maps.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
+import 'package:polaris/core/util/helper/log_helper.dart';
 
 class CreateEventInfoFragment extends StatelessWidget {
   const CreateEventInfoFragment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: Get.find<CreateEventController>(),
+    return GetBuilder<CreateEventController>(
       builder: (controller) {
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -24,9 +25,21 @@ class CreateEventInfoFragment extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FormImageField(
+                    initialData: controller.selectedImage,
                     name: "image",
                     hint: "Unggah Foto Event",
-                    onImagePicked: (value) {},
+                    onImagePicked: (value) {
+                      if (value != null) {
+                        controller.onImagePicked(value);
+                        Get.back();
+                      }
+                    },
+                    onImageRemoved: () {
+                      controller.onImageRemoved();
+                      LogHelper.instance
+                          .error("Image: ${controller.selectedImage}");
+                      Get.back();
+                    },
                   ),
                   const SizedBox(height: 16),
                   const FormTextField(
@@ -76,7 +89,9 @@ class CreateEventInfoFragment extends StatelessWidget {
                   const SizedBox(height: 16),
                   FormAddContactPersonField(
                     name: "contacts",
-                    onAddPressed: () {},
+                    onAddPressed: () {
+                      Get.bottomSheet(const AddPicSheet());
+                    },
                     onContactsChanged: (value) {},
                   ),
                 ],

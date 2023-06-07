@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
@@ -35,6 +37,7 @@ class CreateEventController extends GetxController {
   int stepIndex = 0;
   Event? event;
   List<PaymentMethod> payments = List.empty();
+  Uint8List? selectedImage;
 
   @override
   void onInit() {
@@ -61,6 +64,16 @@ class CreateEventController extends GetxController {
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 300),
     );
+    update();
+  }
+
+  void onImagePicked(Uint8List data) {
+    selectedImage = data;
+    update();
+  }
+
+  void onImageRemoved() {
+    selectedImage = null;
     update();
   }
 }

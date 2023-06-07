@@ -12,6 +12,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:polaris/core/domain/model/contact_model.dart';
 import 'package:polaris/core/presentation/application/form_password_field_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 import 'package:polaris/gen/assets.gen.dart';
 
 enum SexType {
@@ -1140,60 +1141,118 @@ class FormImageField extends StatelessWidget {
   final String name;
   final String hint;
   final Widget? icon;
+  final Uint8List? initialData;
   final ValueChanged<Uint8List?> onImagePicked;
+  final VoidCallback onImageRemoved;
 
   const FormImageField({
     super.key,
     required this.name,
     required this.hint,
     this.icon,
+    required this.initialData,
     required this.onImagePicked,
+    required this.onImageRemoved,
   });
+
+  Widget buildField({required ValueChanged<Uint8List?> onImagePicked}) {
+    return Material(
+      color: Get.theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: InkWell(
+        onTap: () {
+          Get.bottomSheet(
+            PickImageSheet(
+              showRemove: false,
+              onImagePicked: onImagePicked,
+              onImageRemoved: onImageRemoved,
+            ),
+          );
+        },
+        borderRadius: BorderRadius.circular(8),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.045),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.09),
+        child: DottedBorder(
+          borderType: BorderType.RRect,
+          padding: const EdgeInsets.all(32),
+          radius: const Radius.circular(8),
+          strokeCap: StrokeCap.round,
+          dashPattern: const [8, 8, 8, 8],
+          color: Get.theme.colorScheme.tertiary.withOpacity(0.45),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              icon ??
+                  Icon(
+                    Iconsax.gallery,
+                    color: Get.theme.colorScheme.tertiary,
+                    size: 20,
+                  ),
+              const SizedBox(height: 8),
+              Text(
+                hint,
+                textAlign: TextAlign.center,
+                style: Get.theme.textTheme.titleSmall
+                    ?.copyWith(color: Get.theme.colorScheme.tertiary),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDisplay({
+    required Uint8List data,
+    required ValueChanged<Uint8List?> onImagePicked,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Get.bottomSheet(
+          PickImageSheet(
+            showRemove: true,
+            onImagePicked: onImagePicked,
+            onImageRemoved: onImageRemoved,
+          ),
+        );
+      },
+      child: Container(
+        width: Get.width,
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          image: DecorationImage(
+            image: MemoryImage(data),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<Uint8List>(
       name: name,
-      onChanged: onImagePicked,
+      initialValue: initialData,
+      onChanged: (value) {
+        onImagePicked(value);
+      },
       builder: (field) {
-        return Material(
-          color: Get.theme.colorScheme.surface,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: InkWell(
-            onTap: () => field.didChange(null),
-            borderRadius: BorderRadius.circular(8),
-            splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.045),
-            highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.09),
-            child: DottedBorder(
-              borderType: BorderType.RRect,
-              padding: const EdgeInsets.all(16),
-              radius: const Radius.circular(8),
-              strokeCap: StrokeCap.round,
-              dashPattern: const [8, 8, 8, 8],
-              color: Get.theme.colorScheme.tertiary.withOpacity(0.45),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  icon ??
-                      Icon(
-                        Iconsax.gallery,
-                        color: Get.theme.colorScheme.tertiary,
-                        size: 20,
-                      ),
-                  const SizedBox(height: 8),
-                  Text(
-                    hint,
-                    textAlign: TextAlign.center,
-                    style: Get.theme.textTheme.titleSmall
-                        ?.copyWith(color: Get.theme.colorScheme.tertiary),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
+        return initialData != null
+            ? buildDisplay(
+                data: initialData!,
+                onImagePicked: (value) {
+                  field.didChange(value);
+                },
+              )
+            : buildField(
+                onImagePicked: (value) {
+                  field.didChange(value);
+                },
+              );
       },
     );
   }
