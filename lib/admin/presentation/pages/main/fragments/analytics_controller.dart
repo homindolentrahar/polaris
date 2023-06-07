@@ -19,6 +19,7 @@ class AnalyticsController extends GetxController {
   List<FilterSortData> sorts = List.empty();
   FilterSortData? selectedFilter;
   FilterSortData? selectedSort;
+  DateTime filterDate = DateTime.now();
 
   @override
   void onInit() {
@@ -66,6 +67,11 @@ class AnalyticsController extends GetxController {
 
   void clearSelectedSort() {
     selectedSort = null;
+    update();
+  }
+
+  void onDateChanged(DateTime dateTime) {
+    filterDate = dateTime;
     update();
   }
 }

@@ -71,8 +71,16 @@ class MainDetailEventController extends GetxController {
 
   Future<void> getAllEvents() async {
     events = await eventsRepository.getAllEvents();
-    filters = await filtersRepository.getFilters("events");
-    sorts = await filtersRepository.getSorts("events");
+    filters = await filtersRepository.getFilters(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
+    sorts = await filtersRepository.getSorts(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
     update();
   }
 
@@ -104,13 +112,23 @@ class MainDetailEventController extends GetxController {
     update();
   }
 
-  void onTabChanged(int index) {
+  void onTabChanged(int index) async {
     tabIndex = index;
     pageController.animateToPage(
       index,
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 300),
     );
+    filters = await filtersRepository.getFilters(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
+    sorts = await filtersRepository.getSorts(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
     update();
   }
 

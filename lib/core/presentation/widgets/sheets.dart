@@ -62,38 +62,6 @@ class SortSheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Obx(
-            () => FormBuilderRadioGroup<String>(
-              name: 'sort',
-              initialValue: sort.value,
-              activeColor: Get.theme.primaryColor,
-              orientation: OptionsOrientation.vertical,
-              wrapSpacing: 8,
-              wrapRunSpacing: 8,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.zero,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-              ),
-              onChanged: (value) {
-                sort.value = value;
-              },
-              options: List.generate(
-                sorts.length,
-                (index) => FormBuilderFieldOption(
-                  value: sorts[index].value,
-                  child: Text(
-                    sorts[index].title,
-                    style: Get.textTheme.titleMedium?.copyWith(
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
           FormTextField(
             name: "urutan",
             hint: "Urutan",
@@ -153,6 +121,43 @@ class SortSheet extends StatelessWidget {
                 ),
               );
             },
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Obx(
+                () => FormBuilderRadioGroup<String>(
+                  name: 'sort',
+                  initialValue: sort.value,
+                  activeColor: Get.theme.primaryColor,
+                  orientation: OptionsOrientation.vertical,
+                  wrapSpacing: 8,
+                  wrapRunSpacing: 8,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                  ),
+                  onChanged: (value) {
+                    sort.value = value;
+                  },
+                  options: List.generate(
+                    sorts.length,
+                    (index) => FormBuilderFieldOption(
+                      value: sorts[index].value,
+                      child: Text(
+                        sorts[index].title,
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          color: Get.theme.colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 32),
           PrimaryButton(

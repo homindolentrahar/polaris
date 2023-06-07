@@ -21,15 +21,6 @@ class PolarisApp extends StatelessWidget {
           injectAppModules();
         },
       ),
-      navigatorObservers: [
-        GetObserver(
-          (routing) {
-            // LogHelper.instance.info(
-            //   "Routes History: ${Get.routeTree.routes.map((e) => e.name).toList()}",
-            // );
-          },
-        )
-      ],
     );
   }
 }

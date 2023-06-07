@@ -29,8 +29,9 @@ class TransactionsFragment extends StatelessWidget {
                         ?.copyWith(color: Get.theme.colorScheme.onSurface),
                   ),
                   DateSelector(
+                    initialDate: DateTime.now(),
                     title: "Bulan Ini",
-                    onDateSelected: (value) {},
+                    onDateSelected: (selected, focused) {},
                   ),
                 ],
               ),

@@ -32,7 +32,8 @@ class AnalyticsFragment extends StatelessWidget {
                   ),
                   DateSelector(
                     title: "Tahun Ini",
-                    onDateSelected: (value) {},
+                    initialDate: controller.filterDate,
+                    onDateSelected: (selected, focused) {},
                   ),
                 ],
               ),

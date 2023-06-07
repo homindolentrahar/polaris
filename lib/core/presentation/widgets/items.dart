@@ -12,6 +12,7 @@ import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 import 'package:readmore/readmore.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class ContactOrganizerItem extends StatelessWidget {
   final String imageUrl;
@@ -797,12 +798,14 @@ class TicketTypeItem extends StatelessWidget {
 class DateSelector extends StatelessWidget {
   final Widget? icon;
   final String title;
-  final ValueChanged<DateTime?> onDateSelected;
+  final DateTime initialDate;
+  final Function(DateTime, DateTime) onDateSelected;
 
   const DateSelector({
     super.key,
     this.icon,
     required this.title,
+    required this.initialDate,
     required this.onDateSelected,
   });
 
@@ -814,7 +817,98 @@ class DateSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.bottomSheet(
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Get.theme.colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pilih Tanggal",
+                      style: Get.textTheme.headlineSmall
+                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
+                    ),
+                    const SizedBox(height: 32),
+                    TableCalendar(
+                      firstDay: initialDate,
+                      focusedDay: DateTime.now(),
+                      lastDay: DateTime(2024),
+                      headerVisible: false,
+                      onDaySelected: (selected, focused) {
+                        onDateSelected(selected, focused);
+                      },
+                      eventLoader: (value) {
+                        return [];
+                      },
+                      daysOfWeekStyle: DaysOfWeekStyle(
+                        weekdayStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        weekendStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      calendarStyle: CalendarStyle(
+                        todayDecoration: BoxDecoration(
+                          color: Get.theme.colorScheme.primary,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        defaultTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onSurface,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        todayTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onPrimary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        weekendTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        holidayTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        selectedTextStyle:
+                            Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onPrimary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    PrimaryButton(
+                      title: "Simpan",
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
         splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
         highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.15),
         borderRadius: BorderRadius.circular(8),
