@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/general.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/image_picker_helper.dart';
 
 class SortSheet extends StatelessWidget {
@@ -598,6 +599,124 @@ class AddPaymentMethodSheet extends StatelessWidget {
             onPressed: () {
               Get.back();
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ShareEventSheet extends StatelessWidget {
+  const ShareEventSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Bagikan Event",
+            style: Get.textTheme.headlineSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Wrap(
+            spacing: 24,
+            runSpacing: 16,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconContainer(
+                    icon: Icon(
+                      Iconsax.link_2,
+                      size: 20,
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Salin URL",
+                    style: Get.textTheme.titleSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconContainer(
+                    icon: Icon(
+                      Iconsax.book,
+                      size: 20,
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Facebook",
+                    style: Get.textTheme.titleSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconContainer(
+                    icon: Icon(
+                      Iconsax.book,
+                      size: 20,
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Instagram",
+                    style: Get.textTheme.titleSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconContainer(
+                    icon: Icon(
+                      Iconsax.book,
+                      size: 20,
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "WhatsApp",
+                    style: Get.textTheme.titleSmall?.copyWith(
+                      color: Get.theme.colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
