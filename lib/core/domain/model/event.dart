@@ -14,7 +14,7 @@ class Event {
   final String imageUrl;
   final EventVenue venue;
   final List<EventContact> contacts;
-  final EventContact author;
+  final EventAuthor author;
   final List<EventTicket> tickets;
   final EventAnalytics analytics;
 
@@ -62,14 +62,16 @@ class EventContact {
   final String id;
   @JsonKey(name: "image_url")
   final String? imageUrl;
-  final String title;
-  final String subtitle;
+  final String name;
+  final String position;
+  final String contact;
 
   EventContact({
     required this.id,
     this.imageUrl,
-    required this.title,
-    required this.subtitle,
+    required this.name,
+    required this.position,
+    required this.contact,
   });
 
   factory EventContact.fromJson(Map<String, dynamic> json) =>
@@ -83,14 +85,18 @@ class EventAuthor {
   final String id;
   @JsonKey(name: "image_url")
   final String? imageUrl;
-  final String title;
-  final String subtitle;
+  final String name;
+  final String description;
+  final String address;
+  final String contact;
 
   EventAuthor({
     required this.id,
     this.imageUrl,
-    required this.title,
-    required this.subtitle,
+    required this.name,
+    required this.description,
+    required this.address,
+    required this.contact,
   });
 
   factory EventAuthor.fromJson(Map<String, dynamic> json) =>
