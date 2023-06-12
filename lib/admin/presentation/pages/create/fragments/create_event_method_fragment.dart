@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/pages/create/create_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 
 class CreateEventMethodFragment extends StatelessWidget {
   const CreateEventMethodFragment({super.key});
@@ -33,7 +34,11 @@ class CreateEventMethodFragment extends StatelessWidget {
                   size: 16,
                 ),
                 title: "Tambah Metode Pembayaran",
-                onPressed: () {},
+                onPressed: () {
+                  Get.bottomSheet(
+                    const AddPaymentMethodSheet(),
+                  );
+                },
               ),
             ],
           ),

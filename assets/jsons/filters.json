@@ -1,0 +1,144 @@
+{
+  "events": {
+    "filters": [
+      {
+        "id": "1",
+        "value": "nearby",
+        "title": "Terdekat"
+      },
+      {
+        "id": "2",
+        "value": "this_week",
+        "title": "Minggu Ini"
+      },
+      {
+        "id": "3",
+        "value": "limited",
+        "title": "Tiket Terbatas"
+      },
+      {
+        "id": "4",
+        "value": "ots",
+        "title": "Tiket OTS"
+      }
+    ],
+    "sorts": [
+      {
+        "id": "1",
+        "value": "date",
+        "title": "Tanggal"
+      },
+      {
+        "id": "2",
+        "value": "name",
+        "title": "Nama Event"
+      },
+      {
+        "id": "3",
+        "value": "price",
+        "title": "Harga"
+      }
+    ]
+  },
+  "analytics": {
+    "filters": [
+      {
+        "id": "1",
+        "value": "ctr_more_50",
+        "title": "CTR > 50%"
+      },
+      {
+        "id": "2",
+        "value": "sold_out",
+        "title": "Tiket Habis"
+      }
+    ],
+    "sorts": [
+      {
+        "id": "1",
+        "value": "date",
+        "title": "Tanggal"
+      },
+      {
+        "id": "2",
+        "value": "name",
+        "title": "Nama Event"
+      },
+      {
+        "id": "3",
+        "value": "views",
+        "title": "Jumlah Tampil"
+      },
+      {
+        "id": "4",
+        "value": "clicks",
+        "title": "Jumlah Klik"
+      },
+      {
+        "id": "5",
+        "value": "ctr",
+        "title": "Jumlah Conversion Rate"
+      }
+    ]
+  },
+  "transactions": {
+    "filters": [
+      {
+        "id": "1",
+        "value": "paid",
+        "title": "Lunas"
+      },
+      {
+        "id": "2",
+        "value": "due",
+        "title": "Belum Lunas"
+      }
+    ],
+    "sorts": [
+      {
+        "id": "1",
+        "value": "date",
+        "title": "Tanggal"
+      },
+      {
+        "id": "2",
+        "value": "name",
+        "title": "Nama Event"
+      },
+      {
+        "id": "3",
+        "value": "price",
+        "title": "Harga"
+      }
+    ]
+  },
+  "search": {
+    "filters": [
+      {
+        "id": "1",
+        "value": "musik",
+        "title": "Musik"
+      },
+      {
+        "id": "2",
+        "value": "matsuri_festival",
+        "title": "Matsuri Festival"
+      },
+      {
+        "id": "3",
+        "value": "workshop",
+        "title": "Workshop"
+      },
+      {
+        "id": "4",
+        "value": "data_science",
+        "title": "Data Science"
+      },
+      {
+        "id": "5",
+        "value": "jazz",
+        "title": "Jazz"
+      }
+    ]
+  }
+}

@@ -59,8 +59,8 @@ class DetailEventInfoFragment extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
                 itemBuilder: (ctx, index) => ContactOrganizerItem(
                   imageUrl: controller.event?.contacts[index].imageUrl ?? "",
-                  title: controller.event?.contacts[index].title ?? "",
-                  subtitle: controller.event?.contacts[index].subtitle ?? "",
+                  title: controller.event?.contacts[index].name ?? "",
+                  subtitle: controller.event?.contacts[index].position ?? "",
                   onCall: () {},
                 ),
               ),
@@ -69,8 +69,8 @@ class DetailEventInfoFragment extends StatelessWidget {
               const SizedBox(height: 8),
               ContactOrganizerItem(
                 imageUrl: controller.event?.author.imageUrl ?? "",
-                title: controller.event?.author.title ?? "",
-                subtitle: controller.event?.author.subtitle ?? "",
+                title: controller.event?.author.name ?? "",
+                subtitle: controller.event?.author.description ?? "",
                 onCall: () {},
               )
             ],

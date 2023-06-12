@@ -29,9 +29,17 @@ class MainDetailEventAnalyticsFragment extends StatelessWidget {
                 onSubmit: (value) {},
               ),
               const SizedBox(height: 16),
-              FilterEventSelector(
-                models: controller.analyticsFilters,
-                onFilterSelected: (filter) {},
+              FilterSelector(
+                selectedSort: controller.selectedSort,
+                selectedFilter: controller.selectedFilter,
+                sorts: controller.sorts,
+                filters: controller.filters,
+                sortTitle: "Urutkan Event",
+                onFilterSelected: controller.onFilterSelected,
+                onSortCleared: controller.clearSelectedSort,
+                onSortSelected: (value) async {
+                  controller.onSortSelected(value);
+                },
               ),
               const SizedBox(height: 32),
               const PrimarySubtitle(subtitle: "Rincian"),

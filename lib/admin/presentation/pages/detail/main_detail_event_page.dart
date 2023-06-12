@@ -5,7 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/pages/detail/main_detail_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
+import 'package:polaris/core/util/helper/snackbar_helper.dart';
 import 'package:polaris/route/app_route.dart';
 
 class MainDetailEventPage extends StatelessWidget {
@@ -28,7 +30,19 @@ class MainDetailEventPage extends StatelessWidget {
                 size: 16,
               ),
               title: "Generate URL",
-              onPressed: () {},
+              onPressed: () {
+                Get.bottomSheet(
+                  GenerateUrlSheet(
+                    items: controller.shareItems,
+                    onItemSelected: (value) {
+                      SnackbarHelper.showSnackbar(
+                        title: "Bagikan Event",
+                        message: "Bagikan lewat ${value.title}",
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ),
           body: SafeArea(
@@ -41,7 +55,7 @@ class MainDetailEventPage extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Hero(
-                        tag: Get.parameters['id'] as String,
+                        tag: controller.event?.id ?? "",
                         child: ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
                             colors: [

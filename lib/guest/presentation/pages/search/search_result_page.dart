@@ -38,9 +38,17 @@ class SearchResultPage extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 16),
-                  FilterEventSelector(
-                    models: controller.filters,
-                    onFilterSelected: (filter) {},
+                  FilterSelector(
+                    selectedSort: controller.selectedSort,
+                    selectedFilter: controller.selectedFilter,
+                    sorts: controller.sorts,
+                    filters: controller.filters,
+                    sortTitle: "Urutkan Event",
+                    onFilterSelected: controller.onFilterSelected,
+                    onSortCleared: controller.clearSelectedSort,
+                    onSortSelected: (value) async {
+                      controller.onSortSelected(value);
+                    },
                   ),
                   const SizedBox(height: 32),
                   PrimarySubtitle(

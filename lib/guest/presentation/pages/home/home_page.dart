@@ -42,27 +42,27 @@ class HomePage extends StatelessWidget {
                         onSelected: (value) {
                           LogHelper.instance.info(value);
 
-                          if (value == 'logout') {
+                          if (value == 'signin') {
                             Get.find<AuthController>().logout();
                           }
                         },
                         itemBuilder: (ctx) => [
                           PopupMenuItem(
-                            value: "logout",
+                            value: "signin",
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Iconsax.logout5,
-                                  color: Get.theme.colorScheme.error,
+                                  Iconsax.login,
+                                  color: Get.theme.colorScheme.onSurface,
                                   size: 16,
                                 ),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 8),
                                 Text(
-                                  "Logout",
+                                  "Masuk sebagai Pengelola Event",
                                   style: Get.textTheme.headlineSmall?.copyWith(
-                                    color: Get.theme.colorScheme.error,
+                                    color: Get.theme.colorScheme.onSurface,
                                   ),
                                 ),
                               ],
@@ -93,9 +93,17 @@ class HomePage extends StatelessWidget {
                     onSubmit: (value) {},
                   ),
                   const SizedBox(height: 16),
-                  FilterEventSelector(
-                    models: controller.filters,
-                    onFilterSelected: (value) {},
+                  FilterSelector(
+                    selectedSort: controller.selectedSort,
+                    selectedFilter: controller.selectedFilter,
+                    sorts: controller.sorts,
+                    filters: controller.filters,
+                    sortTitle: "Urutkan Event",
+                    onFilterSelected: controller.onFilterSelected,
+                    onSortCleared: controller.clearSelectedSort,
+                    onSortSelected: (value) async {
+                      controller.onSortSelected(value);
+                    },
                   ),
                   const SizedBox(height: 32),
                   const PrimarySubtitle(subtitle: "Event Populer"),

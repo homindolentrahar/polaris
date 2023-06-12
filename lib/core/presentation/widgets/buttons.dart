@@ -103,8 +103,8 @@ class PrimaryTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      hoverColor: Theme.of(context).primaryColor.withOpacity(0.10),
-      highlightColor: Theme.of(context).primaryColor.withOpacity(0.20),
+      hoverColor: Get.theme.primaryColor.withOpacity(0.10),
+      highlightColor: Get.theme.primaryColor.withOpacity(0.20),
       borderRadius: BorderRadius.circular(8),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -113,10 +113,9 @@ class PrimaryTextButton extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: Theme.of(context).primaryColor),
+          style: Get.textTheme.headlineSmall?.copyWith(
+            color: titleColor ?? Get.theme.primaryColor,
+          ),
         ),
       ),
     );

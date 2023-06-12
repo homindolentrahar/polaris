@@ -53,7 +53,8 @@ class SearchKeyPage extends StatelessWidget {
                         runSpacing: 8,
                         children: List.generate(
                           controller.filters.length,
-                          (index) => FilterEventChip(
+                          (index) => FilterItemChip(
+                            isSelected: false,
                             data: controller.filters[index],
                             onFilterSelected: (value) {
                               Get.toNamed(

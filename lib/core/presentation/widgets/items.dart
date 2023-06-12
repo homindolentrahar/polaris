@@ -12,6 +12,7 @@ import 'package:polaris/core/presentation/widgets/tabs.dart';
 import 'package:polaris/core/util/helper/string_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 import 'package:readmore/readmore.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class ContactOrganizerItem extends StatelessWidget {
   final String imageUrl;
@@ -440,13 +441,9 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   leadingIcon != null
-                      ? PrimaryIconButton(
-                          icon: leadingIcon!,
-                          onPressed: onLeadingPressed,
-                          color: leadingBackground ??
-                              Get.theme.colorScheme.onSurface,
-                          radius: leadingRadius,
-                          padding: leadingPadding,
+                      ? GestureDetector(
+                          onTap: onLeadingPressed,
+                          child: leadingIcon,
                         )
                       : PrimaryIconButton(
                           icon: SvgPicture.asset(
@@ -459,7 +456,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 Get.back();
                               },
                         ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 16),
                 ],
               ),
             ),
@@ -621,12 +618,14 @@ class DetailInfo extends StatelessWidget {
   final String title;
   final String value;
   final CrossAxisAlignment align;
+  final double spacing;
 
   const DetailInfo({
     super.key,
     required this.title,
     required this.value,
     this.align = CrossAxisAlignment.start,
+    this.spacing = 4,
   });
 
   @override
@@ -640,7 +639,7 @@ class DetailInfo extends StatelessWidget {
           style: Get.textTheme.titleSmall
               ?.copyWith(color: Get.theme.colorScheme.onBackground),
         ),
-        const SizedBox(height: 4),
+        SizedBox(height: spacing),
         Text(
           value,
           style: Get.textTheme.headlineSmall
@@ -694,101 +693,115 @@ class InfoChip extends StatelessWidget {
 
 class TicketTypeItem extends StatelessWidget {
   final EventTicket? data;
+  final ValueChanged<EventTicket?> onItemSelected;
 
-  const TicketTypeItem({super.key, required this.data});
+  const TicketTypeItem({
+    super.key,
+    required this.data,
+    required this.onItemSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Get.theme.colorScheme.surface,
+    return Material(
+      color: Get.theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Get.theme.colorScheme.outline),
+        side: BorderSide(
+          color: Get.theme.colorScheme.outline,
+        ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      child: InkWell(
+        onTap: () => onItemSelected(null),
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconContainer(
-                icon: SvgPicture.asset(
-                  Assets.icons.icTicket,
-                  color: Get.theme.colorScheme.tertiary,
-                  width: 20,
-                  height: 20,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data?.title ?? "",
-                      style: Get.textTheme.headlineMedium
-                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "${data?.amount} tiket",
-                      style: Get.textTheme.titleSmall
-                          ?.copyWith(color: Get.theme.colorScheme.onBackground),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              InfoChip(
-                  value: StringHelper.formatCompactCurrency(data?.price ?? 0)),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: DashedLines(
-              length: Get.width,
-              color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
-            ),
-          ),
-          ...List.generate(
-            data?.benefits.take(3).length ?? 0,
-            (index) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    Assets.icons.icTick,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    width: 16,
-                    height: 16,
+                  IconContainer(
+                    icon: SvgPicture.asset(
+                      Assets.icons.icTicket,
+                      color: Get.theme.colorScheme.tertiary,
+                      width: 20,
+                      height: 20,
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    data?.benefits[index] ?? "",
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data?.title ?? "",
+                          style: Get.textTheme.headlineMedium?.copyWith(
+                              color: Get.theme.colorScheme.onSurface),
                         ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "${data?.amount} tiket",
+                          style: Get.textTheme.titleSmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground),
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(width: 16),
+                  InfoChip(
+                      value:
+                          StringHelper.formatCompactCurrency(data?.price ?? 0)),
                 ],
               ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.center,
-            child: Visibility(
-              visible: (data?.benefits.length ?? 0) > 3,
-              child: PrimaryTextButton(
-                title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
-                onPressed: () {},
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: DashedLines(
+                  length: Get.width,
+                  color: Get.theme.colorScheme.tertiary.withOpacity(0.25),
+                ),
               ),
-            ),
+              ...List.generate(
+                data?.benefits.take(3).length ?? 0,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        Assets.icons.icTick,
+                        color: Theme.of(context).colorScheme.onBackground,
+                        width: 16,
+                        height: 16,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        data?.benefits[index] ?? "",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.center,
+                child: Visibility(
+                  visible: (data?.benefits.length ?? 0) > 3,
+                  child: PrimaryTextButton(
+                    title: "Selengkapnya +${(data?.benefits.length ?? 3) - 3}",
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -797,12 +810,14 @@ class TicketTypeItem extends StatelessWidget {
 class DateSelector extends StatelessWidget {
   final Widget? icon;
   final String title;
-  final ValueChanged<DateTime?> onDateSelected;
+  final DateTime initialDate;
+  final Function(DateTime, DateTime) onDateSelected;
 
   const DateSelector({
     super.key,
     this.icon,
     required this.title,
+    required this.initialDate,
     required this.onDateSelected,
   });
 
@@ -814,7 +829,98 @@ class DateSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.bottomSheet(
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Get.theme.colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pilih Tanggal",
+                      style: Get.textTheme.headlineSmall
+                          ?.copyWith(color: Get.theme.colorScheme.onSurface),
+                    ),
+                    const SizedBox(height: 32),
+                    TableCalendar(
+                      firstDay: initialDate,
+                      focusedDay: DateTime.now(),
+                      lastDay: DateTime(2024),
+                      headerVisible: false,
+                      onDaySelected: (selected, focused) {
+                        onDateSelected(selected, focused);
+                      },
+                      eventLoader: (value) {
+                        return [];
+                      },
+                      daysOfWeekStyle: DaysOfWeekStyle(
+                        weekdayStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onBackground,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        weekendStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      calendarStyle: CalendarStyle(
+                        todayDecoration: BoxDecoration(
+                          color: Get.theme.colorScheme.primary,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        defaultTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onSurface,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        todayTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onPrimary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        weekendTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        holidayTextStyle: Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.error,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        selectedTextStyle:
+                            Get.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.colorScheme.onPrimary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    PrimaryButton(
+                      title: "Simpan",
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
         splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
         highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.15),
         borderRadius: BorderRadius.circular(8),

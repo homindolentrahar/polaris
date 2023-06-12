@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
+import 'package:polaris/core/util/helper/snackbar_helper.dart';
 import 'package:polaris/gen/assets.gen.dart';
 import 'package:polaris/guest/presentation/pages/eticket/eticket_controller.dart';
 
@@ -21,7 +22,6 @@ class EticketPage extends StatelessWidget {
             leadingIcon: Icon(
               Icons.close,
               color: Get.theme.colorScheme.surface,
-              size: 16,
             ),
             onLeadingPressed: () {
               Get.back();
@@ -37,24 +37,14 @@ class EticketPage extends StatelessWidget {
               ),
               title: "Unduh",
               onPressed: () {
-                if (Get.isSnackbarOpen) {
-                  Get.closeAllSnackbars();
-                }
-                Get.snackbar(
-                  "Mengunduh Tiket",
-                  "Tiket anda akan disimpan dalam bentuk dokumen (PDF)",
+                SnackbarHelper.showSnackbar(
+                  title: "Mengunduh Tiket",
+                  message:
+                      "Tiket anda akan disimpan dalam bentuk dokumen (PDF)",
                   icon: Icon(
                     Iconsax.import_1,
                     color: Get.theme.colorScheme.surface,
                   ),
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Get.theme.colorScheme.onSurface,
-                  colorText: Get.theme.colorScheme.surface,
-                  snackStyle: SnackStyle.GROUNDED,
-                  margin: EdgeInsets.zero,
-                  borderRadius: 8,
-                  forwardAnimationCurve: Curves.easeInOut,
-                  reverseAnimationCurve: Curves.easeInOut,
                 );
               },
             ),
@@ -72,7 +62,7 @@ class EticketPage extends StatelessWidget {
                         activeIndex: controller.carouselIndex,
                         itemCount: controller.tickets.length,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
                     ],
                   ),
                 ),
@@ -89,9 +79,10 @@ class EticketPage extends StatelessWidget {
 
                       return SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 32,
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                          right: 24,
+                          bottom: 32,
                         ),
                         child: Column(
                           children: [

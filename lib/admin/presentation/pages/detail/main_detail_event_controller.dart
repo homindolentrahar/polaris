@@ -6,14 +6,16 @@ import 'package:polaris/admin/presentation/pages/detail/fragments/main_detail_ev
 import 'package:polaris/admin/presentation/pages/detail/fragments/main_detail_event_transactions_fragment.dart';
 import 'package:polaris/core/data/repositories/analytics_repository.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
+import 'package:polaris/core/data/repositories/filters_repository.dart';
 import 'package:polaris/core/data/repositories/payments_repository.dart';
 import 'package:polaris/core/data/repositories/transactions_repository.dart';
 import 'package:polaris/core/domain/model/analytic.dart';
 import 'package:polaris/core/domain/model/event.dart';
-import 'package:polaris/core/domain/model/filter_event_model.dart';
+import 'package:polaris/core/domain/model/general.dart';
 import 'package:polaris/core/domain/model/payment.dart';
-import 'package:polaris/core/domain/model/ticket_type_model.dart';
 import 'package:polaris/core/domain/model/transaction.dart';
+import 'package:polaris/core/domain/share.dart';
+import 'package:polaris/gen/assets.gen.dart';
 
 class MainDetailEventController extends GetxController {
   final EventsRepository eventsRepository = EventsRepository();
@@ -21,6 +23,7 @@ class MainDetailEventController extends GetxController {
   final AnalyticsRepository analyticsRepository = AnalyticsRepository();
   final TransactionsRepository transactionsRepository =
       TransactionsRepository();
+  final FiltersRepository filtersRepository = FiltersRepository();
   final fragments = [
     {
       'title': "Info",
@@ -35,51 +38,51 @@ class MainDetailEventController extends GetxController {
       'fragment': const MainDetailEventTransactionsFragment(),
     },
   ];
-  final List<FilterEventModel> analyticsFilters = [
-    FilterEventModel(
-      value: 'ctr_greater_50',
-      title: "CTR > 50%",
+  final List<Share> shareItems = [
+    Share(
+      id: "2",
+      icon: Image.asset(
+        Assets.icons.icWhatsapp.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Chat/Group Chat",
     ),
-    FilterEventModel(
-      value: 'sold_out',
-      title: "Tiket Habis",
+    Share(
+      id: "3",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Story",
     ),
-  ];
-  final List<TicketTypeModel> tickets = [
-    TicketTypeModel(
-      id: "reguler",
-      title: "Reguler",
-      price: 56000,
-      ticketsLeft: 19,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-      ],
+    Share(
+      id: "4",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Post",
     ),
-    TicketTypeModel(
-      id: "silver",
-      title: "Silver",
-      price: 80000,
-      ticketsLeft: 89,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-        "1 buah Softdrink",
-        "1 ticket gacha",
-      ],
+    Share(
+      id: "5",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Post",
     ),
-    TicketTypeModel(
-      id: "gold",
-      title: "Gold",
-      price: 120000,
-      ticketsLeft: 50,
-      benefits: [
-        "Gantungan Kunci Eksklusif",
-        "Kipas Tangan Eksklusif",
-        "2 buah Softdrink",
-        "5 ticket gacha",
-        "Totebage Eksklusif",
-      ],
+    Share(
+      id: "6",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Story",
     ),
   ];
 
@@ -90,6 +93,10 @@ class MainDetailEventController extends GetxController {
   Map<DateTime, List<Analytic>> totalAnalytics = {};
   List<Analytic> monthlyAnalytics = List.empty();
   List<Transaction> transactions = List.empty();
+  List<FilterSortData> filters = List.empty();
+  List<FilterSortData> sorts = List.empty();
+  FilterSortData? selectedFilter;
+  FilterSortData? selectedSort;
   int tabIndex = 0;
   int ticketTypeIndex = 0;
   int ticketAmount = 0;
@@ -113,6 +120,16 @@ class MainDetailEventController extends GetxController {
 
   Future<void> getAllEvents() async {
     events = await eventsRepository.getAllEvents();
+    filters = await filtersRepository.getFilters(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
+    sorts = await filtersRepository.getSorts(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
     update();
   }
 
@@ -144,13 +161,23 @@ class MainDetailEventController extends GetxController {
     update();
   }
 
-  void onTabChanged(int index) {
+  void onTabChanged(int index) async {
     tabIndex = index;
     pageController.animateToPage(
       index,
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 300),
     );
+    filters = await filtersRepository.getFilters(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
+    sorts = await filtersRepository.getSorts(tabIndex == 1
+        ? "analytics"
+        : tabIndex == 2
+            ? "transactions"
+            : "events");
     update();
   }
 
@@ -171,6 +198,25 @@ class MainDetailEventController extends GetxController {
 
   void onTicketTypeChanged(int index) {
     ticketTypeIndex = index;
+    update();
+  }
+
+  void onFilterSelected(FilterSortData filter) {
+    if (selectedFilter?.id == filter.id) {
+      selectedFilter = null;
+    } else {
+      selectedFilter = filter;
+    }
+    update();
+  }
+
+  void onSortSelected(FilterSortData filter) {
+    selectedSort = filter;
+    update();
+  }
+
+  void clearSelectedSort() {
+    selectedSort = null;
     update();
   }
 }

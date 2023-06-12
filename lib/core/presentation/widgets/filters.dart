@@ -1,37 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:polaris/core/domain/model/filter_event_model.dart';
+import 'package:polaris/core/domain/model/general.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 
-class FilterEventSelector extends StatelessWidget {
-  final List<FilterEventModel> models;
-  final ValueChanged<FilterEventModel> onFilterSelected;
+class FilterSelector extends StatelessWidget {
+  final FilterSortData? selectedFilter;
+  final FilterSortData? selectedSort;
+  final List<FilterSortData> sorts;
+  final List<FilterSortData> filters;
+  final String sortTitle;
+  final String? sortSubmitText;
+  final ValueChanged<FilterSortData> onFilterSelected;
+  final ValueChanged<FilterSortData> onSortSelected;
+  final VoidCallback onSortCleared;
 
-  const FilterEventSelector({
+  const FilterSelector({
     super.key,
-    required this.models,
+    this.selectedFilter,
+    this.selectedSort,
+    required this.sorts,
+    required this.filters,
+    required this.sortTitle,
+    this.sortSubmitText,
     required this.onFilterSelected,
+    required this.onSortSelected,
+    required this.onSortCleared,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 36,
+      height: 32,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FilterEventButton(
-            onPressed: () {},
+          SortButton(
+            isSelected: selectedSort != null,
+            onPressed: () async {
+              final String? sort = await Get.bottomSheet(
+                SortSheet(
+                  title: "Urutkan Event",
+                  submitText: sortSubmitText,
+                  selectedSort: selectedSort,
+                  sorts: sorts,
+                  onSortCleared: () {
+                    onSortCleared();
+                  },
+                ),
+              );
+
+              if (sort != null) {
+                onSortSelected(
+                  sorts.firstWhere((element) => element.value == sort),
+                );
+              }
+            },
           ),
           const SizedBox(width: 8),
           Expanded(
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: models.length,
+              itemCount: filters.length,
               separatorBuilder: (context, index) => const SizedBox(width: 8),
-              itemBuilder: (ctx, index) => FilterEventChip(
-                data: models[index],
+              itemBuilder: (ctx, index) => FilterItemChip(
+                isSelected: filters[index].id == selectedFilter?.id,
+                data: filters[index],
                 onFilterSelected: (value) {
                   onFilterSelected(value);
                 },
@@ -44,12 +80,14 @@ class FilterEventSelector extends StatelessWidget {
   }
 }
 
-class FilterEventChip extends StatelessWidget {
-  final FilterEventModel data;
-  final ValueChanged<FilterEventModel> onFilterSelected;
+class FilterItemChip extends StatelessWidget {
+  final bool isSelected;
+  final FilterSortData data;
+  final ValueChanged<FilterSortData> onFilterSelected;
 
-  const FilterEventChip({
+  const FilterItemChip({
     super.key,
+    required this.isSelected,
     required this.data,
     required this.onFilterSelected,
   });
@@ -60,25 +98,28 @@ class FilterEventChip extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
+          color: Get.theme.colorScheme.outline,
           width: 1,
         ),
       ),
-      color: Theme.of(context).colorScheme.surface,
+      color: isSelected
+          ? Get.theme.colorScheme.primary
+          : Get.theme.colorScheme.surface,
       child: InkWell(
         onTap: () => onFilterSelected(data),
         borderRadius: BorderRadius.circular(8),
-        splashColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.15),
-        highlightColor:
-            Theme.of(context).colorScheme.tertiary.withOpacity(0.25),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.1),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Text(
             data.title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+            style: Get.textTheme.bodyMedium?.copyWith(
+              color: isSelected
+                  ? Get.theme.colorScheme.onPrimary
+                  : Get.theme.colorScheme.tertiary,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            ),
           ),
         ),
       ),
@@ -86,11 +127,13 @@ class FilterEventChip extends StatelessWidget {
   }
 }
 
-class FilterEventButton extends StatelessWidget {
+class SortButton extends StatelessWidget {
+  final bool isSelected;
   final VoidCallback onPressed;
 
-  const FilterEventButton({
+  const SortButton({
     super.key,
+    required this.isSelected,
     required this.onPressed,
   });
 
@@ -100,17 +143,18 @@ class FilterEventButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: Theme.of(context).colorScheme.outlineVariant,
-          width: 1,
+          color: Get.theme.colorScheme.outlineVariant,
+          width: isSelected ? 0 : 1,
         ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: isSelected
+          ? Get.theme.primaryColor
+          : Get.theme.colorScheme.background,
       child: InkWell(
         onTap: onPressed,
         borderRadius: BorderRadius.circular(8),
-        splashColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.15),
-        highlightColor:
-            Theme.of(context).colorScheme.tertiary.withOpacity(0.25),
+        splashColor: Get.theme.colorScheme.onSurface.withOpacity(0.05),
+        highlightColor: Get.theme.colorScheme.onSurface.withOpacity(0.1),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
@@ -119,16 +163,20 @@ class FilterEventButton extends StatelessWidget {
             children: [
               Icon(
                 Iconsax.setting_4,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: isSelected
+                    ? Get.theme.colorScheme.onPrimary
+                    : Get.theme.colorScheme.tertiary,
                 size: 16,
               ),
               const SizedBox(width: 8),
               Text(
-                "Filter",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+                "Urutkan",
+                style: Get.textTheme.titleMedium?.copyWith(
+                  color: isSelected
+                      ? Get.theme.colorScheme.onPrimary
+                      : Get.theme.colorScheme.tertiary,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                ),
               ),
             ],
           ),

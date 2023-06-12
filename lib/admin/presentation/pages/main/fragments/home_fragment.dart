@@ -106,9 +106,10 @@ class HomeFragment extends StatelessWidget {
                     backgroundColor: Get.theme.colorScheme.onSurface,
                     borderRadius: 8,
                     snackStyle: SnackStyle.GROUNDED,
-                    snackPosition: SnackPosition.BOTTOM,
+                    snackPosition: SnackPosition.TOP,
                     colorText: Get.theme.colorScheme.surface,
                     margin: EdgeInsets.zero,
+                    duration: const Duration(seconds: 2),
                   );
                 },
               ),

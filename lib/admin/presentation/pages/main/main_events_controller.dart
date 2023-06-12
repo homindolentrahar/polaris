@@ -1,30 +1,18 @@
 import 'package:get/get.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
+import 'package:polaris/core/data/repositories/filters_repository.dart';
 import 'package:polaris/core/domain/model/event.dart';
-import 'package:polaris/core/domain/model/filter_event_model.dart';
+import 'package:polaris/core/domain/model/general.dart';
 
 class MainEventsController extends GetxController {
-  final EventsRepository repository = EventsRepository();
-  final List<FilterEventModel> filters = [
-    FilterEventModel(
-      value: 'nearby',
-      title: "Terdekat",
-    ),
-    FilterEventModel(
-      value: 'this_week',
-      title: "Minggu Ini",
-    ),
-    FilterEventModel(
-      value: 'ticket_limited',
-      title: "Tiket Terbatas",
-    ),
-    FilterEventModel(
-      value: 'ticket_ots',
-      title: "Tiket OTS",
-    ),
-  ];
+  final EventsRepository eventsRepository = EventsRepository();
+  final FiltersRepository filtersRepository = FiltersRepository();
 
   List<Event> events = List.empty();
+  List<FilterSortData> filters = List.empty();
+  List<FilterSortData> sorts = List.empty();
+  FilterSortData? selectedFilter;
+  FilterSortData? selectedSort;
 
   @override
   void onInit() {
@@ -34,7 +22,28 @@ class MainEventsController extends GetxController {
   }
 
   Future<void> getAllEvents() async {
-    events = await repository.getAllEvents();
+    events = await eventsRepository.getAllEvents();
+    filters = await filtersRepository.getFilters("events");
+    sorts = await filtersRepository.getSorts("events");
+    update();
+  }
+
+  void onFilterSelected(FilterSortData filter) {
+    if (selectedFilter?.id == filter.id) {
+      selectedFilter = null;
+    } else {
+      selectedFilter = filter;
+    }
+    update();
+  }
+
+  void onSortSelected(FilterSortData filter) {
+    selectedSort = filter;
+    update();
+  }
+
+  void clearSelectedSort() {
+    selectedSort = null;
     update();
   }
 }

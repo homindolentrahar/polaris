@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:polaris/admin/presentation/pages/create/create_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 
 class CreateEventTicketFragment extends StatelessWidget {
   const CreateEventTicketFragment({super.key});
@@ -22,6 +23,9 @@ class CreateEventTicketFragment extends StatelessWidget {
                 itemCount: controller.event?.tickets.length ?? 0,
                 itemBuilder: (ctx, index) => TicketTypeItem(
                   data: controller.event?.tickets[index],
+                  onItemSelected: (value) {
+                    Get.bottomSheet(const AddTicketSheet());
+                  },
                 ),
                 separatorBuilder: (ctx, index) => const SizedBox(height: 16),
               ),
@@ -33,7 +37,9 @@ class CreateEventTicketFragment extends StatelessWidget {
                   size: 16,
                 ),
                 title: "Tambah Tipe Tiket",
-                onPressed: () {},
+                onPressed: () {
+                  Get.bottomSheet(const AddTicketSheet());
+                },
               ),
             ],
           ),

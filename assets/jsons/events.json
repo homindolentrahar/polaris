@@ -16,21 +16,25 @@
       {
         "id": "1",
         "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "title": "Rojali Somat",
-        "subtitle": "Humas"
+        "name": "Rojali Somat",
+        "position": "Humas",
+        "contact": "085711223344"
       },
       {
         "id": "2",
         "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "title": "Frieska Anastasya",
-        "subtitle": "Humas"
+        "name": "Frieska Anastasya",
+        "position": "Humas",
+        "contact": "085711223344"
       }
     ],
     "author": {
       "id": "1",
       "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      "title": "Himajep UII",
-      "subtitle": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah"
+      "name": "Himajep UII",
+      "description": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "contact": "085711223344"
     },
     "tickets": [
       {
@@ -85,21 +89,25 @@
       {
         "id": "1",
         "image_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "title": "Rojali Somat",
-        "subtitle": "Humas"
+        "name": "Rojali Somat",
+        "position": "Humas",
+        "contact": "085711223344"
       },
       {
         "id": "2",
         "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "title": "Frieska Anastasya",
-        "subtitle": "Humas"
+        "name": "Frieska Anastasya",
+        "position": "Humas",
+        "contact": "085711223344"
       }
     ],
     "author": {
       "id": "1",
       "image_url": "https://images.unsplash.com/photo-1531498860502-7c67cf02f657?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      "title": "FIK UAD",
-      "subtitle": "Fakultas Universitas Aduh Deh"
+      "name": "FIK UAD",
+      "description": "Fakultas Universitas Aduh Deh",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "contact": "085711223344"
     },
     "tickets": [
       {
@@ -120,6 +128,225 @@
           "USB Drive",
           "Keyboard Handrest",
           "Sertifikat"
+        ]
+      }
+    ],
+    "analytics": {
+      "clicks": 256,
+      "views": 512,
+      "ctr": 56.0
+    }
+  },
+  {
+    "id": "3",
+    "title": "Pesta Rakyat Wibu",
+    "date_time": "2023-06-02T17:41:42.918",
+    "description": "Lorem ipsum dolor sit amet",
+    "url": "polaris.event/himatep/pesta_rakyat_wibu",
+    "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "venue": {
+      "name": "Sky 7 Rooftop",
+      "location": "Kota Yogyakarta, Yogyakarta",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "capacity": 600
+    },
+    "contacts": [
+      {
+        "id": "1",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Rojali Somat",
+        "position": "Humas",
+        "contact": "085711223344"
+      },
+      {
+        "id": "2",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Frieska Anastasya",
+        "position": "Humas",
+        "contact": "085711223344"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      "name": "Himajep UII",
+      "description": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "contact": "085711223344"
+    },
+    "tickets": [
+      {
+        "id": "1",
+        "title": "Bronze",
+        "price": 45000,
+        "amount": 50,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan"]
+      },
+      {
+        "id": "2",
+        "title": "Silver",
+        "price": 75000,
+        "amount": 30,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan", "Softdrink", "Lanyard"]
+      },
+      {
+        "id": "3",
+        "title": "Gold",
+        "price": 125000,
+        "amount": 45,
+        "benefits": [
+          "Gantungan Kunci",
+          "Kipas Tangan",
+          "Softdrink",
+          "Lanyard",
+          "Photo Card",
+          "Totebag"
+        ]
+      }
+    ],
+    "analytics": {
+      "clicks": 256,
+      "views": 512,
+      "ctr": 56.0
+    }
+  },
+  {
+    "id": "4",
+    "title": "Mukashi Festival",
+    "date_time": "2023-06-02T17:41:42.918",
+    "description": "Lorem ipsum dolor sit amet",
+    "url": "polaris.event/himatep/pesta_rakyat_wibu",
+    "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "venue": {
+      "name": "Sky 7 Rooftop",
+      "location": "Kota Yogyakarta, Yogyakarta",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "capacity": 600
+    },
+    "contacts": [
+      {
+        "id": "1",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Rojali Somat",
+        "position": "Humas",
+        "contact": "085711223344"
+      },
+      {
+        "id": "2",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Frieska Anastasya",
+        "position": "Humas",
+        "contact": "085711223344"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      "name": "Himajep UII",
+      "description": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "contact": "085711223344"
+    },
+    "tickets": [
+      {
+        "id": "1",
+        "title": "Bronze",
+        "price": 45000,
+        "amount": 50,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan"]
+      },
+      {
+        "id": "2",
+        "title": "Silver",
+        "price": 75000,
+        "amount": 30,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan", "Softdrink", "Lanyard"]
+      },
+      {
+        "id": "3",
+        "title": "Gold",
+        "price": 125000,
+        "amount": 45,
+        "benefits": [
+          "Gantungan Kunci",
+          "Kipas Tangan",
+          "Softdrink",
+          "Lanyard",
+          "Photo Card",
+          "Totebag"
+        ]
+      }
+    ],
+    "analytics": {
+      "clicks": 256,
+      "views": 512,
+      "ctr": 56.0
+    }
+  },
+  {
+    "id": "5",
+    "title": "Pekan Raya Kewibuan",
+    "date_time": "2023-06-02T17:41:42.918",
+    "description": "Lorem ipsum dolor sit amet",
+    "url": "polaris.event/himatep/pesta_rakyat_wibu",
+    "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "venue": {
+      "name": "Sky 7 Rooftop",
+      "location": "Kota Yogyakarta, Yogyakarta",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "capacity": 600
+    },
+    "contacts": [
+      {
+        "id": "1",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Rojali Somat",
+        "position": "Humas",
+        "contact": "085711223344"
+      },
+      {
+        "id": "2",
+        "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "name": "Frieska Anastasya",
+        "position": "Humas",
+        "contact": "085711223344"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "image_url": "https://images.unsplash.com/photo-1614829232481-849218a1e3db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      "name": "Himajep UII",
+      "description": "Himpunan Prodi Sastra Jepang Universitas Irlandia Indah",
+      "address": "Jl. Yos Sudarso No. 45, Yogyakarta",
+      "contact": "085711223344"
+    },
+    "tickets": [
+      {
+        "id": "1",
+        "title": "Bronze",
+        "price": 45000,
+        "amount": 50,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan"]
+      },
+      {
+        "id": "2",
+        "title": "Silver",
+        "price": 75000,
+        "amount": 30,
+        "benefits": ["Gantungan Kunci", "Kipas Tangan", "Softdrink", "Lanyard"]
+      },
+      {
+        "id": "3",
+        "title": "Gold",
+        "price": 125000,
+        "amount": 45,
+        "benefits": [
+          "Gantungan Kunci",
+          "Kipas Tangan",
+          "Softdrink",
+          "Lanyard",
+          "Photo Card",
+          "Totebag"
         ]
       }
     ],
