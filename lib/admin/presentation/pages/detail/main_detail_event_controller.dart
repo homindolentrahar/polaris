@@ -14,6 +14,8 @@ import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/domain/model/general.dart';
 import 'package:polaris/core/domain/model/payment.dart';
 import 'package:polaris/core/domain/model/transaction.dart';
+import 'package:polaris/core/domain/share.dart';
+import 'package:polaris/gen/assets.gen.dart';
 
 class MainDetailEventController extends GetxController {
   final EventsRepository eventsRepository = EventsRepository();
@@ -35,6 +37,53 @@ class MainDetailEventController extends GetxController {
       'title': "Transaksi",
       'fragment': const MainDetailEventTransactionsFragment(),
     },
+  ];
+  final List<Share> shareItems = [
+    Share(
+      id: "2",
+      icon: Image.asset(
+        Assets.icons.icWhatsapp.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Chat/Group Chat",
+    ),
+    Share(
+      id: "3",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Story",
+    ),
+    Share(
+      id: "4",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Post",
+    ),
+    Share(
+      id: "5",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Post",
+    ),
+    Share(
+      id: "6",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Story",
+    ),
   ];
 
   Event? event;

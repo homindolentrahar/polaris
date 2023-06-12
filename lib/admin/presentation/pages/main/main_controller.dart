@@ -14,8 +14,8 @@ class MainController extends GetxController {
         route: AppRoutes.home,
         index: 0,
         title: "Beranda",
-        icon: Icon(Iconsax.home_1, color: Get.theme.colorScheme.tertiary),
-        activeIcon: Icon(Iconsax.home_15, color: Get.theme.primaryColor),
+        icon: Icon(Iconsax.home, color: Get.theme.colorScheme.tertiary),
+        activeIcon: Icon(Iconsax.home5, color: Get.theme.primaryColor),
         fragment: const HomeFragment()),
     NavigationItemModel(
         route: AppRoutes.analytics,

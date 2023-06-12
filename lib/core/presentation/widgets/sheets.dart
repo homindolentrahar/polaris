@@ -5,10 +5,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/general.dart';
+import 'package:polaris/core/domain/share.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/image_picker_helper.dart';
+import 'package:polaris/core/util/helper/snackbar_helper.dart';
 
 class SortSheet extends StatelessWidget {
   final String title;
@@ -607,7 +609,36 @@ class AddPaymentMethodSheet extends StatelessWidget {
 }
 
 class ShareEventSheet extends StatelessWidget {
-  const ShareEventSheet({super.key});
+  final List<Share> items;
+  final ValueChanged<Share> onItemSelected;
+
+  const ShareEventSheet({
+    super.key,
+    required this.items,
+    required this.onItemSelected,
+  });
+
+  Widget _buildShareItem(Share data) {
+    return GestureDetector(
+      onTap: () {
+        onItemSelected(data);
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconContainer(icon: data.icon),
+          const SizedBox(height: 8),
+          Text(
+            data.title,
+            style: Get.textTheme.titleSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -635,89 +666,101 @@ class ShareEventSheet extends StatelessWidget {
           Wrap(
             spacing: 24,
             runSpacing: 16,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconContainer(
-                    icon: Icon(
-                      Iconsax.link_2,
-                      size: 20,
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Salin URL",
-                    style: Get.textTheme.titleSmall?.copyWith(
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconContainer(
-                    icon: Icon(
-                      Iconsax.book,
-                      size: 20,
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Facebook",
-                    style: Get.textTheme.titleSmall?.copyWith(
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconContainer(
-                    icon: Icon(
-                      Iconsax.book,
-                      size: 20,
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Instagram",
-                    style: Get.textTheme.titleSmall?.copyWith(
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconContainer(
-                    icon: Icon(
-                      Iconsax.book,
-                      size: 20,
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "WhatsApp",
-                    style: Get.textTheme.titleSmall?.copyWith(
-                      color: Get.theme.colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            children: items.map((e) => _buildShareItem(e)).toList(),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class GenerateUrlSheet extends StatelessWidget {
+  final List<Share> items;
+  final ValueChanged<Share> onItemSelected;
+
+  const GenerateUrlSheet({
+    super.key,
+    required this.items,
+    required this.onItemSelected,
+  });
+
+  Widget _buildShareItem(Share data) {
+    return GestureDetector(
+      onTap: () {
+        onItemSelected(data);
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconContainer(icon: data.icon),
+          const SizedBox(height: 8),
+          Text(
+            data.title,
+            style: Get.textTheme.titleSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Generate URL",
+            style: Get.textTheme.headlineSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 32),
+          FormLinkField(
+            value: "https://polaris.event/himatep/events/matsuri_uii",
+            onLinkCopied: (value) {
+              SnackbarHelper.showSnackbar(
+                title: "URL Disalin",
+                message: value,
+              );
+            },
+          ),
+          const SizedBox(height: 32),
+          Text(
+            "Bagikan",
+            style: Get.textTheme.headlineSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: Get.width,
+            child: Wrap(
+              spacing: 24,
+              runSpacing: 16,
+              alignment: WrapAlignment.center,
+              runAlignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              direction: Axis.horizontal,
+              children: items.map((e) => _buildShareItem(e)).toList(),
+            ),
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );

@@ -441,13 +441,9 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   leadingIcon != null
-                      ? PrimaryIconButton(
-                          icon: leadingIcon!,
-                          onPressed: onLeadingPressed,
-                          color: leadingBackground ??
-                              Get.theme.colorScheme.onSurface,
-                          radius: leadingRadius,
-                          padding: leadingPadding,
+                      ? GestureDetector(
+                          onTap: onLeadingPressed,
+                          child: leadingIcon,
                         )
                       : PrimaryIconButton(
                           icon: SvgPicture.asset(
@@ -460,7 +456,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 Get.back();
                               },
                         ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 16),
                 ],
               ),
             ),
@@ -622,12 +618,14 @@ class DetailInfo extends StatelessWidget {
   final String title;
   final String value;
   final CrossAxisAlignment align;
+  final double spacing;
 
   const DetailInfo({
     super.key,
     required this.title,
     required this.value,
     this.align = CrossAxisAlignment.start,
+    this.spacing = 4,
   });
 
   @override
@@ -641,7 +639,7 @@ class DetailInfo extends StatelessWidget {
           style: Get.textTheme.titleSmall
               ?.copyWith(color: Get.theme.colorScheme.onBackground),
         ),
-        const SizedBox(height: 4),
+        SizedBox(height: spacing),
         Text(
           value,
           style: Get.textTheme.headlineSmall

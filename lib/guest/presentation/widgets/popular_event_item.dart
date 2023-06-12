@@ -84,7 +84,7 @@ class PopularEventItem extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "Tiket tersedia",
+                            "${data.tickets.length} tipe tiket",
                             style: Get.textTheme.headlineSmall?.copyWith(
                               color: Get.theme.colorScheme.secondary,
                               fontSize: 12,

@@ -3,7 +3,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:polaris/core/data/repositories/events_repository.dart';
 import 'package:polaris/core/domain/model/event.dart';
+import 'package:polaris/core/domain/share.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
+import 'package:polaris/gen/assets.gen.dart';
 import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_info_fragment.dart';
 import 'package:polaris/guest/presentation/pages/detail/fragments/detail_event_register_fragment.dart';
 import 'package:polaris/route/app_route.dart';
@@ -23,6 +25,53 @@ class DetailEventController extends GetxController {
       'title': "Pendaftaran",
       'fragment': const DetailEventRegisterFragment(),
     },
+  ];
+  final List<Share> shareItems = [
+    Share(
+      id: "2",
+      icon: Image.asset(
+        Assets.icons.icWhatsapp.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Chat/Group Chat",
+    ),
+    Share(
+      id: "3",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Story",
+    ),
+    Share(
+      id: "4",
+      icon: Image.asset(
+        Assets.icons.icInstagram.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Instagram Post",
+    ),
+    Share(
+      id: "5",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Post",
+    ),
+    Share(
+      id: "6",
+      icon: Image.asset(
+        Assets.icons.icFacebook.path,
+        width: 20,
+        height: 20,
+      ),
+      title: "Facebook Story",
+    ),
   ];
 
   int tabIndex = 0;

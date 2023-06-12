@@ -6,6 +6,7 @@ import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/sheets.dart';
 import 'package:polaris/core/presentation/widgets/tabs.dart';
+import 'package:polaris/core/util/helper/snackbar_helper.dart';
 import 'package:polaris/guest/presentation/pages/detail/detail_event_controller.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -28,7 +29,17 @@ class DetailEventPage extends StatelessWidget {
                       size: 16,
                     ),
                     onPressed: () {
-                      Get.bottomSheet(const ShareEventSheet());
+                      Get.bottomSheet(
+                        ShareEventSheet(
+                          items: controller.shareItems,
+                          onItemSelected: (value) {
+                            SnackbarHelper.showSnackbar(
+                              title: "Bagikan Event",
+                              message: "Bagikan lewat ${value.title}",
+                            );
+                          },
+                        ),
+                      );
                     },
                   )
                 : PrimaryButton(

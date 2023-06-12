@@ -22,7 +22,6 @@ class EticketPage extends StatelessWidget {
             leadingIcon: Icon(
               Icons.close,
               color: Get.theme.colorScheme.surface,
-              size: 16,
             ),
             onLeadingPressed: () {
               Get.back();
@@ -63,7 +62,7 @@ class EticketPage extends StatelessWidget {
                         activeIndex: controller.carouselIndex,
                         itemCount: controller.tickets.length,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
                     ],
                   ),
                 ),
@@ -80,9 +79,10 @@ class EticketPage extends StatelessWidget {
 
                       return SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 32,
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                          right: 24,
+                          bottom: 32,
                         ),
                         child: Column(
                           children: [

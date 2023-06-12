@@ -114,8 +114,9 @@ class PaymentConfirmFragment extends StatelessWidget {
                             const SizedBox(height: 4),
                             Text(
                               "085711223344",
-                              style: Get.textTheme.titleMedium?.copyWith(
-                                  color: Get.theme.colorScheme.onBackground),
+                              style: Get.textTheme.titleSmall?.copyWith(
+                                color: Get.theme.colorScheme.onBackground,
+                              ),
                             ),
                           ],
                         ),
@@ -124,10 +125,11 @@ class PaymentConfirmFragment extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Iconsax.user,
+                        SvgPicture.asset(
+                          Assets.icons.icUser,
+                          width: 16,
+                          height: 16,
                           color: Get.theme.colorScheme.onSurface,
-                          size: 16,
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -160,9 +162,13 @@ class PaymentConfirmFragment extends StatelessWidget {
             ),
             child: const Wrap(
               crossAxisAlignment: WrapCrossAlignment.start,
-              runSpacing: 8,
+              runSpacing: 16,
               children: [
-                DetailInfo(title: "Nama Lengkap", value: "Marsha Lenathea"),
+                DetailInfo(
+                  title: "Nama Lengkap",
+                  value: "Marsha Lenathea",
+                  spacing: 8,
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -170,6 +176,7 @@ class PaymentConfirmFragment extends StatelessWidget {
                         title: "Domisili",
                         value:
                             "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
+                        spacing: 8,
                       ),
                     ),
                   ],
@@ -179,23 +186,27 @@ class PaymentConfirmFragment extends StatelessWidget {
                     DetailInfo(
                       title: "Alamat Email",
                       value: "marhsalanime@gmail.com",
+                      spacing: 8,
                     ),
                   ],
                 ),
                 DetailInfo(
                   title: "Nomor Handphone",
                   value: "085711223355",
+                  spacing: 8,
                 ),
                 Row(
                   children: [
                     DetailInfo(
                       title: "Umur",
                       value: "17 tahun",
+                      spacing: 8,
                     ),
                     SizedBox(width: 32),
                     DetailInfo(
                       title: "Jenis Kelamin",
                       value: "Perempuan",
+                      spacing: 8,
                     ),
                   ],
                 ),
