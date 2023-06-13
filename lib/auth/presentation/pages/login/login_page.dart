@@ -10,56 +10,52 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetRouterOutlet.builder(
-      routerDelegate: GetDelegate(),
-      builder: (ctx, delegate, currentRoute) {
-        return Scaffold(
-          body: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                AuthImageBanner(
-                  asset: Assets.images.login,
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: GetBuilder<LoginController>(
-                      builder: (controller) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            PrimaryTabBar(
-                              currentIndex: controller.tabIndex,
-                              titles: controller.fragments
-                                  .map((e) => e['title'] as String)
-                                  .toList(),
-                              onTabChanged: (index) {
-                                controller.onTabChanged(index);
-                              },
-                            ),
-                            const SizedBox(height: 32),
-                            Expanded(
-                              child: PageView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                controller: controller.pageController,
-                                itemCount: controller.fragments.length,
-                                itemBuilder: (ctx, index) => controller
-                                    .fragments[index]['fragment'] as Widget,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            AuthImageBanner(
+              asset: Assets.images.login,
+              withBackButton: false,
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 16),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: GetBuilder<LoginController>(
+                  builder: (controller) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        PrimaryTabBar(
+                          currentIndex: controller.tabIndex,
+                          titles: controller.fragments
+                              .map((e) => e['title'] as String)
+                              .toList(),
+                          onTabChanged: (index) {
+                            controller.onTabChanged(index);
+                          },
+                        ),
+                        const SizedBox(height: 32),
+                        Expanded(
+                          child: PageView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            controller: controller.pageController,
+                            itemCount: controller.fragments.length,
+                            itemBuilder: (ctx, index) => controller
+                                .fragments[index]['fragment'] as Widget,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

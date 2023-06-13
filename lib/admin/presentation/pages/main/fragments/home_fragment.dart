@@ -9,6 +9,7 @@ import 'package:polaris/core/presentation/application/auth_controller.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/log_helper.dart';
+import 'package:polaris/core/util/helper/snackbar_helper.dart';
 import 'package:polaris/route/app_route.dart';
 
 class HomeFragment extends StatelessWidget {
@@ -100,16 +101,9 @@ class HomeFragment extends StatelessWidget {
                   if (Get.isSnackbarOpen) {
                     Get.closeAllSnackbars();
                   }
-                  Get.snackbar(
-                    "URL Disalin",
-                    value,
-                    backgroundColor: Get.theme.colorScheme.onSurface,
-                    borderRadius: 8,
-                    snackStyle: SnackStyle.GROUNDED,
-                    snackPosition: SnackPosition.TOP,
-                    colorText: Get.theme.colorScheme.surface,
-                    margin: EdgeInsets.zero,
-                    duration: const Duration(seconds: 2),
+                  SnackbarHelper.showSnackbar(
+                    title: "URL Disalin",
+                    message: value,
                   );
                 },
               ),

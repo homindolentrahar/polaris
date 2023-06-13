@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:polaris/core/domain/model/auth_state.dart';
 import 'package:polaris/core/util/constants/app_constants.dart';
-import 'package:polaris/core/util/helper/log_helper.dart';
 import 'package:polaris/core/util/helper/storage_helper.dart';
 import 'package:polaris/route/app_route.dart';
 
@@ -27,30 +26,29 @@ class AuthController extends GetxController {
   }
 
   void onAuthStateChanged(AuthState? state) async {
-    LogHelper.instance.debug("AuthState: $state");
-
     state?.maybeWhen(
       initial: () {
         final appMode = storage.read<String>(AppConstants.appModeKey);
 
         if (appMode != null) {
-          authState.value = getStateByMode(
-            AppMode.values.firstWhere((element) => element.name == appMode),
-          );
+          // authState.value = getStateByMode(
+          //   AppMode.values.firstWhere((element) => element.name == appMode),
+          // );
+          authState.value = const AuthState.admin();
         } else {
           authState.value = const AuthState.unautheticated();
         }
       },
       unautheticated: () {
         clearAuthData();
-        Get.offAllNamed(AppRoutes.landing);
+        Get.offAllNamed(AppRoutes.login);
       },
       admin: () {
         Get.offAllNamed(AppRoutes.admin);
       },
-      guest: () {
-        Get.offAllNamed(AppRoutes.guest);
-      },
+      // guest: () {
+      //   Get.offAllNamed(AppRoutes.guest);
+      // },
       orElse: () {
         Get.toNamed(AppRoutes.loader);
       },
