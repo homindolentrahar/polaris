@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:polaris/core/domain/model/event.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
@@ -398,7 +399,11 @@ class MapVenueInfo extends StatelessWidget {
                     vertical: 12,
                   ),
                   radius: 16,
-                  onPressed: () {},
+                  onPressed: () {
+                    MapsLauncher.launchQuery(
+                      '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA',
+                    );
+                  },
                 ),
               ),
             ],
