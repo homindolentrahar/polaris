@@ -118,11 +118,34 @@ class TransactionsItem extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          data.paymentName,
-                          style: Get.textTheme.headlineSmall?.copyWith(
-                            color: Get.theme.primaryColor,
-                            fontSize: 12,
+                        RichText(
+                          text: TextSpan(
+                            style: Get.textTheme.bodySmall?.copyWith(
+                              color: Get.theme.colorScheme.onBackground,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: StringHelper.formatCompactCurrency(
+                                  data.price,
+                                ),
+                                style: Get.textTheme.headlineSmall?.copyWith(
+                                  color: data.paid
+                                      ? ColorName.success
+                                      : ColorName.error,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " via ",
+                              ),
+                              TextSpan(
+                                text: data.paymentName,
+                                style: Get.textTheme.headlineSmall?.copyWith(
+                                  color: Get.theme.primaryColor,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -130,7 +153,7 @@ class TransactionsItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   InfoChip(
-                    value: StringHelper.formatCompactCurrency(data.price),
+                    value: data.paid ? "Lunas" : "Belum Lunas",
                     valueColor: data.paid ? ColorName.success : ColorName.error,
                     color: (data.paid ? ColorName.success : ColorName.error)
                         .withOpacity(0.25),

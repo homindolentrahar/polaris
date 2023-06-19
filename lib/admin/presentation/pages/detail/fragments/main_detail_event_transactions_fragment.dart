@@ -5,6 +5,7 @@ import 'package:polaris/admin/presentation/widgets/transactions_item.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/filters.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
+import 'package:polaris/core/presentation/widgets/sheets.dart';
 
 class MainDetailEventTransactionsFragment extends StatelessWidget {
   const MainDetailEventTransactionsFragment({super.key});
@@ -54,7 +55,13 @@ class MainDetailEventTransactionsFragment extends StatelessWidget {
                 separatorBuilder: (ctx, index) => const SizedBox(height: 16),
                 itemBuilder: (ctx, index) => TransactionsItem(
                   data: controller.transactions[index],
-                  onPressed: (value) {},
+                  onPressed: (value) {
+                    Get.bottomSheet(
+                      DetailTransactionSheet(
+                        data: controller.transactions[index],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

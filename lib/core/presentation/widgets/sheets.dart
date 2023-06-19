@@ -1,16 +1,22 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:polaris/core/domain/model/general.dart';
+import 'package:polaris/core/domain/model/transaction.dart';
 import 'package:polaris/core/domain/share.dart';
 import 'package:polaris/core/presentation/widgets/buttons.dart';
 import 'package:polaris/core/presentation/widgets/fields.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/util/helper/image_picker_helper.dart';
 import 'package:polaris/core/util/helper/snackbar_helper.dart';
+import 'package:polaris/core/util/helper/string_helper.dart';
+import 'package:polaris/gen/assets.gen.dart';
+import 'package:polaris/gen/colors.gen.dart';
 
 class SortSheet extends StatelessWidget {
   final String title;
@@ -761,6 +767,539 @@ class GenerateUrlSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
+        ],
+      ),
+    );
+  }
+}
+
+class DetailTransactionSheet extends StatelessWidget {
+  final Transaction data;
+
+  const DetailTransactionSheet({
+    super.key,
+    required this.data,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Get.theme.colorScheme.surface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Detail Transaksi",
+            style: Get.textTheme.headlineSmall?.copyWith(
+              color: Get.theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.invoiceCode,
+                            style: Get.textTheme.headlineLarge?.copyWith(
+                              color: Get.theme.colorScheme.onSurface,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 4,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Iconsax.calendar5,
+                                    color: Get.theme.colorScheme.onBackground,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    StringHelper.formatDate(
+                                      dateTime: data.dateTime,
+                                    ),
+                                    style: Get.textTheme.titleMedium?.copyWith(
+                                      color: Get.theme.colorScheme.onBackground,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                "•",
+                                style: Get.textTheme.titleMedium?.copyWith(
+                                  color: Get.theme.colorScheme.onBackground,
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Iconsax.clock5,
+                                    color: Get.theme.colorScheme.onBackground,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    StringHelper.formatTime(
+                                      dateTime: data.dateTime,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.titleMedium?.copyWith(
+                                      color: Get.theme.colorScheme.onBackground,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      InfoChip(
+                        value: data.paid ? "Lunas" : "Belum Lunas",
+                        valueColor:
+                            data.paid ? ColorName.success : ColorName.error,
+                        color: (data.paid ? ColorName.success : ColorName.error)
+                            .withOpacity(0.25),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  const PrimarySubtitle(subtitle: "Pembayaran", fontSize: 16),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: Get.width,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Get.theme.colorScheme.outline,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ExpandablePanel(
+                          theme: ExpandableThemeData(
+                            expandIcon: Iconsax.arrow_down_1,
+                            collapseIcon: Iconsax.arrow_up_2,
+                            iconSize: 16,
+                            iconColor: Get.theme.colorScheme.onBackground,
+                          ),
+                          header: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                StringHelper.formatCurrency(data.price),
+                                style: Get.textTheme.headlineLarge?.copyWith(
+                                  color: Get.theme.colorScheme.onSurface,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    Assets.icons.icTicket,
+                                    width: 16,
+                                    height: 16,
+                                    color: Get.theme.primaryColor,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "3 tiket",
+                                    style:
+                                        Get.textTheme.headlineSmall?.copyWith(
+                                      color: Get.theme.primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          collapsed: const SizedBox.shrink(),
+                          expanded: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  child: DashedLines(
+                                    length: double.infinity,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconContainer(
+                                      icon: SvgPicture.asset(
+                                        Assets.icons.icTicket,
+                                        width: 20,
+                                        height: 20,
+                                        color: Get.theme.colorScheme.tertiary,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Tiket Reguler",
+                                            style: Get.textTheme.headlineSmall
+                                                ?.copyWith(
+                                              color: Get
+                                                  .theme.colorScheme.onSurface,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Wrap(
+                                            spacing: 4,
+                                            direction: Axis.horizontal,
+                                            children: [
+                                              Text(
+                                                "2 buah",
+                                                style: Get.textTheme.titleSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                ),
+                                              ),
+                                              Text(
+                                                "×",
+                                                style: Get.textTheme.titleSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                ),
+                                              ),
+                                              Text(
+                                                StringHelper
+                                                    .formatCompactCurrency(
+                                                        10000),
+                                                style: Get
+                                                    .textTheme.headlineSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Text(
+                                      StringHelper.formatCompactCurrency(20000),
+                                      style:
+                                          Get.textTheme.headlineSmall?.copyWith(
+                                        color: Get.theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconContainer(
+                                      icon: SvgPicture.asset(
+                                        Assets.icons.icTicket,
+                                        width: 20,
+                                        height: 20,
+                                        color: Get.theme.colorScheme.tertiary,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Tiket Silver",
+                                            style: Get.textTheme.headlineSmall
+                                                ?.copyWith(
+                                              color: Get
+                                                  .theme.colorScheme.onSurface,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Wrap(
+                                            spacing: 4,
+                                            direction: Axis.horizontal,
+                                            children: [
+                                              Text(
+                                                "1 buah",
+                                                style: Get.textTheme.titleSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                ),
+                                              ),
+                                              Text(
+                                                "×",
+                                                style: Get.textTheme.titleSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                ),
+                                              ),
+                                              Text(
+                                                StringHelper
+                                                    .formatCompactCurrency(
+                                                  20000,
+                                                ),
+                                                style: Get
+                                                    .textTheme.headlineSmall
+                                                    ?.copyWith(
+                                                  color: Get.theme.colorScheme
+                                                      .onSurface,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Text(
+                                      StringHelper.formatCompactCurrency(20000),
+                                      style:
+                                          Get.textTheme.headlineSmall?.copyWith(
+                                        color: Get.theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconContainer(
+                                      icon: Icon(
+                                        Iconsax.discount_circle5,
+                                        size: 20,
+                                        color: Get.theme.colorScheme.tertiary,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Biaya Admin",
+                                            style: Get.textTheme.headlineSmall
+                                                ?.copyWith(
+                                              color: Get
+                                                  .theme.colorScheme.onSurface,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Text(
+                                      StringHelper.formatCompactCurrency(5000),
+                                      style:
+                                          Get.textTheme.headlineSmall?.copyWith(
+                                        color: Get.theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Divider(
+                            color: Get.theme.colorScheme.tertiary
+                                .withOpacity(0.25),
+                            thickness: 1,
+                          ),
+                        ),
+                        const PrimarySubtitle(subtitle: "Pembayaran Via"),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconContainer(
+                              backgroundColor: Get.theme.colorScheme.onSurface,
+                              icon: Icon(
+                                Iconsax.money_recive,
+                                size: 20,
+                                color: Get.theme.colorScheme.surface,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data.paymentName,
+                                    style:
+                                        Get.textTheme.headlineSmall?.copyWith(
+                                      color: Get.theme.colorScheme.onSurface,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    "085711223344",
+                                    style: Get.textTheme.titleSmall?.copyWith(
+                                      color: Get.theme.colorScheme.onBackground,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  Assets.icons.icUser,
+                                  width: 16,
+                                  height: 16,
+                                  color: Get.theme.colorScheme.onSurface,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  "Jonas Khanwald",
+                                  style: Get.textTheme.headlineSmall?.copyWith(
+                                    color: Get.theme.colorScheme.onSurface,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  const PrimarySubtitle(subtitle: "Data Diri", fontSize: 16),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: Get.width,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Get.theme.colorScheme.outline,
+                        width: 1,
+                      ),
+                    ),
+                    child: const Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      runSpacing: 16,
+                      children: [
+                        DetailInfo(
+                          title: "Nama Lengkap",
+                          value: "Marsha Lenathea",
+                          spacing: 8,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: DetailInfo(
+                                title: "Domisili",
+                                value:
+                                    "Jl. Raya Janti, Wonocatur, Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55198",
+                                spacing: 8,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            DetailInfo(
+                              title: "Alamat Email",
+                              value: "marhsalanime@gmail.com",
+                              spacing: 8,
+                            ),
+                          ],
+                        ),
+                        DetailInfo(
+                          title: "Nomor Handphone",
+                          value: "085711223355",
+                          spacing: 8,
+                        ),
+                        Row(
+                          children: [
+                            DetailInfo(
+                              title: "Umur",
+                              value: "17 tahun",
+                              spacing: 8,
+                            ),
+                            SizedBox(width: 32),
+                            DetailInfo(
+                              title: "Jenis Kelamin",
+                              value: "Perempuan",
+                              spacing: 8,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
