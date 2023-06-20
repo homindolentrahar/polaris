@@ -73,7 +73,7 @@ class ContactOrganizerItem extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
               size: 16,
             ),
-            onPressed: () {},
+            onPressed: onCall,
           ),
         ],
       ),

@@ -57,11 +57,11 @@ dependencies:
   collection: ^1.17.1
   image_picker: ^0.8.7+5
   maps_launcher: ^2.2.0
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -72,6 +72,7 @@ dev_dependencies:
   flutter_gen_runner:
   freezed: ^2.3.4
   json_serializable:
+  flutter_launcher_icons: ^0.13.1
 
 flutter_gen:
   output: lib/gen/
@@ -79,6 +80,10 @@ flutter_gen:
     inputs:
       - assets/colors/colors.xml
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/polaris-logo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

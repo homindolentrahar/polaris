@@ -766,7 +766,6 @@ class GenerateUrlSheet extends StatelessWidget {
               children: items.map((e) => _buildShareItem(e)).toList(),
             ),
           ),
-          const SizedBox(height: 32),
         ],
       ),
     );
@@ -784,6 +783,7 @@ class DetailTransactionSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: Get.height * 0.9,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Get.theme.colorScheme.surface,
@@ -793,15 +793,31 @@ class DetailTransactionSheet extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Detail Transaksi",
-            style: Get.textTheme.headlineSmall?.copyWith(
-              color: Get.theme.colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Detail Transaksi",
+                style: Get.textTheme.headlineSmall?.copyWith(
+                  color: Get.theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Icon(
+                  Iconsax.close_circle5,
+                  color: Get.theme.colorScheme.onSurface,
+                  size: 24,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 32),
           Expanded(

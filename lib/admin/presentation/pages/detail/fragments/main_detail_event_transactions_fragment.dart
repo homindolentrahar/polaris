@@ -60,6 +60,7 @@ class MainDetailEventTransactionsFragment extends StatelessWidget {
                       DetailTransactionSheet(
                         data: controller.transactions[index],
                       ),
+                      isScrollControlled: true,
                     );
                   },
                 ),

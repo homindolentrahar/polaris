@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:polaris/admin/presentation/pages/detail/main_detail_event_controller.dart';
 import 'package:polaris/core/presentation/widgets/items.dart';
 import 'package:polaris/core/presentation/widgets/maps.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainDetailEventInfoFragment extends StatelessWidget {
   const MainDetailEventInfoFragment({super.key});
@@ -79,7 +80,11 @@ class MainDetailEventInfoFragment extends StatelessWidget {
                   title: controller.event?.contacts[index].name ?? "Jane Doe",
                   subtitle: controller.event?.contacts[index].position ??
                       "Contact Person",
-                  onCall: () {},
+                  onCall: () async {
+                    final uri = Uri.parse("tel:+6285711223344");
+
+                    await launchUrl(uri);
+                  },
                 ),
               ),
             ],

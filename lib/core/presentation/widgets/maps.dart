@@ -304,7 +304,11 @@ class MapPicker extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   radius: 16,
-                  onPressed: () {},
+                  onPressed: () {
+                    MapsLauncher.launchQuery(
+                      '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA',
+                    );
+                  },
                 ),
               ),
             ],
