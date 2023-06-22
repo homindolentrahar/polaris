@@ -829,73 +829,81 @@ class DetailTransactionSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data.invoiceCode,
-                            style: Get.textTheme.headlineLarge?.copyWith(
-                              color: Get.theme.colorScheme.onSurface,
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data.invoiceCode,
+                              style: Get.textTheme.headlineLarge?.copyWith(
+                                color: Get.theme.colorScheme.onSurface,
+                                fontSize: 20,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          Wrap(
-                            direction: Axis.horizontal,
-                            spacing: 4,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Iconsax.calendar5,
-                                    color: Get.theme.colorScheme.onBackground,
-                                    size: 16,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    StringHelper.formatDate(
-                                      dateTime: data.dateTime,
-                                    ),
-                                    style: Get.textTheme.titleMedium?.copyWith(
+                            const SizedBox(height: 8),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              spacing: 4,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Iconsax.calendar5,
                                       color: Get.theme.colorScheme.onBackground,
+                                      size: 16,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "•",
-                                style: Get.textTheme.titleMedium?.copyWith(
-                                  color: Get.theme.colorScheme.onBackground,
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      StringHelper.formatDate(
+                                        dateTime: data.dateTime,
+                                      ),
+                                      style:
+                                          Get.textTheme.titleMedium?.copyWith(
+                                        color:
+                                            Get.theme.colorScheme.onBackground,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Iconsax.clock5,
+                                Text(
+                                  "•",
+                                  style: Get.textTheme.titleMedium?.copyWith(
                                     color: Get.theme.colorScheme.onBackground,
-                                    size: 16,
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    StringHelper.formatTime(
-                                      dateTime: data.dateTime,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Get.textTheme.titleMedium?.copyWith(
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Iconsax.clock5,
                                       color: Get.theme.colorScheme.onBackground,
+                                      size: 16,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      StringHelper.formatTime(
+                                        dateTime: data.dateTime,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          Get.textTheme.titleMedium?.copyWith(
+                                        color:
+                                            Get.theme.colorScheme.onBackground,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
+                      const SizedBox(width: 16),
                       InfoChip(
                         value: data.paid ? "Lunas" : "Belum Lunas",
                         valueColor:
